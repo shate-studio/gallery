@@ -3,113 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Галерея картин</title>
-    <!-- Подключаем стили для увеличения картинок -->
+    <title>Галерея картин | Портфолио художника</title>
+
+    <!-- Шрифты и стили библиотек -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="https://cloudflare.com">
+
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f1f3f5;
-            color: #333;
+            padding: 0;
+            background-color: #fafafa;
+            color: #1a1a1a;
+            scroll-behavior: smooth; /* Плавная прокрутка к блокам сайта */
         }
-        h1 { text-align: center; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px; }
 
+        /* 1. Стильная фиксированная шапка (Навигация) */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-sizing: border-box;
+        }
+        .logo {
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #1a1a1a;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #8c8c8c; }
+
+        /* Отступ для контента, чтобы шапка его не закрывала */
+        .wrapper { padding-top: 100px; }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        header h1 {
+            font-weight: 300;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-weight: 300;
+            color: #8c8c8c;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        /* 2. Сетка галереи */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto 100px;
+            padding: 0 20px;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: 0px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 25px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: box-shadow 0.4s ease;
+            border: 1px solid #eee;
         }
+        .card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
 
-        /* Обертка для фото, чтобы контролировать пропорции */
         .img-container {
             width: 100%;
-            height: 320px; /* Увеличили высоту превью */
-            background-color: #eaeaea;
+            height: 380px;
+            background-color: #f5f5f5;
             overflow: hidden;
             cursor: pointer;
+            position: relative;
         }
-
-        /* Теперь картинка НЕ ОБРЕЗАЕТСЯ, а красиво вписывается целиком */
         .card img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Картина видна ПОЛНОСТЬЮ без искажений */
-            transition: transform 0.3s ease;
+            object-fit: contain;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        .img-container:hover img { transform: scale(1.05); }
 
-        /* Эффект приближения при наведении мышки */
-        .img-container:hover img {
-            transform: scale(1.03);
-        }
-
-        .card-info { padding: 0 15px; }
-        .card h3 { margin: 15px 0 5px; font-size: 18px; }
-        .card p { color: #666; font-size: 14px; margin: 0 0 20px; }
+        .card-info { padding: 10px 20px 0; }
+        .card h3 { margin: 15px 0 8px; font-size: 1.1rem; font-weight: 600; }
+        .card p { color: #7c7c7c; font-size: 0.9rem; margin: 0 0 25px; font-weight: 300; }
 
         .btn {
             display: inline-block;
-            background-color: #1e1e1e;
-            color: white;
+            background-color: #1a1a1a;
+            color: #ffffff;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: background 0.2s;
+            padding: 14px 30px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
             margin: 0 auto;
+            border: 1px solid #1a1a1a;
         }
-        .btn:hover { background-color: #444; }
+        .btn:hover { background-color: transparent; color: #1a1a1a; }
+
+        /* 3. Новый блок "Обо мне" */
+        .about-section {
+            background-color: #ffffff;
+            border-top: 1px solid #eee;
+            padding: 80px 20px;
+        }
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        .about-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%; /* Круглое фото автора */
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            flex-shrink: 0;
+        }
+        .about-text h2 {
+            font-weight: 400;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0;
+        }
+        .about-text p {
+            font-weight: 300;
+            line-height: 1.8;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Адаптивность для блока "Обо мне" на мобильных */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+            .about-container { flex-direction: column; text-align: center; gap: 30px; }
+            .about-img { width: 200px; height: 200px; }
+        }
     </style>
 </head>
 <body>
 
-<h1>Моя художественная галерея</h1>
+<!-- Навигационная панель -->
+<nav>
+    <div class="logo">SHA_TE ART</div>
+    <div class="nav-links">
+        <a href="#gallery">Галерея</a>
+        <a href="#about">Обо мне</a>
+        <a href="https://vk.ru" target="_blank">ВКонтакте</a>
+    </div>
+</nav>
 
-<div class="gallery">
-    <!-- Карточка 1 -->
-    <div class="card">
-        <!-- Ссылка вокруг картинки открывает оригинал на весь экран -->
-        <a href="paintings/bear1.jpg" data-lightbox="gallery" data-title="Звездная ночь над городом" class="img-container">
-            <img src="paintings/bear1.jpg" alt="Медведь">
-        </a>
-        <div class="card-info">
-            <h3>Звездная ночь над городом</h3>
-            <p>Холст, масло. 40х50 см. 2026 г.</p>
-            <a href="https://vk.ru/sha_te" class="btn" target="_blank">Узнать цену</a>
+<div class="wrapper">
+    <header>
+        <h1>Галерея работ</h1>
+        <p>Оригинальные картины ручной работы</p>
+    </header>
+
+    <!-- Сетка галереи из 4 картин -->
+    <div class="gallery" id="gallery">
+        <!-- Картина 1 -->
+        <div class="card" data-aos="fade-up" data-aos-duration="800">
+            <a href="paintings/bear1.jpg" data-lightbox="gallery" data-title="Звездная ночь над городом" class="img-container">
+                <img src="paintings/bear1.jpg" alt="Медведь">
+            </a>
+            <div class="card-info">
+                <h3>Звездная ночь над городом</h3>
+                <p>Холст, масло. 40х50 см. 2026 г.</p>
+                <a href="https://vk.ru/sha_te" class="btn" target="_blank">Узнать цену</a>
+            </div>
+        </div>
+
+        <!-- Картина 2 -->
+        <div class="card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
+            <a href="paintings/tiger1.jpg" data-lightbox="gallery" data-title="Утренний туман" class="img-container">
+                <img src="paintings/tiger1.jpg" alt="Тигр">
+            </a>
+            <div class="card-info">
+                <h3>Утренний туман</h3>
+                <p>Акварель, бумага. 30х40 см</p>
+                <a href="https://vk.ru/sha_te" class="btn" target="_blank">Узнать цену</a>
+            </div>
+        </div>
+
+        <!-- Картина 3 -->
+        <div class="card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+            <a href="paintings/sailor1.jpg" data-lightbox="gallery" data-title="Лесной хранитель" class="img-container">
+                <img src="paintings/sailor1.jpg" alt="Моряк">
+            </a>
+            <div class="card-info">
+                <h3>Лесной хранитель</h3>
+                <p>Холст, акрил. 50х50 см</p>
+                <a href="https://vk.ru/sha_te" class="btn" target="_blank">Узнать цену</a>
+            </div>
+        </div>
+
+        <!-- Картина 4 -->
+        <div class="card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="450">
+            <a href="paintings/horse1.jpg" data-lightbox="gallery" data-title="Взгляд хищника" class="img-container">
+                <img src="paintings/horse1.jpg" alt="Лошадь">
+            </a>
+            <div class="card-info">
+                <h3>Взгляд хищника</h3>
+                <p>Холст, масло. 60х80 см</p>
+                <a href="https://vk.ru/sha_te" class="btn" target="_blank">Узнать цену</a>
+            </div>
         </div>
     </div>
 
-    <!-- Карточка 2 -->
-    <div class="card">
-        <a href="paintings/tiger1.jpg" data-lightbox="gallery" data-title="Утренний туман" class="img-container">
-            <img src="paintings/tiger1.jpg" alt="Тигр">
-        </a>
-        <div class="card-info">
-            <h3>Утренний туман</h3>
-            <p>Акварель, бумага. 30х40 см</p>
-            <a href="https://vk.ru/sha_te" class="btn" target="_blank">Узнать цену</a>
+    <!-- Блок "Обо мне" -->
+    <section class="about-section" id="about" data-aos="fade-up" data-aos-duration="1000">
+        <div class="about-container">
+            <!-- Ваше портретное фото -->
+            <img src="avatar.jpg" alt="Художник" class="about-img">
+            <div class="about-text">
+                <h2>Обо мне</h2>
+                <p>Приветствую вас в моей онлайн-галерее! Здесь вы можете написать пару
+                    вдохновляющих предложений о себе, вашем стиле живописи, материалах и творческом пути,
+                    который вы прошли.</p>
+            </div>
         </div>
-    </div>
+    </section>
 </div>
 
-<!-- Подключаем скрипты для работы всплывающего окна -->
+<!-- Подключаемые библиотеки скриптов -->
 <script src="https://cloudflare.com"></script>
+<script src="https://cloudflare.com"></script>
+<script>
+    AOS.init({ once: true });
+</script>
 
 </body>
 </html>
