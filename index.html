@@ -6,11 +6,11 @@
     <title>Галерея картин | Портфолио художника</title>
 
     <!-- Подключение шрифтов и внешних библиотек (Lightbox, AOS) -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
     <!-- СВЯЗКА: Подключаем ваш новый файл стилей -->
     <link rel="stylesheet" href="style.css">
@@ -41,64 +41,8 @@
         <p>Оригинальные картины ручной работы</p>
     </header>
 
-    <!-- Сетка Галереи -->
-    <div class="gallery" id="gallery">
-        <!-- Картина 1 -->
-        <div class="card" data-aos="fade-up" data-aos-duration="900">
-            <div class="img-container">
-                <a href="paintings/bear1.jpg" data-lightbox="gallery" data-title="Лесной хранитель">
-                    <img src="paintings/bear1.jpg" alt="Медведь 1">
-                </a>
-            </div>
-            <div class="card-info">
-                <h3>Лесной хранитель</h3>
-                <p>Холст, масло. 40х50 см. 2026 г.</p>
-                <a href="https://vk.ru" class="btn" target="_blank">Узнать цену</a>
-            </div>
-        </div>
-
-        <!-- Картина 2 -->
-        <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">
-            <div class="img-container">
-                <a href="paintings/tiger1.jpg" data-lightbox="gallery" data-title="Взгляд хищника">
-                    <img src="paintings/tiger1.jpg" alt="Тигр 1">
-                </a>
-            </div>
-            <div class="card-info">
-                <h3>Взгляд хищника</h3>
-                <p>Aкварель, бумага. 30х40 см</p>
-                <a href="https://vk.ru" class="btn" target="_blank">Узнать цену</a>
-            </div>
-        </div>
-
-        <!-- Картина 3 -->
-        <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">
-            <div class="img-container">
-                <a href="paintings/sailor1.jpg" data-lightbox="gallery" data-title="Лесной хранитель">
-                    <img src="paintings/sailor1.jpg" alt="Моряк">
-                </a>
-            </div>
-            <div class="card-info">
-                <h3>Лесной хранитель</h3>
-                <p>Холст, акрил. 50х50 см</p>
-                <a href="https://vk.ru" class="btn" target="_blank">Узнать цену</a>
-            </div>
-        </div>
-
-        <!-- Картина 4 -->
-        <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
-            <div class="img-container">
-                <a href="paintings/horse1.jpg" data-lightbox="gallery" data-title="Взгляд хищника">
-                    <img src="paintings/horse1.jpg" alt="Лошадь">
-                </a>
-            </div>
-            <div class="card-info">
-                <h3>Взгляд хищника</h3>
-                <p>Холст, масло. 60х80 см</p>
-                <a href="https://vk.ru" class="btn" target="_blank">Узнать цену</a>
-            </div>
-        </div>
-    </div>
+    <!-- Сетка галереи (карточки генерируются в script.js) -->
+    <div class="gallery" id="gallery"></div>
 
     <!-- Блок Обо мне -->
     <section class="about-section" id="about" data-aos="fade-up" data-aos-duration="1000">
@@ -120,8 +64,9 @@
 </footer>
 
 <!-- Подключение скриптов внешних библиотек -->
-<script src="https://cloudflare.com"></script>
-<script src="https://cloudflare.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <!-- СВЯЗКА: Подключаем ваш новый файл логики -->
 <script src="script.js"></script>
