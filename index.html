@@ -5,122 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Галерея картин | Портфолио художника</title>
 
-    <!-- Шрифты и стили внешних библиотек -->
+    <!-- Подключение шрифтов и внешних библиотек (Lightbox, AOS) -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" href="https://cloudflare.com">
 
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #1a1a1a;
-            scroll-behavior: smooth;
-            min-height: 100vh;
-            background: #fafafa;
-            transition: all 0.4s ease;
-        }
-
-        /* Настройки ТЕМНОЙ ТЕМЫ */
-        body.dark {
-            background: #141419;
-            color: #ffffff;
-        }
-        body.dark .card { background: #1e1e24; border-color: rgba(255,255,255,0.05); }
-        body.dark nav { background: rgba(26, 26, 36, 0.8); }
-        body.dark .nav-links a { color: #ffffff; }
-        body.dark .theme-toggle { border-color: #ffffff; color: #ffffff; }
-        body.dark .btn { background-color: #ffffff; color: #1a1a1a; border-color: #ffffff; }
-        body.dark .btn-share { border-color: rgba(255,255,255,0.2); color: #ffffff; background-color: #23232f !important; }
-        body.dark .btn:hover { background-color: transparent; color: #ffffff; }
-        body.dark .card p { color: #a0a0a0; }
-        body.dark .img-container { background-color: #141419; }
-        body.dark .img-container:hover { background-color: #23232f; }
-        body.dark .about-section { background-color: #1e1e24; border-color: rgba(255,255,255,0.05); }
-        body.dark footer { background-color: #1e1e24; border-color: rgba(255,255,255,0.05); color: #a0a0a0; }
-        body.dark .scroll-to-top { background: #ffffff; color: #1a1a1a; }
-
-        /* Навигационная панель */
-        nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.04); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; box-sizing: border-box; transition: all 0.4s ease; }
-        .logo { font-weight: 600; letter-spacing: 3px; text-transform: uppercase; font-size: 1.1rem; }
-        .nav-right { display: flex; align-items: center; }
-        .nav-links a { text-decoration: none; color: #1a1a1a; margin-left: 30px; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; }
-        .nav-links a:hover { color: #8c8c8c; }
-
-        .theme-toggle { background: none; border: 1px solid #1a1a1a; color: #1a1a1a; padding: 6px 12px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; margin-left: 30px; transition: all 0.3s ease; }
-        .theme-toggle:hover { background: #1a1a1a; color: #ffffff; }
-
-        /* Бегущий индикатор скролла под меню */
-        .progress-container { position: fixed; top: 57px; left: 0; width: 100%; height: 2px; background: transparent; z-index: 1001; }
-        .progress-bar { height: 2px; background: #1a1a1a; width: 0%; }
-        body.dark .progress-bar { background: #ffffff; }
-
-        .wrapper { padding-top: 150px; }
-        header { text-align: center; margin-bottom: 80px; }
-        header h1 { font-weight: 300; font-size: 3rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 15px; }
-        header p { font-weight: 300; color: #7c7c7c; letter-spacing: 2px; font-size: 0.95rem; }
-
-        /* Сетка и ГАЛЕРЕЙНЫЙ ФОКУС (Размытие) */
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto 120px; padding: 0 24px; transition: all 0.4s ease; }
-        .card { background: #ffffff; border-radius: 0px; overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.02); text-align: center; padding-bottom: 35px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; border: 1px solid rgba(0,0,0,0.03); }
-
-        .gallery:hover .card:not(:hover) {
-            opacity: 0.4;
-            filter: blur(2px);
-        }
-        .card:hover { box-shadow: 0 40px 80px rgba(0,0,0,0.08); transform: translateY(-8px); }
-
-        /* Паспарту-контейнеры для фото */
-        .img-container { width: 100%; height: 400px; background-color: #f7f7f8; overflow: hidden; cursor: pointer; position: relative; }
-        .img-container::after { content: "УВЕЛИЧИТЬ"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(21, 21, 21, 0.85); color: #fff; padding: 10px 20px; font-size: 0.75rem; letter-spacing: 3px; opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 2; }
-        .img-container:hover::after { opacity: 1; }
-        .img-container:hover { background-color: #f0f0f2; }
-
-        .card img { width: 100%; height: 100%; object-fit: contain; padding: 25px; box-sizing: border-box; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .img-container:hover img { transform: scale(1.04); }
-
-        .card-info { padding: 10px 25px 0; }
-        .card h3 { margin: 20px 0 8px; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.5px; }
-        .card p { color: #7c7c7c; font-size: 0.88rem; margin: 0 0 30px; font-weight: 300; line-height: 1.6; }
-
-        /* Контейнер кнопок (Цена + Ссылка + Сердечко) */
-        .btn-group { display: flex; gap: 10px; max-width: 280px; margin: 0 auto; width: 100%; justify-content: center; }
-        .btn { display: inline-block; background-color: #1a1a1a; color: #ffffff; text-decoration: none; padding: 16px 20px; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid #1a1a1a; flex-grow: 1; text-align: center; }
-        .btn:hover { background-color: transparent; color: inherit; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        .btn-share { background: #f0f0f2; border: 1px solid rgba(0,0,0,0.1); color: inherit; padding: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; width: 52px; height: 49px; box-sizing: border-box; font-size: 0.9rem; }
-        .btn-share:hover { border-color: #1a1a1a; background-color: rgba(0,0,0,0.02); transform: scale(1.05); }
-
-        /* Блок Обо мне */
-        .about-section { background-color: #ffffff; border-top: 1px solid rgba(0,0,0,0.05); padding: 120px 24px; position: relative; transition: all 0.4s ease; }
-        .about-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 70px; }
-        .about-img { width: 320px; height: 320px; border-radius: 50%; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.06); flex-shrink: 0; transition: transform 0.5s ease; }
-        .about-img:hover { transform: scale(1.02) rotate(1deg); }
-        .about-text h2 { font-weight: 400; font-size: 2.2rem; letter-spacing: 3px; text-transform: uppercase; margin-top: 0; margin-bottom: 25px; }
-        .about-text p { font-weight: 300; line-height: 1.9; font-size: 1rem; opacity: 0.9; }
-        footer { text-align: center; padding: 50px 20px; font-size: 0.8rem; color: #7c7c7c; letter-spacing: 1.5px; border-top: 1px solid rgba(0,0,0,0.05); background: #ffffff; transition: all 0.4s ease; }
-
-        /* Фиксированная кнопка НАВЕРХ */
-        .scroll-to-top { position: fixed; bottom: 30px; right: 30px; background: #1a1a1a; color: #ffffff; width: 45px; height: 45px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 999; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.2s; }
-        body.dark .scroll-to-top { background: #ffffff; color: #1a1a1a; }
-        .scroll-to-top:hover { transform: translateY(-3px); }
-
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .progress-container { top: 51px; }
-            .nav-links a { margin-left: 15px; font-size: 0.75rem; }
-            .theme-toggle { margin-left: 15px; padding: 4px 8px; font-size: 0.65rem; }
-            .about-container { flex-direction: column; text-align: center; gap: 40px; }
-            .about-img { width: 240px; height: 240px; }
-            header h1 { font-size: 2.2rem; }
-            .img-container { height: 350px; }
-            .img-container::after { display: none; }
-            .gallery:hover .card:not(:hover) { opacity: 1; filter: none; }
-        }
-    </style>
+    <!-- СВЯЗКА: Подключаем ваш новый файл стилей -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -137,6 +30,7 @@
     </div>
 </nav>
 
+<!-- Индикатор прокрутки страницы -->
 <div class="progress-container">
     <div class="progress-bar" id="myBar"></div>
 </div>
@@ -146,8 +40,8 @@
         <h1>Галерея работ</h1>
         <p>Оригинальные картины ручной работы</p>
     </header>
+
     <!-- Сетка Галереи -->
-    <!-- Сетка Галереи (Чистый строгий стиль) -->
     <div class="gallery" id="gallery">
         <!-- Картина 1 -->
         <div class="card" data-aos="fade-up" data-aos-duration="900">
@@ -172,7 +66,7 @@
             </div>
             <div class="card-info">
                 <h3>Взгляд хищника</h3>
-                <p>Акварель, бумага. 30х40 см</p>
+                <p>Aкварель, бумага. 30х40 см</p>
                 <a href="https://vk.ru" class="btn" target="_blank">Узнать цену</a>
             </div>
         </div>
@@ -205,6 +99,7 @@
             </div>
         </div>
     </div>
+
     <!-- Блок Обо мне -->
     <section class="about-section" id="about" data-aos="fade-up" data-aos-duration="1000">
         <div class="about-container">
@@ -224,24 +119,11 @@
     <p>&copy; 2026 SHA_TE ART. Все права защищены.</p>
 </footer>
 
-<!-- Скрипты эффектов -->
+<!-- Подключение скриптов внешних библиотек -->
 <script src="https://cloudflare.com"></script>
 <script src="https://cloudflare.com"></script>
-<script>
-    AOS.init({ once: true });
 
-    // Защита от копирования картинок
-    document.querySelectorAll('.card img').forEach(img => {
-        img.addEventListener('contextmenu', e => e.preventDefault());
-    });
-
-    // Работа индикатора скролла страницы
-    window.onscroll = function() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("myBar").style.width = scrolled + "%";
-    }
-</script>
+<!-- СВЯЗКА: Подключаем ваш новый файл логики -->
+<script src="script.js"></script>
 </body>
 </html>
