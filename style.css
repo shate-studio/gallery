@@ -25,6 +25,8 @@ body.dark .img-container { background-color: #141419; }
 body.dark .img-container:hover { background-color: #23232f; }
 body.dark .about-section { background-color: #1e1e24; border-color: rgba(255,255,255,0.05); }
 body.dark footer { background-color: #1e1e24; border-color: rgba(255,255,255,0.05); color: #a0a0a0; }
+body.dark .about-text h2 { color: #ffffff; }
+body.dark .about-text p { color: #a0a0a0; }
 body.dark .scroll-to-top { background: #ffffff; color: #1a1a1a; }
 
 /* Навигационная панель */

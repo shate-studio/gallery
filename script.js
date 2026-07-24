@@ -11,9 +11,13 @@ const GALLERY_ITEMS = [
     },
     {
         title: 'Взгляд хищника',
-        description: 'Акварель, бумага. 30×40 см.',
+        description: 'Холст, масло. 40×50 см. 2026 г.',
         alt: 'Тигр',
-        images: ['paintings/tiger1.jpg'],
+        image: 'paintings/tiger1.jpg',
+        galleryImages: [
+            'paintings/tiger1.jpg',
+            'tiger/tiger1_interior1.jpg',
+        ],
     },
     {
         title: 'Морской ветер',
