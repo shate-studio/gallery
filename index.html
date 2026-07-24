@@ -14,17 +14,19 @@
 
     <!-- СВЯЗКА: Подключаем ваш новый файл стилей -->
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
 <!-- Навигация -->
 <nav>
-    <div class="logo">SHA_TE ART</div>
+    <div class="logo">SHATE ART</div>
     <div class="nav-right">
         <div class="nav-links">
             <a href="#gallery">Галерея</a>
             <a href="#about">Обо мне</a>
-            <a href="https://vk.ru" target="_blank">ВКонтакте</a>
+            <a href="#contact">Обратная связь</a>
+            <a href="https://vk.ru/sha_te" target="_blank">ВКонтакте</a>
         </div>
         <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
     </div>
@@ -58,6 +60,26 @@
 
 <!-- Кнопка Наверх -->
 <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">▲</button>
+
+<!-- Форма обратной связи -->
+<section class="contact-section" id="contact" data-aos="fade-up" data-aos-duration="1000">
+    <div class="contact-container">
+        <h2>Обратная связь</h2>
+        <p class="contact-subtitle">Свяжитесь со мной, чтобы заказать картину или задать вопрос</p>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Ваш email" required>
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" placeholder="Ваше сообщение" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn">Отправить сообщение</button>
+        </form>
+    </div>
+</section>
 
 <footer>
     <p>&copy; 2026 SHA_TE ART. Все права защищены.</p>

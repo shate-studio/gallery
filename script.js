@@ -57,7 +57,7 @@ function renderActionCard(item, index) {
             <div class="card-info">
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <a href="https://vk.ru" class="btn" target="_blank" rel="noopener noreferrer">Узнать цену</a>
+                <a href="https://vk.ru/sha_te" class="btn" target="_blank" rel="noopener noreferrer">Узнать цену</a>
             </div>
         </div>
     `;
@@ -81,7 +81,7 @@ function renderDefaultCard(item, index) {
             <div class="card-info">
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <a href="https://vk.ru" class="btn" target="_blank" rel="noopener noreferrer">Узнать цену</a>
+                <a href="https://vk.ru/sha_te" class="btn" target="_blank" rel="noopener noreferrer">Узнать цену</a>
             </div>
         </div>
     `;
@@ -134,3 +134,46 @@ window.onscroll = function () {
         progressBar.style.width = scrolled + '%';
     }
 };
+
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    // Инициализация EmailJS
+    emailjs.init("N_2FXreDvZ4FXaUKL");
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Отправка...';
+        submitBtn.disabled = true;
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        const templateParams = {
+            from_name: name,
+            reply_to: email,
+            message_html: `Новое сообщение с сайта SHA_TE ART:<br><br>Имя: ${name}<br>Email: ${email}<br><br>Сообщение:<br>${message}`
+        };
+
+        emailjs.send("service_c411ytw", "template_zw37w6m", templateParams)
+            .then(function() {
+                form.reset();
+                alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+            })
+            .catch(function(error) {
+                console.error('Ошибка:', error);
+                alert('Ошибка отправки сообщения. Пожалуйста, попробуйте позже.');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+    });
+}
+
+initContactForm();
