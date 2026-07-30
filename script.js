@@ -29,19 +29,30 @@ const GALLERY_ITEMS = [
             'paintings/eagle/eagle1_interior1.jpg',
             'paintings/eagle/eagle1_interior2.jpg',
         ],
-        videoSrc: 'video/eagle/VID_20260730_132310_276.mp4',
+        videoSrc: 'video/eagle/eagle1_video.mp4',
     },
     {
         title: 'Морской ветер',
         description: 'Холст, акрил. 50×50 см.',
         alt: 'Моряк',
-        images: ['paintings/sailor1.jpg'],
+        image: 'paintings/sailor/sailor1.jpg',
+        galleryImages: [
+            'paintings/sailor/sailor1.jpg',
+            'paintings/sailor/sailor2.jpg',
+        ],
     },
     {
         title: 'Вольный дух',
         description: 'Холст, масло. 60×80 см.',
         alt: 'Лошадь',
-        images: ['paintings/horse1.jpg'],
+        image: 'paintings/horse/horse1.jpg',
+        galleryImages: [
+            'paintings/horse/horse1.jpg',
+            'paintings/horse/horse1_2.jpg',
+            'paintings/horse/horse1_interior1.jpg',
+            'paintings/horse/horse1_interior2.jpg',
+        ],
+        videoSrc: 'video/horse/horse1_video.mp4',
     },
 ];
 
