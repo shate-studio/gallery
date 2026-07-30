@@ -102,6 +102,25 @@ const GALLERY_ITEMS = [
             'paintings/poppy/poppy1.jpg',
         ],
     },
+    {
+        title: 'Девушка и цветок',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Девушка',
+        image: 'paintings/girl_flower/girl_flower1.jpg',
+        galleryImages: [
+            'paintings/girl_flower/girl_flower1.jpg',
+            'paintings/girl_flower/girl_flower1_interior1.jpg',
+        ],
+    },
+    {
+        title: 'Леопард',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Леопард',
+        image: 'paintings/leopard/leopard1_interior1.jpg',
+        galleryImages: [
+            'paintings/leopard/leopard1_interior1.jpg',
+        ],
+    },
 ];
 
 function renderActionCard(item, index) {
