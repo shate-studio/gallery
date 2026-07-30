@@ -29,6 +29,7 @@ const GALLERY_ITEMS = [
             'paintings/eagle/eagle1_interior1.jpg',
             'paintings/eagle/eagle1_interior2.jpg',
         ],
+        videoSrc: 'video/eagle/VID_20260730_132310_276.mp4',
     },
     {
         title: 'Морской ветер',
@@ -53,6 +54,10 @@ function renderActionCard(item, index) {
         ? `<span class="photo-count">${item.galleryImages.length} фото</span>`
         : '';
 
+    const videoButton = item.videoSrc
+        ? `<button type="button" class="img-action-btn" data-action="video" data-video="${item.videoSrc}">Видео</button>`
+        : '';
+
     return `
         <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="${index * 100}">
             <div class="img-container img-container--actions">
@@ -61,6 +66,7 @@ function renderActionCard(item, index) {
                 <div class="img-actions">
                     <button type="button" class="img-action-btn" data-action="zoom">Увеличить</button>
                     <button type="button" class="img-action-btn" data-action="gallery">Открыть галерею</button>
+                    ${videoButton}
                 </div>
                 <a href="${item.image}" data-lightbox="zoom-${index}" data-title="${item.title}" class="gallery-lightbox-trigger gallery-lightbox-trigger--zoom" tabindex="-1" aria-hidden="true"></a>
                 ${galleryLinks}
@@ -113,6 +119,11 @@ function initGalleryActions() {
             event.preventDefault();
             event.stopPropagation();
 
+            if (button.dataset.action === 'video') {
+                showVideoModal(button.dataset.video);
+                return;
+            }
+
             const container = button.closest('.img-container');
             const selector = button.dataset.action === 'zoom'
                 ? '.gallery-lightbox-trigger--zoom'
@@ -120,6 +131,41 @@ function initGalleryActions() {
 
             container?.querySelector(selector)?.click();
         });
+    });
+}
+
+function showVideoModal(src) {
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
+    modal.innerHTML = `
+        <div class="video-modal-content">
+            <button class="video-modal-close">&times;</button>
+            <video controls autoplay>
+                <source src="${src}" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    const closeBtn = modal.querySelector('.video-modal-close');
+    const video = modal.querySelector('video');
+
+    function closeModal() {
+        video.pause();
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
     });
 }
 
