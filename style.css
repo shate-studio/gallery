@@ -68,8 +68,6 @@ header p { font-weight: 300; color: #7c7c7c; letter-spacing: 2px; font-size: 0.9
 .card:hover { box-shadow: 0 40px 80px rgba(0,0,0,0.08); transform: translateY(-8px); }
 
 .img-container { width: 100%; height: 400px; background-color: #f7f7f8; overflow: hidden; cursor: pointer; position: relative; }
-.img-container:not(.img-container--actions)::after { content: "УВЕЛИЧИТЬ"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(21, 21, 21, 0.85); color: #fff; padding: 10px 20px; font-size: 0.75rem; letter-spacing: 3px; opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 2; }
-.img-container:not(.img-container--actions):hover::after { opacity: 1; }
 .img-container:hover { background-color: #f0f0f2; }
 
 .img-container--actions { cursor: default; }
@@ -87,111 +85,44 @@ header p { font-weight: 300; color: #7c7c7c; letter-spacing: 2px; font-size: 0.9
     z-index: 2;
 }
 .img-container--actions:hover .img-actions { opacity: 1; }
-.img-action-btn--zoom,
-.img-action-btn--gallery {
-    display: none !important;
-}
 
 .img-action-btn {
     background: rgba(21, 21, 21, 0.9);
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 11px 22px;
-    font-family: inherit;
-    font-size: 0.72rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    padding: 10px;
+    min-width: auto;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 190px;
-}
-
-.img-action-btn--zoom {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    padding: 10px;
-    min-width: auto;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    z-index: 4;
-}
-
-.img-action-btn--zoom svg {
-    width: 20px;
-    height: 20px;
-}
-
-.img-action-btn--gallery {
-    position: absolute;
-    top: 14px;
-    left: 66px;
-    padding: 10px;
-    min-width: auto;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    z-index: 4;
-}
-
-.img-action-btn--gallery svg {
-    width: 20px;
-    height: 20px;
 }
 
 .img-action-btn--video {
     position: absolute;
     top: 14px;
     left: 66px;
-    padding: 10px;
-    min-width: auto;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    z-index: 4;
-}
-
-.img-action-btn--video svg {
-    width: 20px;
-    height: 20px;
 }
 
 .img-action-btn--description {
     position: absolute;
     top: 14px;
     left: 14px;
-    padding: 10px;
-    min-width: auto;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    z-index: 4;
 }
 
-.img-action-btn--description svg {
+.img-action-btn--video svg, .img-action-btn--description svg {
     width: 20px;
     height: 20px;
 }
+
 .img-action-btn:hover {
     background: #fff;
     color: #1a1a1a;
     border-color: #fff;
-}
-
-.img-action-btn--zoom:hover {
     transform: scale(1.1);
 }
 
@@ -206,23 +137,24 @@ body.dark .img-action-btn:hover {
     border-color: #fff;
 }
 
-body.dark .img-action-btn--zoom {
-    background: rgba(255, 255, 255, 0.92);
-    color: #1a1a1a;
-    border-color: transparent;
-}
-body.dark .img-action-btn--zoom:hover {
-    background: #fff;
-    color: #1a1a1a;
-}
-
-.gallery-lightbox-trigger { display: none; }
-
 .card img { width: 100%; height: 100%; object-fit: contain; padding: 25px; box-sizing: border-box; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
 .img-container:hover img { transform: scale(1.04); }
 
-.gallery-extra { display: none; }
 .photo-count {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(21, 21, 21, 0.75);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    z-index: 3;
+    pointer-events: none;
+}
+body.dark .photo-count { background: rgba(255, 255, 255, 0.85); color: #1a1a1a; }
+
+..photo-count {
     position: absolute;
     top: 14px;
     right: 14px;
@@ -358,9 +290,6 @@ body.dark .scroll-to-top { background: #ffffff; color: #1a1a1a; }
 }
 .gallery-modal-content {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 .gallery-modal-close {
     position: absolute;
