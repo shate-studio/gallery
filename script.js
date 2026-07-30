@@ -2,6 +2,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Лесной хранитель',
         description: 'Холст, масло. 40×50 см. 2026 г.',
+        longDescription: 'Мощный образ медведя в лесной глуши. Художитель передал первозданную природную силу и спокойную достоинство царя леса. Тёплые коричневые оттенки и детальная проработка шерсти создают ощущение живого присутствия.',
         alt: 'Медведь',
         image: 'paintings/bear/bear1.jpg',
         galleryImages: [
@@ -12,6 +13,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Взгляд хищника',
         description: 'Холст, масло. 40×50 см. 2026 г.',
+        longDescription: 'Драматичное изображение тигра, пойманного в момент напряжённого внимания. Пронзительный взгляд хищника и напряжение мускулов передают предельную сосредоточенность и готовность к прыжку.',
         alt: 'Тигр',
         image: 'paintings/tiger/tiger1.jpg',
         galleryImages: [
@@ -22,6 +24,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Свобода и полет',
         description: 'Холст, масло. 40×50 см. 2026 г.',
+        longDescription: 'Вдохновляющая композиция, передающая величие свободного полёта. Орёл в небе символизирует дух независимости и стремление к высшим целям. Динамичная композиция и светлая палитра создают ощущение свободы.',
         alt: 'Орел',
         image: 'paintings/eagle/eagle1.jpg',
         galleryImages: [
@@ -34,6 +37,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Морской ветер',
         description: 'Холст, акрил. 50×50 см.',
+        longDescription: 'Романтическое изображение моряка на фоне морского простора. Работа наполнена атмосферой приключений и морской стихии. Голубые и синие тона передают с��ежесть морского воздуха.',
         alt: 'Моряк',
         image: 'paintings/sailor/sailor1.jpg',
         galleryImages: [
@@ -44,6 +48,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Вольный дух',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Энергичное и эмоциональное полотно с изображением лошади. Движение и свобода передаются через динамичные мазки и развевается гриву. Работа наполнена жизненной силой и страстью.',
         alt: 'Лошадь',
         image: 'paintings/horse/horse1.jpg',
         galleryImages: [
@@ -57,6 +62,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Паруса на ветру',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Живописная сцена с парусниками на фоне морского горизонта. Работа передаёт чувство путешествия и приключения. Нежные оттенки неба и воды создают спокойную, медитативную атмосферу.',
         alt: 'Парусники',
         image: 'paintings/sailboat/sailboat1.jpg',
         galleryImages: [
@@ -66,6 +72,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Ириски',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Нежный цветочный пейзаж с изображением ирисов. Тонкие оттенки фиолетового и синего создают ощущение лёгкости и изящества. Работа наполнена весенним настроением и гармонией природы.',
         alt: 'Ирис',
         image: 'paintings/iris/iris1.jpg',
         galleryImages: [
@@ -76,6 +83,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Великий слон',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Величественное изображение слона — символа мудрости и силы. Масштабная работа демонстрирует мастерство художества в передаче размера и текстуры животного. Природное величие и спокойствие.',
         alt: 'Слон',
         image: 'paintings/elephant/elephant1.jpg',
         galleryImages: [
@@ -87,6 +95,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Странник',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Философское полотно о путешествии и самопознании. Изображение странника символизирует духовный поиск и путь к себе. Работа наполнена глубиной и призывает к размышлению о смысле жизни.',
         alt: 'Странник',
         image: 'paintings/wanderer/wanderer1.jpg',
         galleryImages: [
@@ -96,6 +105,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Маки',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Яркое и эмоциональное полотно с изображением маков. Глубокие красные тона и свободная манера письма создают ощущение страсти и жизненной энергии. работа в стиле импрессионизма.',
         alt: 'Маки',
         image: 'paintings/poppy/poppy1.jpg',
         galleryImages: [
@@ -105,6 +115,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Девушка и цветок',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Изысканная композиция, сочетающая женственность и природную красоту. Образ девушки с цветком символизирует гармонию человека и природы. Нежные тона и мягкое освещение создают романтическую атмосферу.',
         alt: 'Девушка',
         image: 'paintings/girl_flower/girl_flower1.jpg',
         galleryImages: [
@@ -115,6 +126,7 @@ const GALLERY_ITEMS = [
     {
         title: 'Леопард',
         description: 'Холст, масло. 60×80 см.',
+        longDescription: 'Роскошное изображение леопарда с детальным изображением окраса. Работа демонстрирует мастерство художника в передаче дикой красоты и грацииBig cat. Тёплые золотистые тона подчеркивают величие животного.',
         alt: 'Леопард',
         image: 'paintings/leopard/leopard1_interior1.jpg',
         galleryImages: [
@@ -128,7 +140,7 @@ function renderActionCard(item, index) {
         `<a href="${src}" data-lightbox="album-${index}" data-title="${item.title}" class="gallery-lightbox-trigger gallery-lightbox-trigger--gallery${imageIndex === 0 ? ' gallery-lightbox-trigger--gallery-first' : ''}" tabindex="-1" aria-hidden="true"></a>`
     ).join('');
 
-    const photoCount = item.galleryImages.length > 1
+    const photoCount = item.galleryImages.length >= 1
         ? `<span class="photo-count">${item.galleryImages.length} фото</span>`
         : '';
 
@@ -136,6 +148,18 @@ function renderActionCard(item, index) {
         ? `<button type="button" class="img-action-btn img-action-btn--video" data-action="video" data-video="${item.videoSrc}" aria-label="Видео">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5,3 19,12 5,21"/>
+                </svg>
+            </button>`
+        : '';
+
+    const descriptionButton = item.longDescription
+        ? `<button type="button" class="img-action-btn img-action-btn--description" data-action="description" data-description="${item.longDescription.replace(/"/g, '&quot;')}" aria-label="Описание картины">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
                 </svg>
             </button>`
         : '';
@@ -163,6 +187,7 @@ function renderActionCard(item, index) {
                         </svg>
                     </button>
                     ${videoButton}
+                    ${descriptionButton}
                 </div>
                 <a href="${item.image}" data-lightbox="zoom-${index}" data-title="${item.title}" class="gallery-lightbox-trigger gallery-lightbox-trigger--zoom" tabindex="-1" aria-hidden="true"></a>
                 ${galleryLinks}
@@ -220,6 +245,17 @@ function initGalleryActions() {
                 return;
             }
 
+            if (button.dataset.action === 'description') {
+                const card = button.closest('.card');
+                const imgSrc = card?.querySelector('img')?.src;
+                const title = card?.querySelector('h3')?.textContent;
+                const description = card?.querySelector('.img-action-btn--description')?.getAttribute('data-description') || '';
+                if (imgSrc && description) {
+                    showDescriptionModal(imgSrc, title, description);
+                }
+                return;
+            }
+
             const container = button.closest('.img-container');
             const selector = button.dataset.action === 'zoom'
                 ? '.gallery-lightbox-trigger--zoom'
@@ -251,6 +287,44 @@ function showVideoModal(src) {
 
     function closeModal() {
         video.pause();
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+}
+
+function showDescriptionModal(imageSrc, title, description) {
+    const modal = document.createElement('div');
+    modal.className = 'description-modal';
+    modal.innerHTML = `
+        <div class="description-modal-content">
+            <button class="description-modal-close">&times;</button>
+            <div class="description-modal-body">
+                <div class="description-modal-image">
+                    <img src="${imageSrc}" alt="${title}">
+                </div>
+                <div class="description-modal-text">
+                    <h3>${title}</h3>
+                    <p>${description}</p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    const closeBtn = modal.querySelector('.description-modal-close');
+
+    function closeModal() {
         modal.remove();
         document.body.style.overflow = '';
     }
