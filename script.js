@@ -3,9 +3,9 @@ const GALLERY_ITEMS = [
         title: 'Лесной хранитель',
         description: 'Холст, масло. 40×50 см. 2026 г.',
         alt: 'Медведь',
-        image: 'paintings/bear1.jpg',
+        image: 'paintings/bear/bear1.jpg',
         galleryImages: [
-            'paintings/bear1.jpg',
+            'paintings/bear/bear1.jpg',
             'paintings/bear/bear1_interior1.jpg',
         ],
     },
@@ -13,10 +13,21 @@ const GALLERY_ITEMS = [
         title: 'Взгляд хищника',
         description: 'Холст, масло. 40×50 см. 2026 г.',
         alt: 'Тигр',
-        image: 'paintings/tiger1.jpg',
+        image: 'paintings/tiger/tiger1.jpg',
         galleryImages: [
-            'paintings/tiger1.jpg',
-            'tiger/tiger1_interior1.jpg',
+            'paintings/tiger/tiger1.jpg',
+            'paintings/tiger/tiger1_interior1.jpg',
+        ],
+    },
+    {
+        title: 'Свобода и полет',
+        description: 'Холст, масло. 40×50 см. 2026 г.',
+        alt: 'Орел',
+        image: 'paintings/eagle/eagle1.jpg',
+        galleryImages: [
+            'paintings/eagle/eagle1.jpg',
+            'paintings/eagle/eagle1_interior1.jpg',
+            'paintings/eagle/eagle1_interior2.jpg',
         ],
     },
     {
