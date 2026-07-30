@@ -205,9 +205,11 @@ function initGalleryActions() {
                 const card = button.closest('.card');
                 const imgSrc = card?.querySelector('img')?.src;
                 const title = card?.querySelector('h3')?.textContent;
-                const description = card?.querySelector('.img-action-btn--description')?.getAttribute('data-description') || '';
-                if (imgSrc && description) {
-                    showDescriptionModal(imgSrc, title, description);
+                const longDescription = card?.querySelector('.img-action-btn--description')?.getAttribute('data-description') || '';
+                const cardIndex = Array.from(document.querySelectorAll('.card')).indexOf(card);
+                const shortDescription = GALLERY_ITEMS[cardIndex]?.description || '';
+                if (imgSrc) {
+                    showDescriptionModal(imgSrc, title, longDescription, shortDescription);
                 }
                 return;
             }
@@ -361,19 +363,38 @@ function showVideoModal(src) {
     });
 }
 
-function showDescriptionModal(imageSrc, title, description) {
+function showDescriptionModal(imageSrc, title, longDescription, shortDescription) {
     const modal = document.createElement('div');
     modal.className = 'description-modal';
+
+    let textContent = '';
+
+    // Верхний блок - название и художественное описание
+    textContent += `<div class="description-section">`;
+    textContent += `<h3>${title}</h3>`;
+    if (longDescription) {
+        textContent += `<p class="description-paragraph">${longDescription}</p>`;
+    }
+    textContent += `</div>`;
+
+    // Разделитель + материалы и размеры
+    if (shortDescription) {
+        textContent += `<hr class="description-divider">`;
+        textContent += `<div class="description-section">`;
+        textContent += `<p class="description-paragraph description-meta">${shortDescription}</p>`;
+        textContent += `</div>`;
+    }
+
     modal.innerHTML = `
         <div class="description-modal-content">
             <button class="description-modal-close">&times;</button>
+            <button class="description-modal-close-inner">&times;</button>
             <div class="description-modal-body">
                 <div class="description-modal-image">
                     <img src="${imageSrc}" alt="${title}">
                 </div>
                 <div class="description-modal-text">
-                    <h3>${title}</h3>
-                    <p>${description}</p>
+                    ${textContent}
                 </div>
             </div>
         </div>
@@ -383,6 +404,7 @@ function showDescriptionModal(imageSrc, title, description) {
     document.body.style.overflow = 'hidden';
 
     const closeBtn = modal.querySelector('.description-modal-close');
+    const closeBtnInner = modal.querySelector('.description-modal-close-inner');
 
     function closeModal() {
         modal.remove();
@@ -390,6 +412,7 @@ function showDescriptionModal(imageSrc, title, description) {
     }
 
     closeBtn.addEventListener('click', closeModal);
+    closeBtnInner.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
