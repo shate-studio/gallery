@@ -101,11 +101,36 @@ header p { font-weight: 300; color: #7c7c7c; letter-spacing: 2px; font-size: 0.9
     transition: all 0.3s ease;
     min-width: 190px;
 }
+
+.img-action-btn--zoom {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 10px;
+    min-width: auto;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+.img-action-btn--zoom svg {
+    width: 20px;
+    height: 20px;
+}
 .img-action-btn:hover {
     background: #fff;
     color: #1a1a1a;
     border-color: #fff;
 }
+
+.img-action-btn--zoom:hover {
+    transform: scale(1.1);
+}
+
 body.dark .img-action-btn {
     background: rgba(255, 255, 255, 0.92);
     color: #1a1a1a;
@@ -115,6 +140,16 @@ body.dark .img-action-btn:hover {
     background: transparent;
     color: #fff;
     border-color: #fff;
+}
+
+body.dark .img-action-btn--zoom {
+    background: rgba(255, 255, 255, 0.92);
+    color: #1a1a1a;
+    border-color: transparent;
+}
+body.dark .img-action-btn--zoom:hover {
+    background: #fff;
+    color: #1a1a1a;
 }
 
 .gallery-lightbox-trigger { display: none; }

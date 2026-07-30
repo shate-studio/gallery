@@ -142,7 +142,14 @@ function renderActionCard(item, index) {
                 ${photoCount}
                 <img src="${item.image}" alt="${item.alt}" loading="lazy">
                 <div class="img-actions">
-                    <button type="button" class="img-action-btn" data-action="zoom">Увеличить</button>
+                    <button type="button" class="img-action-btn img-action-btn--zoom" data-action="zoom" aria-label="Увеличить">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="7"/>
+                            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+                            <line x1="8" y1="11" x2="14" y2="11"/>
+                            <line x1="11" y1="8" x2="11" y2="14"/>
+                        </svg>
+                    </button>
                     <button type="button" class="img-action-btn" data-action="gallery">Открыть галерею</button>
                     ${videoButton}
                 </div>
