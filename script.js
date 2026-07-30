@@ -144,14 +144,6 @@ function renderActionCard(item, index) {
         ? `<span class="photo-count">${item.galleryImages.length} фото</span>`
         : '';
 
-    const videoButton = item.videoSrc
-        ? `<button type="button" class="img-action-btn img-action-btn--video" data-action="video" data-video="${item.videoSrc}" aria-label="Видео">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="5,3 19,12 5,21"/>
-                </svg>
-            </button>`
-        : '';
-
     const descriptionButton = item.longDescription
         ? `<button type="button" class="img-action-btn img-action-btn--description" data-action="description" data-description="${item.longDescription.replace(/"/g, '&quot;')}" aria-label="Описание картины">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -164,30 +156,22 @@ function renderActionCard(item, index) {
             </button>`
         : '';
 
+    const videoButton = item.videoSrc
+        ? `<button type="button" class="img-action-btn img-action-btn--video" data-action="video" data-video="${item.videoSrc}" aria-label="Видео">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5,3 19,12 5,21"/>
+                </svg>
+            </button>`
+        : '';
+
     return `
         <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="${index * 100}">
             <div class="img-container img-container--actions">
                 ${photoCount}
                 <img src="${item.image}" alt="${item.alt}" loading="lazy">
                 <div class="img-actions">
-                    <button type="button" class="img-action-btn img-action-btn--zoom" data-action="zoom" aria-label="Увеличить">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="7"/>
-                            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
-                            <line x1="8" y1="11" x2="14" y2="11"/>
-                            <line x1="11" y1="8" x2="11" y2="14"/>
-                        </svg>
-                    </button>
-                    <button type="button" class="img-action-btn img-action-btn--gallery" data-action="gallery" aria-label="Галерея">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"/>
-                            <rect x="14" y="3" width="7" height="7"/>
-                            <rect x="14" y="14" width="7" height="7"/>
-                            <rect x="3" y="14" width="7" height="7"/>
-                        </svg>
-                    </button>
-                    ${videoButton}
                     ${descriptionButton}
+                    ${videoButton}
                 </div>
                 <a href="${item.image}" data-lightbox="zoom-${index}" data-title="${item.title}" class="gallery-lightbox-trigger gallery-lightbox-trigger--zoom" tabindex="-1" aria-hidden="true"></a>
                 ${galleryLinks}
@@ -234,6 +218,10 @@ function renderGallery() {
     ).join('');
 }
 
+let currentGalleryIndex = 0;
+let currentGalleryItems = [];
+let currentGalleryTitle = '';
+
 function initGalleryActions() {
     document.querySelectorAll('.img-action-btn').forEach((button) => {
         button.addEventListener('click', (event) => {
@@ -263,6 +251,117 @@ function initGalleryActions() {
 
             container?.querySelector(selector)?.click();
         });
+    });
+
+    // Click on image opens gallery modal with thumbnails on right
+    document.querySelectorAll('.img-container--actions').forEach((container) => {
+        container.addEventListener('click', () => {
+            const card = container.closest('.card');
+            if (card) {
+                const cards = Array.from(document.querySelectorAll('.card'));
+                const cardIndexNum = cards.indexOf(card);
+                const galleryData = GALLERY_ITEMS[cardIndexNum];
+                if (galleryData?.galleryImages) {
+                    showGalleryModal(galleryData.galleryImages, galleryData.title);
+                }
+            }
+        });
+    });
+
+    // Arrow key navigation for gallery modal
+    document.addEventListener('keydown', (e) => {
+        const galleryModal = document.querySelector('.gallery-modal');
+        if (!galleryModal) return;
+
+        if (e.key === 'ArrowLeft') {
+            currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length;
+            updateGalleryImage();
+        } else if (e.key === 'ArrowRight') {
+            currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryItems.length;
+            updateGalleryImage();
+        }
+    });
+}
+
+function showGalleryModal(images, title) {
+    currentGalleryItems = images;
+    currentGalleryIndex = 0;
+    currentGalleryTitle = title;
+
+    const modal = document.createElement('div');
+    modal.className = 'gallery-modal';
+    modal.innerHTML = `
+        <div class="gallery-modal-content">
+            <button class="gallery-modal-close">&times;</button>
+            <button class="gallery-modal-nav gallery-modal-prev">❮</button>
+            <button class="gallery-modal-nav gallery-modal-next">❯</button>
+            <div class="gallery-modal-body">
+                <img src="${images[0]}" alt="${title}" class="gallery-modal-main">
+                <div class="gallery-modal-thumbs">
+                    ${images.map((img, idx) => `
+                        <img src="${img}" alt="Миниатюра ${idx + 1}" class="gallery-modal-thumb ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // Thumbnail click
+    modal.querySelectorAll('.gallery-modal-thumb').forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+            currentGalleryIndex = parseInt(thumb.dataset.index);
+            updateGalleryImage();
+        });
+    });
+
+    // Navigation
+    modal.querySelector('.gallery-modal-prev').addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length;
+        updateGalleryImage();
+    });
+
+    modal.querySelector('.gallery-modal-next').addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryItems.length;
+        updateGalleryImage();
+    });
+
+    const closeBtn = modal.querySelector('.gallery-modal-close');
+
+    function closeModal() {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+}
+
+function updateGalleryImage() {
+    const modal = document.querySelector('.gallery-modal');
+    if (!modal) return;
+
+    const mainImg = modal.querySelector('.gallery-modal-main');
+    const thumbs = modal.querySelectorAll('.gallery-modal-thumb');
+
+    mainImg.src = currentGalleryItems[currentGalleryIndex];
+    mainImg.alt = currentGalleryTitle;
+
+    thumbs.forEach((thumb) => {
+        thumb.classList.remove('active');
+        if (parseInt(thumb.dataset.index) === currentGalleryIndex) {
+            thumb.classList.add('active');
+        }
     });
 }
 
