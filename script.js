@@ -133,7 +133,11 @@ function renderActionCard(item, index) {
         : '';
 
     const videoButton = item.videoSrc
-        ? `<button type="button" class="img-action-btn" data-action="video" data-video="${item.videoSrc}">Видео</button>`
+        ? `<button type="button" class="img-action-btn img-action-btn--video" data-action="video" data-video="${item.videoSrc}" aria-label="Видео">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5,3 19,12 5,21"/>
+                </svg>
+            </button>`
         : '';
 
     return `
@@ -150,7 +154,14 @@ function renderActionCard(item, index) {
                             <line x1="11" y1="8" x2="11" y2="14"/>
                         </svg>
                     </button>
-                    <button type="button" class="img-action-btn" data-action="gallery">Открыть галерею</button>
+                    <button type="button" class="img-action-btn img-action-btn--gallery" data-action="gallery" aria-label="Галерея">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                    </button>
                     ${videoButton}
                 </div>
                 <a href="${item.image}" data-lightbox="zoom-${index}" data-title="${item.title}" class="gallery-lightbox-trigger gallery-lightbox-trigger--zoom" tabindex="-1" aria-hidden="true"></a>

@@ -121,6 +121,46 @@ header p { font-weight: 300; color: #7c7c7c; letter-spacing: 2px; font-size: 0.9
     width: 20px;
     height: 20px;
 }
+
+.img-action-btn--gallery {
+    position: absolute;
+    top: 14px;
+    left: 66px;
+    padding: 10px;
+    min-width: auto;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+.img-action-btn--gallery svg {
+    width: 20px;
+    height: 20px;
+}
+
+.img-action-btn--video {
+    position: absolute;
+    top: 14px;
+    left: 118px;
+    padding: 10px;
+    min-width: auto;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+.img-action-btn--video svg {
+    width: 20px;
+    height: 20px;
+}
 .img-action-btn:hover {
     background: #fff;
     color: #1a1a1a;
