@@ -54,6 +54,54 @@ const GALLERY_ITEMS = [
         ],
         videoSrc: 'video/horse/horse1_video.mp4',
     },
+    {
+        title: 'Паруса на ветру',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Парусники',
+        image: 'paintings/sailboat/sailboat1.jpg',
+        galleryImages: [
+            'paintings/sailboat/sailboat1.jpg',
+        ],
+    },
+    {
+        title: 'Ириски',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Ирис',
+        image: 'paintings/iris/iris1.jpg',
+        galleryImages: [
+            'paintings/iris/iris1_interior1.jpg',
+            'paintings/iris/iris1_interior2.jpg',
+        ],
+    },
+    {
+        title: 'Великий слон',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Слон',
+        image: 'paintings/elephant/elephant1.jpg',
+        galleryImages: [
+            'paintings/elephant/elephant1.jpg',
+            'paintings/elephant/elephant2.jpg',
+            'paintings/elephant/elephant1_interior1.jpg',
+        ],
+    },
+    {
+        title: 'Странник',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Странник',
+        image: 'paintings/wanderer/wanderer1.jpg',
+        galleryImages: [
+            'paintings/wanderer/wanderer1.jpg',
+        ],
+    },
+    {
+        title: 'Маки',
+        description: 'Холст, масло. 60×80 см.',
+        alt: 'Маки',
+        image: 'paintings/poppy/poppy1.jpg',
+        galleryImages: [
+            'paintings/poppy/poppy1.jpg',
+        ],
+    },
 ];
 
 function renderActionCard(item, index) {
