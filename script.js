@@ -51,7 +51,6 @@ function renderActionCard(item, index) {
             <div class="card-info">
                 <h3>${item.title}</h3>
                 <p class="card-description">${item.description}</p>
-                ${item.details ? `<p class="card-details">${item.details}</p>` : ''}
                 <a href="https://vk.ru/sha_te" class="btn" target="_blank" rel="noopener noreferrer">Узнать цену</a>
             </div>
         </div>
@@ -253,7 +252,7 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
     textContent += `<div class="description-section">`;
     textContent += `<h3>${title}</h3>`;
     if (longDescription) {
-        textContent += `<p class="description-paragraph">${longDescription}</p>`;
+        textContent += `<p class="description-paragraph">${longDescription.replace(/\n/g, '<br>')}</p>`;
     }
     textContent += `</div>`;
 
