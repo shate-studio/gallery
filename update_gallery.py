@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Update GALLERY_ITEMS to add 'details' field for materials/size."""
+# -*- coding: utf-8 -*-
+"""Update data/gallery.json with new/modified gallery items."""
 
-file_path = "/home/ps/work/shate-studio/script.js"
+import json
+import os
 
-with open(file_path, "r", encoding="utf-8") as f:
-    content = f.read()
+JSON_PATH = os.path.join(os.path.dirname(__file__), "data", "gallery.json")
 
-# Mapping: title -> (short_description, details)
+# Mapping: title -> new data
+# Add or update items here
 items_update = {
     "Лесной хранитель": {
         "description": "Мощный образ медведя в лесной глуши. Художник передал первозданную природную силу и спокойную достоинство царя леса.",
@@ -14,14 +16,14 @@ items_update = {
     },
     "Серебряный страж": {
         "description": "Профиль тигра выглядит монументально, спокойно и сосредоточенно. Мозаичная текстура и стальной фон вызывают ассоциации с броней или древним щитом.",
-        "details": "Холст, смешанная техника. 90х90 см. 2026 г."
+        "details": "Холст, смешанная техника. 90×90 см. 2026 г."
     },
     "Свобода и полет": {
         "description": "Вдохновляющая композиция, передающая величие свободного полёта. Орёл в небе символизирует дух независимости и стремление к высшим целям.",
         "details": "Холст, масло. 40×50 см. 2026 г."
     },
     "Морской волк": {
-        "description": "Образ лидера, первопроходца и человека с несгибаемой силой воли. Масштабные цели, риск и победы.",
+        "description": "Образ лидера, первопроходца и человека с несгибаемой силой воли. Мужчина, для которого рутина слишком тесна, его стихия — масштабные цели.",
         "details": "Холст, акрил. 50×50 см."
     },
     "Вольный дух": {
@@ -38,11 +40,11 @@ items_update = {
     },
     "Ганеша": {
         "description": "Величественная фигура слона воплощает монументальную, спокойную и защищающую силу. Страж и проводник в мир духовности.",
-        "details": "Холст, масло. 70х70 см."
+        "details": "Холст, масло. 70×70 см."
     },
     "Лунный странник": {
         "description": "Интерьерная работа в стиле Mixed Media. Дух свободы и внутреннего поиска под лунным светом.",
-        "details": "Холст, масло. 42х70 см."
+        "details": "Холст, масло. 42×70 см."
     },
     "Маки": {
         "description": "Яркое и эмоциональное полотно с изображением маков. Глубокие красные тона и свободная манера письма.",
@@ -56,68 +58,42 @@ items_update = {
         "description": "Роскошное изображение леопарда с детальным окрасом. Величие и грация дикого животного.",
         "details": "Холст, масло. 60×80 см."
     },
-    "Часы \"Цветение мгновения\"": {
+    'Часы "Цветение мгновения"': {
         "description": "Роскошное изображение с детальным оформлением. Мастерство в передаче декоративной красоты.",
         "details": "Холст, масло. 60×80 см."
     },
 }
 
-lines = content.split("\n")
-new_lines = []
-i = 0
-replaced = 0
 
-while i < len(lines):
-    line = lines[i]
-    
-    # Check if this is a title line
-    if "title:" in line and "description:" in content[content.find(line):content.find(line)+200]:
-        # Extract title
-        if "'" in line:
-            title = line.split("'")[1]
-            
-            if title in items_update:
-                # Look ahead for description line
-                if i + 1 < len(lines) and "description:" in lines[i + 1]:
-                    # Extract old description
-                    old_desc_line = lines[i + 1].strip()
-                    # Extract the text between quotes
-                    if "'" in old_desc_line:
-                        old_desc = old_desc_line.split("'")[1].split("'")[0] if old_desc_line.count("'") >= 2 else old_desc_line.split("'")[1]
-                    
-                    # More robust extraction
-                    import re
-                    desc_match = re.search(r"description:\s*'([^']*)'", lines[i + 1])
-                    if desc_match:
-                        old_desc = desc_match.group(1)
-                        
-                        data = items_update[title]
-                        
-                        # Replace the description line and insert details
-                        new_lines.append(line)
-                        new_lines.append(f"        description: '{data['description']}',")
-                        new_lines.append(f"        details: '{data['details']}',")
-                        replaced += 1
-                        print(f"✅ '{title}':")
-                        print(f"   description -> {data['description']}")
-                        print(f"   details     -> {data['details']}")
-                    else:
-                        new_lines.append(line)
-                        new_lines.append(lines[i + 1])
-                    i += 2
-                    continue
-            
-            new_lines.append(line)
-        else:
-            new_lines.append(line)
-    else:
-        new_lines.append(line)
-    i += 1
+def main():
+    # Load existing JSON
+    with open(JSON_PATH, "r", encoding="utf-8") as f:
+        gallery = json.load(f)
 
-new_content = "\n".join(new_lines)
+    replaced = 0
 
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(new_content)
+    for item in gallery:
+        title = item.get("title", "")
+        if title in items_update:
+            update = items_update[title]
+            old_desc = item.get("description", "")
+            old_details = item.get("details", "")
 
-print(f"\n📊 Replaced {replaced} items.")
-print("✅ Done!")
+            if old_desc != update["description"] or old_details != update["details"]:
+                item["description"] = update["description"]
+                item["details"] = update["details"]
+                print(f"✅ '{title}':")
+                print(f"   description -> {update['description']}")
+                print(f"   details     -> {update['details']}")
+                replaced += 1
+
+    # Save back
+    with open(JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(gallery, f, ensure_ascii=False, indent=4)
+
+    print(f"\n📊 Replaced {replaced} items.")
+    print("✅ Done!")
+
+
+if __name__ == "__main__":
+    main()
