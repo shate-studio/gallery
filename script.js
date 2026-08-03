@@ -14,8 +14,16 @@ async function loadGalleryData() {
 }
 
 function renderActionCard(item, index) {
-    const photoCount = item.galleryImages && item.galleryImages.length >= 1
-        ? `<span class="photo-count">${item.galleryImages.length} фото</span>`
+    const counts = [];
+    if (item.galleryImages && item.galleryImages.length >= 1) {
+        counts.push(`${item.galleryImages.length} фото`);
+    }
+    if (item.videoSrc) {
+        const videoCount = item.galleryVideos ? item.galleryVideos.length : 1;
+        counts.push(`${videoCount} видео`);
+    }
+    const photoCount = counts.length > 0
+        ? `<span class="photo-count">${counts.join(', ')}</span>`
         : '';
 
     const descriptionButton = item.longDescription

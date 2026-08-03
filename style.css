@@ -151,20 +151,7 @@ body.dark .img-action-btn:hover {
     letter-spacing: 1px;
     z-index: 3;
     pointer-events: none;
-}
-body.dark .photo-count { background: rgba(255, 255, 255, 0.85); color: #1a1a1a; }
-
-..photo-count {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: rgba(21, 21, 21, 0.75);
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    z-index: 3;
-    pointer-events: none;
+    white-space: nowrap;
 }
 body.dark .photo-count { background: rgba(255, 255, 255, 0.85); color: #1a1a1a; }
 
