@@ -330,6 +330,7 @@ body.dark .description-modal-text .description-divider {
     margin: 0;
     letter-spacing: 0.15px;
     font-family: Georgia, 'Times New Roman', serif;
+    white-space: pre-line;
 }
 body.dark .description-modal-text .description-paragraph {
     color: #d4d4d4;
@@ -343,6 +344,7 @@ body.dark .description-modal-text .description-paragraph {
     letter-spacing: 0;
     line-height: 1.6;
     margin-top: 16px;
+    white-space: pre-line;
 }
 body.dark .description-modal-text .description-paragraph.description-meta {
     color: #aaa;

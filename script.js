@@ -91,9 +91,9 @@ function initGalleryActions() {
                 const card = button.closest('.card');
                 const imgSrc = card?.querySelector('img')?.src;
                 const title = card?.querySelector('h3')?.textContent;
-                const longDescription = card?.querySelector('.img-action-btn--description')?.getAttribute('data-description') || '';
                 const cardIndex = Array.from(document.querySelectorAll('.card')).indexOf(card);
                 const galleryItem = GALLERY_ITEMS[cardIndex] || {};
+                const longDescription = galleryItem.longDescription || '';
                 const details = galleryItem.details || '';
                 if (imgSrc) {
                     showDescriptionModal(imgSrc, title, longDescription, details);
@@ -256,11 +256,14 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
 
     let textContent = '';
 
+    // Преобразуем \n в <br> для корректного отображения переносов строк
+    const formatNewLines = (text) => text.replace(/\n/g, '<br>');
+
     // Верхний блок - название и художественное описание
     textContent += `<div class="description-section">`;
     textContent += `<h3>${title}</h3>`;
     if (longDescription) {
-        textContent += `<p class="description-paragraph">${longDescription}</p>`;
+        textContent += `<p class="description-paragraph">${formatNewLines(longDescription)}</p>`;
     }
     textContent += `</div>`;
 
@@ -268,7 +271,7 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
     if (details) {
         textContent += `<hr class="description-divider">`;
         textContent += `<div class="description-section">`;
-        textContent += `<p class="description-paragraph description-meta">${details}</p>`;
+        textContent += `<p class="description-paragraph description-meta">${formatNewLines(details)}</p>`;
         textContent += `</div>`;
     }
 
