@@ -61,7 +61,8 @@
             "paintings/horse/horse1.jpg",
             "paintings/horse/horse1_2.jpg",
             "paintings/horse/horse1_interior1.jpg",
-            "paintings/horse/horse1_interior2.jpg"
+            "paintings/horse/horse1_interior2.jpg",
+            "paintings/horse/horse1_interior3.jpg"
         ],
         "videoSrc": "video/horse/horse1_video.mp4"
     },
@@ -73,7 +74,10 @@
         "alt": "Голубая лагуна",
         "image": "paintings/sailboat/sailboat1.jpg",
         "galleryImages": [
-            "paintings/sailboat/sailboat1.jpg"
+            "paintings/sailboat/sailboat1.jpg",
+            "paintings/sailboat/sailboat1_interior1.jpg",
+            "paintings/sailboat/sailboat1_interior2.jpg",
+            "paintings/sailboat/sailboat1_interior3.jpg"
         ]
     },
     {
@@ -157,7 +161,8 @@
         "image": "paintings/clock/clock1.jpg",
         "galleryImages": [
             "paintings/clock/clock1.jpg",
-            "paintings/clock/clock_interior1.jpg"
+            "paintings/clock/clock1_interior1.jpg",
+            "paintings/clock/clock1_interior2.jpg"
         ]
     }
 ]
