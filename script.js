@@ -83,6 +83,10 @@ function initGalleryActions() {
             event.stopPropagation();
 
             if (button.dataset.action === 'video') {
+                if (button.dataset.video.startsWith('http://') || button.dataset.video.startsWith('https://')) {
+                    window.open(button.dataset.video, '_blank');
+                    return;
+                }
                 showVideoModal(button.dataset.video);
                 return;
             }
@@ -218,6 +222,10 @@ function updateGalleryImage() {
 function showVideoModal(src) {
     const modal = document.createElement('div');
     modal.className = 'video-modal';
+
+    // Проверяем, является ли src внешним URL
+    const isExternalUrl = src.startsWith('http://') || src.startsWith('https://');
+
     modal.innerHTML = `
         <div class="video-modal-content">
             <button class="video-modal-close">&times;</button>
@@ -235,7 +243,7 @@ function showVideoModal(src) {
     const video = modal.querySelector('video');
 
     function closeModal() {
-        video.pause();
+        if (video) video.pause();
         modal.remove();
         document.body.style.overflow = '';
     }

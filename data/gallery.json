@@ -36,7 +36,7 @@
             "paintings/eagle/eagle1_interior1.jpg",
             "paintings/eagle/eagle1_interior2.jpg"
         ],
-        "videoSrc": "video/eagle/eagle1_video.mp4"
+        "videoSrc": "https://cloud.mail.ru/public/rcVx/mMEs4wyxY"
     },
     {
         "title": "Морской волк",
@@ -149,8 +149,7 @@
         "galleryImages": [
             "paintings/leopard/leopard1.jpg",
             "paintings/leopard/leopard1_interior1.jpg"
-        ],
-        "videoSrc": "video/leopard/leopard1_video.mp4"
+        ]
     },
     {
         "title": "Часы \"Время цветения\"",
