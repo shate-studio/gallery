@@ -46,6 +46,19 @@ function renderActionCard(item, index) {
             </button>`
         : '';
 
+    const siteUrl = 'https://shate-studio.github.io/gallery/';
+    const fullImageUrl = siteUrl + item.image;
+    const pageUrl = `${siteUrl}#${item.title.replace(/\s+/g, '-')}`;
+    const shareButton = `<button type="button" class="img-action-btn img-action-btn--share" data-action="share" data-title="${item.title}" data-url="${pageUrl}" data-image-url="${fullImageUrl}" data-description="${item.description.replace(/\n/g, ' ').substring(0, 200)}" aria-label="Поделиться картиной">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+        </button>`;
+
     return `
         <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="${index * 100}">
             <div class="img-container img-container--actions">
@@ -59,7 +72,10 @@ function renderActionCard(item, index) {
             <div class="card-info">
                 <h3>${item.title}</h3>
                 <p class="card-description">${item.description.replace(/\n/g, '<br>')}</p>
-                <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">Узнать цену</button>
+                <div class="card-actions">
+                    ${shareButton}
+                    <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">Узнать цену</button>
+                </div>
             </div>
         </div>
     `;
@@ -104,6 +120,11 @@ function initGalleryActions() {
                 }
                 return;
             }
+
+            if (button.dataset.action === 'share') {
+                handleShare(button);
+                return;
+            }
         });
     });
 
@@ -124,6 +145,13 @@ function initGalleryActions() {
 
     // Arrow key navigation for gallery modal
     document.addEventListener('keydown', (e) => {
+        const shareModal = document.querySelector('.share-modal');
+        if (shareModal && e.key === 'Escape') {
+            shareModal.remove();
+            document.body.style.overflow = '';
+            return;
+        }
+
         const galleryModal = document.querySelector('.gallery-modal');
         if (!galleryModal) return;
 
@@ -318,6 +346,124 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
+}
+
+function handleShare(button) {
+    const title = button.dataset.title;
+    const pageUrl = button.dataset.url;
+    const imageUrl = button.dataset.imageUrl;
+    const description = button.dataset.description;
+    const shareText = `${title}\n${description}\n${imageUrl}`;
+
+    // Try native Web Share API first (mobile devices)
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: shareText,
+            url: pageUrl
+        }).catch(() => {
+            showShareModal(title, shareText, pageUrl, imageUrl);
+        });
+    } else {
+        showShareModal(title, shareText, pageUrl, imageUrl);
+    }
+}
+
+function showShareModal(title, shareText, pageUrl, imageUrl) {
+
+    // Share services with their URLs
+    const services = [
+        {
+            name: 'ВКонтакте',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.587-1.496c.598-.19 1.365 1.26 2.179 1.816.615.42 1.083.328 1.083.328l2.175-.03s1.138-.07.598-.964c-.044-.073-.313-.661-1.608-1.869-1.356-1.264-1.174-1.06.459-3.247.992-1.33 1.389-2.142 1.265-2.49-.118-.331-.845-.244-.845-.244l-2.45.015s-.182-.025-.317.056c-.131.079-.216.263-.216.263s-.387 1.028-.903 1.903c-1.089 1.85-1.524 1.948-1.702 1.834-.414-.266-.31-1.07-.31-1.64 0-1.782.27-2.525-.525-2.713-.264-.063-.458-.105-1.133-.112-.866-.009-1.599.003-2.014.207-.277.136-.491.439-.361.456.161.021.526.098.72.362.25.34.241 1.107.241 1.107s.143 2.098-.334 2.358c-.327.178-.775-.185-1.736-1.846-.492-.85-.863-1.79-.863-1.79s-.072-.176-.2-.272c-.155-.115-.372-.151-.372-.151l-2.328.015s-.35.01-.478.162c-.114.135-.009.414-.009.414s1.817 4.244 3.875 6.384c1.886 1.963 4.03 1.834 4.03 1.834h.971z" fill="white"/></svg>',
+            url: `https://vk.com/share.php?url=${encodeURIComponent(pageUrl)}&title=${encodeURIComponent(title)}&comment=${encodeURIComponent(title + '\n' + shareText)}`
+        },
+        {
+            name: 'Telegram',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="white"/></svg>',
+            url: `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`
+        },
+
+        {
+            name: 'Скопировать ссылку',
+            icon: '📋',
+            action: 'copy'
+        }
+    ];
+
+    const modal = document.createElement('div');
+    modal.className = 'share-modal';
+    modal.innerHTML = `
+        <div class="share-modal-content">
+            <button class="share-modal-close">&times;</button>
+            <h3>Поделиться</h3>
+            <div class="share-services">
+                ${services.map(service => `
+                    <button class="share-service-btn" data-url="${service.url}" data-action="${service.action || 'open'}">
+                        <span class="share-service-icon">${service.icon}</span>
+                        <span class="share-service-name">${service.name}</span>
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // Close modal
+    const closeBtn = modal.querySelector('.share-modal-close');
+    function closeModal() {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Handle service buttons
+    modal.querySelectorAll('.share-service-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const action = btn.dataset.action;
+
+            if (action === 'copy') {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    btn.classList.add('copied');
+                    btn.querySelector('.share-service-name').textContent = 'Скопировано!';
+                    setTimeout(() => {
+                        closeModal();
+                    }, 800);
+                }).catch(() => {
+                    showToast('Не удалось скопировать');
+                });
+            } else {
+                window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
+                closeModal();
+            }
+        });
+    });
+}
+
+function showToast(message) {
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 function initGalleryProtection() {
