@@ -46,6 +46,19 @@ function renderActionCard(item, index) {
             </button>`
         : '';
 
+    const siteUrl = 'https://shate-studio.github.io/gallery/';
+    const fullImageUrl = siteUrl + item.image;
+    const pageUrl = `${siteUrl}#${item.title.replace(/\s+/g, '-')}`;
+    const shareButton = `<button type="button" class="img-action-btn img-action-btn--share" data-action="share" data-title="${item.title}" data-url="${pageUrl}" data-image-url="${fullImageUrl}" data-description="${item.description.replace(/\n/g, ' ').substring(0, 200)}" aria-label="Поделиться картиной">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+        </button>`;
+
     return `
         <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="${index * 100}">
             <div class="img-container img-container--actions">
@@ -59,7 +72,10 @@ function renderActionCard(item, index) {
             <div class="card-info">
                 <h3>${item.title}</h3>
                 <p class="card-description">${item.description.replace(/\n/g, '<br>')}</p>
-                <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">Узнать цену</button>
+                <div class="card-actions">
+                    ${shareButton}
+                    <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">Узнать цену</button>
+                </div>
             </div>
         </div>
     `;
@@ -104,6 +120,11 @@ function initGalleryActions() {
                 }
                 return;
             }
+
+            if (button.dataset.action === 'share') {
+                handleShare(button);
+                return;
+            }
         });
     });
 
@@ -124,6 +145,13 @@ function initGalleryActions() {
 
     // Arrow key navigation for gallery modal
     document.addEventListener('keydown', (e) => {
+        const shareModal = document.querySelector('.share-modal');
+        if (shareModal && e.key === 'Escape') {
+            shareModal.remove();
+            document.body.style.overflow = '';
+            return;
+        }
+
         const galleryModal = document.querySelector('.gallery-modal');
         if (!galleryModal) return;
 
@@ -318,6 +346,133 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
+}
+
+function handleShare(button) {
+    const title = button.dataset.title;
+    const pageUrl = button.dataset.url;
+    const imageUrl = button.dataset.imageUrl;
+    const description = button.dataset.description;
+    const shareText = `${title}\n${description}\n${imageUrl}`;
+
+    // Try native Web Share API first (mobile devices)
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: shareText,
+            url: pageUrl
+        }).catch(() => {
+            showShareModal(title, shareText, pageUrl, imageUrl);
+        });
+    } else {
+        showShareModal(title, shareText, pageUrl, imageUrl);
+    }
+}
+
+function showShareModal(title, shareText, pageUrl, imageUrl) {
+
+    // Share services with their URLs
+    const services = [
+        {
+            name: 'ВКонтакте',
+            icon: 'VK',
+            url: `https://vk.com/share.php?url=${encodeURIComponent(pageUrl)}&title=${encodeURIComponent(title)}&comment=${encodeURIComponent(title + '\n' + shareText)}`
+        },
+        {
+            name: 'Telegram',
+            icon: 'TG',
+            url: `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(shareText)}`
+        },
+        {
+            name: 'WhatsApp',
+            icon: 'WA',
+            url: `https://wa.me/?text=${encodeURIComponent(shareText)}`
+        },
+        {
+            name: 'Twitter (X)',
+            icon: 'X',
+            url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`
+        },
+        {
+            name: 'Скопировать ссылку',
+            icon: '📋',
+            action: 'copy'
+        }
+    ];
+
+    const modal = document.createElement('div');
+    modal.className = 'share-modal';
+    modal.innerHTML = `
+        <div class="share-modal-content">
+            <button class="share-modal-close">&times;</button>
+            <h3>Поделиться</h3>
+            <div class="share-services">
+                ${services.map(service => `
+                    <button class="share-service-btn" data-url="${service.url}" data-action="${service.action || 'open'}">
+                        <span class="share-service-icon">${service.icon}</span>
+                        <span class="share-service-name">${service.name}</span>
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // Close modal
+    const closeBtn = modal.querySelector('.share-modal-close');
+    function closeModal() {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Handle service buttons
+    modal.querySelectorAll('.share-service-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const action = btn.dataset.action;
+
+            if (action === 'copy') {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    btn.classList.add('copied');
+                    btn.querySelector('.share-service-name').textContent = 'Скопировано!';
+                    setTimeout(() => {
+                        closeModal();
+                    }, 800);
+                }).catch(() => {
+                    showToast('Не удалось скопировать');
+                });
+            } else {
+                window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
+                closeModal();
+            }
+        });
+    });
+}
+
+function showToast(message) {
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 function initGalleryProtection() {
