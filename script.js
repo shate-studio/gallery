@@ -1,6 +1,24 @@
 // Загрузка данных галереи из JSON
 let GALLERY_ITEMS = [];
 
+const CYR_TO_LAT = {
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
+    "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
+    "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
+    "ф": "f", "х": "kh", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "shch",
+    "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+};
+
+function transliterate(text) {
+    return text.toLowerCase().split('').map(c => CYR_TO_LAT[c] || c).join('');
+}
+
+function slugify(text) {
+    let slug = transliterate(text);
+    slug = slug.replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    return slug || 'untitled';
+}
+
 async function loadGalleryData() {
     try {
         const response = await fetch('data/gallery.json');
@@ -48,7 +66,8 @@ function renderActionCard(item, index) {
 
     const siteUrl = 'https://shate-studio.github.io/gallery/';
     const fullImageUrl = siteUrl + item.image;
-    const pageUrl = `${siteUrl}#${item.title.replace(/\s+/g, '-')}`;
+    const slug = slugify(item.title);
+    const pageUrl = `${siteUrl}pages/${slug}/`;
     const shareButton = `<button type="button" class="img-action-btn img-action-btn--share" data-action="share" data-title="${item.title}" data-url="${pageUrl}" data-image-url="${fullImageUrl}" data-description="${item.description.replace(/\n/g, ' ').substring(0, 200)}" aria-label="Поделиться картиной">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="18" cy="5" r="3"/>
@@ -70,7 +89,7 @@ function renderActionCard(item, index) {
                 </div>
             </div>
             <div class="card-info">
-                <h3>${item.title}</h3>
+                <a href="${pageUrl}" class="card-title-link"><h3>${item.title}</h3></a>
                 <p class="card-description">${item.description.replace(/\n/g, '<br>')}</p>
                 <div class="card-actions">
                     ${shareButton}
@@ -532,4 +551,33 @@ loadGalleryData().then(() => {
     initGalleryActions();
     initGalleryProtection();
     initContactForm();
+    initPaintingPage();
 });
+
+function initPaintingPage() {
+    const overlay = document.createElement('div');
+    overlay.className = 'painting-img-overlay';
+    document.body.appendChild(overlay);
+
+    const mainImg = document.querySelector('.painting-main-img');
+    if (!mainImg) return;
+
+    const fullImg = mainImg.cloneNode();
+    fullImg.id = 'painting-full-img';
+    overlay.appendChild(fullImg);
+
+    mainImg.addEventListener('click', () => {
+        fullImg.src = mainImg.src.replace(/_\d+\./, '.');
+        overlay.classList.add('active');
+    });
+
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            overlay.classList.remove('active');
+        }
+    });
+}
