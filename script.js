@@ -32,19 +32,18 @@ async function loadGalleryData() {
 }
 
 function getBaseUrl() {
-    var origin = window.location.origin;
     var path = window.location.pathname;
 
+    // На странице картины — берём путь до /pages/
     if (path.includes('/pages/')) {
-        var parts = path.split('/');
-        for (var i = 0; i < parts.length; i++) {
-            if (parts[i] === 'pages') {
-                return origin + '/' + parts.slice(1, i).join('/') + '/';
-            }
-        }
+        var slashIdx = path.indexOf('/pages/');
+        var dir = path.substring(0, slashIdx);
+        return window.location.origin + (dir || '/') + '/';
     }
 
-    return origin + '/';
+    // На главной странице — dirname от pathname
+    var dir = path.replace(/\/$/, '') || '/';
+    return window.location.origin + dir + '/';
 }
 
 function renderActionCard(item, index) {
