@@ -63,7 +63,7 @@ def generate_page_html(item):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | SHATE ART</title>
-    <base id="dynamic-base" href="../../">
+    <base id="page-base" href="/shate-studio/">
     <meta property="og:title" content="{title}">
     <meta property="og:description" content="{og_description}">
     <meta property="og:image" content="{full_image_url}">
@@ -77,12 +77,12 @@ def generate_page_html(item):
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="{GALLERY_URL}#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="index.html#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
-            <a href="{GALLERY_URL}#gallery">Галерея</a>
-            <a href="{GALLERY_URL}#about">Обо мне</a>
-            <a href="{GALLERY_URL}#contact">Обратная связь</a>
+            <a href="index.html#gallery">Галерея</a>
+            <a href="index.html#about">Обо мне</a>
+            <a href="index.html#contact">Обратная связь</a>
             <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
         </div>
         <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
@@ -103,7 +103,7 @@ def generate_page_html(item):
             {details_block}
             {long_desc_block}
             <div class="painting-actions">
-                <a href="{GALLERY_URL}#gallery" class="btn back-link">← Назад в галерею</a>
+                <a href="index.html#gallery" class="btn back-link">← Назад в галерею</a>
             </div>
         </div>
     </div>
@@ -116,12 +116,24 @@ def generate_page_html(item):
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     (function() {{
+        var base = document.getElementById('page-base');
         var host = window.location.hostname;
-        var baseHref = '../../';
-        if (host.includes('github.io') || host.includes('shate-studio')) {{
-            baseHref = 'https://shate-studio.github.io/gallery/';
-            document.querySelector('base').href = baseHref;
+        var path = window.location.pathname;
+        var newHref;
+
+        if (host.includes('github.io')) {{
+            newHref = 'https://shate-studio.github.io/gallery/';
+        }} else {{
+            var parts = path.split('/');
+            for (var i = 1; i < parts.length; i++) {{
+                if (parts[i] === 'shate-studio') {{
+                    newHref = '/' + parts[i] + '/';
+                    break;
+                }}
+            }}
+            if (!newHref) newHref = '/shate-studio/';
         }}
+        base.href = newHref;
     }})();
 </script>
 <script src="script.js"></script>

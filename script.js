@@ -31,6 +31,26 @@ async function loadGalleryData() {
     }
 }
 
+function getBaseUrl() {
+    var host = window.location.hostname;
+    var path = window.location.pathname;
+    var newHref;
+
+    if (host.includes('github.io')) {
+        newHref = 'https://shate-studio.github.io/gallery/';
+    } else {
+        var parts = path.split('/');
+        for (var i = 1; i < parts.length; i++) {
+            if (parts[i] === 'shate-studio') {
+                newHref = '/' + parts[i] + '/';
+                break;
+            }
+        }
+        if (!newHref) newHref = '/shate-studio/';
+    }
+    return newHref;
+}
+
 function renderActionCard(item, index) {
     const counts = [];
     if (item.galleryImages && item.galleryImages.length >= 1) {
@@ -64,7 +84,7 @@ function renderActionCard(item, index) {
             </button>`
         : '';
 
-    const siteUrl = 'https://shate-studio.github.io/gallery/';
+    const siteUrl = getBaseUrl();
     const fullImageUrl = siteUrl + item.image;
     const slug = slugify(item.title);
     const pageUrl = `${siteUrl}pages/${slug}/`;
