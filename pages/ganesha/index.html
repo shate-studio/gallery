@@ -4,26 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ганеша | SHATE ART</title>
-    <base id="page-base" href="/shate-studio/">
     <meta property="og:title" content="Ганеша">
     <meta property="og:description" content="Величественная фигура слона воплощает монументальную, спокойную и защищающую силу. Страж и проводник в мир духовности 70х70 см.">
     <meta property="og:image" content="https://shate-studio.github.io/gallery/paintings/elephant/elephant1.jpg">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://shate-studio.github.io/gallery/ganesha/">
-    <link rel="icon" type="image/jpeg" href="pictures/favicon1.jpeg">
+    <link rel="icon" type="image/jpeg" href="../../pictures/favicon1.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="index.html#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
-            <a href="index.html#gallery">Галерея</a>
-            <a href="index.html#about">Обо мне</a>
-            <a href="index.html#contact">Обратная связь</a>
+            <a href="../../index.html">Галерея</a>
+            <a href="../../index.html#about">Обо мне</a>
+            <a href="../../index.html#contact">Обратная связь</a>
             <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
         </div>
         <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
@@ -37,14 +36,14 @@
         <h1>Ганеша</h1>
     </header>
     <div class="painting-page">
-        <img src="paintings/elephant/elephant1.jpg" alt="Ганеша" class="painting-main-img">
+        <img src="../../paintings/elephant/elephant1.jpg" alt="Ганеша" class="painting-main-img">
         <div class="painting-info">
             <h2>Описание</h2>
             <p class="painting-desc">Величественная фигура слона воплощает монументальную, спокойную и защищающую силу. Страж и проводник в мир духовности<br>70х70 см.</p>
             <p class="painting-details">Арт-борд 70х70 см, текстурная паста, акрил, зеркальная поталь, зеркальный элемент, лак.<br>Картина выполнена в современной смешанной технике (Mixed Media) с акцентом на объем и фактуру. Для создания мощного рельефа кожи слона, морщин вокруг глаз и складок на ушах использовалась текстурная  паста. Мазки наносились мастихином, создавая грубую, первозданную текстуру, которая имитирует настоящую мощную кожу гиганта. На выступающие части рельефа наложена листовая поталь (имитация сусального золота). Из-за неравномерности текстуры золото легло с эффектом благородной патины и старины.</p><hr class="painting-divider">
             <p class="painting-long-desc">В индуизме Ганеша — это божество с головой слона почитаемое как устранитель препятствий, покровитель мудрости, благополучия и искусства. Величественная фигура слона на переднем плане воплощает эту монументальную, спокойную и защищающую силу. В левом нижнем углу картины едва уловимыми силуэтами проступают очертания буддийского храма, ступ, и восседающей фигуры Будды. Это погружает зрителя в атмосферу древней Азии, превращая портрет животного в сакральный образ. Слон здесь — не просто обитатель джунглей, а страж и проводник в мир духовности. Обилие золотых оттенков на коже слона символизирует божественное сияние, чистоту и просветление. Свет, струящийся по его текстурному уху и бивню, ассоциируется с благословением и богатством, которые традиционно дарует Ганеша.</p>
             <div class="painting-actions">
-                <a href="index.html#gallery" class="btn back-link">← Назад в галерею</a>
+                <a href="../../index.html" class="btn back-link">← Назад в галерею</a>
             </div>
         </div>
     </div>
@@ -55,28 +54,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    (function() {
-        var base = document.getElementById('page-base');
-        var host = window.location.hostname;
-        var path = window.location.pathname;
-        var newHref;
-
-        if (host.includes('github.io')) {
-            newHref = 'https://shate-studio.github.io/gallery/';
-        } else {
-            var parts = path.split('/');
-            for (var i = 1; i < parts.length; i++) {
-                if (parts[i] === 'shate-studio') {
-                    newHref = '/' + parts[i] + '/';
-                    break;
-                }
-            }
-            if (!newHref) newHref = '/shate-studio/';
-        }
-        base.href = newHref;
-    })();
-</script>
-<script src="script.js"></script>
+<script src="../../script.js"></script>
 </body>
 </html>
