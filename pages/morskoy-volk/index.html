@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Морской волк | SHATE ART</title>
+    <base id="page-base" href="/shate-studio/">
+    <meta property="og:title" content="Морской волк">
+    <meta property="og:description" content="Это образ лидера, первопроходца и человека с несгибаемой силой воли 57x70 см.">
+    <meta property="og:image" content="https://shate-studio.github.io/gallery/paintings/sailor/sailor1.jpg">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shate-studio.github.io/gallery/morskoy-volk/">
+    <link rel="icon" type="image/jpeg" href="pictures/favicon1.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+    <div class="logo"><a href="index.html#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="index.html#gallery">Галерея</a>
+            <a href="index.html#about">Обо мне</a>
+            <a href="index.html#contact">Обратная связь</a>
+            <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
+        </div>
+        <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
+    </div>
+</nav>
+<div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+</div>
+<div class="wrapper">
+    <header>
+        <h1>Морской волк</h1>
+    </header>
+    <div class="painting-page">
+        <img src="paintings/sailor/sailor1.jpg" alt="Морской волк" class="painting-main-img">
+        <div class="painting-info">
+            <h2>Описание</h2>
+            <p class="painting-desc">Это образ лидера, первопроходца и человека с несгибаемой силой воли<br>57x70 см.</p>
+            <p class="painting-details">57х70 см, холст на арт-борде, масло, текстурная паста, лак.</p><hr class="painting-divider">
+            <p class="painting-long-desc">Эта картина — образец мужественного, харизматичного портрета, который идеально подходит для демонстрации потенциальным клиентам. Она наглядно показывает, как обычную фотографию заказчика можно превратить в кинематографичный арт-объект с сильным мужским характером. Это образ лидера, первопроходца и человека с несгибаемой силой воли. Он не боится жизненных штормов, умеет держать удар и уверенно управляет кораблем своей судьбы. Морские просторы, мачты и канаты подчеркивают свободолюбивый нрав персонажа. Это мужчина, для которого рутина слишком тесна, его стихия — масштабные цели, риск и победы. Такой портрет — это не просто копия фотографии, а художественное заявление. Он подчеркивает лидерские качества мужчины, его авторитет, силу и харизму, делая картину идеальным украшением для личного кабинета, библиотеки или загородного дома. Индивидуальная адаптация под хобби: Образ легко адаптировать под увлечения конкретного заказчика: охота, авиация, горы, автоспорт или историческая стилизация. Техника живописи позволяет органично соединить реалистичное лицо с любым сложным, динамичным фоном.</p>
+            <div class="painting-actions">
+                <a href="index.html#gallery" class="btn back-link">← Назад в галерею</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2026 SHATE ART. Все права защищены.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    (function() {
+        var base = document.getElementById('page-base');
+        var host = window.location.hostname;
+        var path = window.location.pathname;
+        var newHref;
+
+        if (host.includes('github.io')) {
+            newHref = 'https://shate-studio.github.io/gallery/';
+        } else {
+            var parts = path.split('/');
+            for (var i = 1; i < parts.length; i++) {
+                if (parts[i] === 'shate-studio') {
+                    newHref = '/' + parts[i] + '/';
+                    break;
+                }
+            }
+            if (!newHref) newHref = '/shate-studio/';
+        }
+        base.href = newHref;
+    })();
+</script>
+<script src="script.js"></script>
+</body>
+</html>
