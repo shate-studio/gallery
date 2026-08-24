@@ -32,23 +32,21 @@ async function loadGalleryData() {
 }
 
 function getBaseUrl() {
-    var host = window.location.hostname;
+    var origin = window.location.origin + '/';
     var path = window.location.pathname;
-    var newHref;
 
-    if (host.includes('github.io')) {
-        newHref = 'https://shate-studio.github.io/gallery/';
-    } else {
+    // На странице картины — один уровень вверх
+    if (path.includes('/pages/')) {
         var parts = path.split('/');
-        for (var i = 1; i < parts.length; i++) {
-            if (parts[i] === 'shate-studio') {
-                newHref = '/' + parts[i] + '/';
-                break;
+        for (var i = 0; i < parts.length; i++) {
+            if (parts[i] === 'pages') {
+                return origin + parts.slice(0, i).join('/') + '/';
             }
         }
-        if (!newHref) newHref = '/shate-studio/';
     }
-    return newHref;
+
+    // На главной странице — текущий origin
+    return origin;
 }
 
 function renderActionCard(item, index) {
