@@ -32,19 +32,10 @@ async function loadGalleryData() {
 }
 
 function getBaseUrl() {
-    var origin = window.location.origin;
-    var path = window.location.pathname;
-
-    if (path.includes('/pages/')) {
-        var parts = path.split('/');
-        for (var i = 0; i < parts.length; i++) {
-            if (parts[i] === 'pages') {
-                return origin + '/' + parts.slice(1, i).join('/') + '/';
-            }
-        }
-    }
-
-    return origin + '/';
+    var url = new URL(window.location.href);
+    // Убираем из pathname последний сегмент (индекс или slug) — получаем dirname
+    var dir = url.pathname.replace(/\/[^/]*$/, '').replace(/\/$/, '/') || '/';
+    return url.origin + dir + '/';
 }
 
 function renderActionCard(item, index) {

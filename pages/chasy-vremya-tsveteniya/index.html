@@ -4,26 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Часы "Время цветения" | SHATE ART</title>
-    <base id="page-base" href="/shate-studio/">
     <meta property="og:title" content="Часы "Время цветения"">
     <meta property="og:description" content="Картина символизирует способность ценить прекрасные моменты «здесь и сейчас» 50 см.">
     <meta property="og:image" content="https://shate-studio.github.io/gallery/paintings/clock/clock1.jpg">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://shate-studio.github.io/gallery/chasy-vremya-tsveteniya/">
-    <link rel="icon" type="image/jpeg" href="pictures/favicon1.jpeg">
+    <link rel="icon" type="image/jpeg" href="../../pictures/favicon1.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="index.html#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
-            <a href="index.html#gallery">Галерея</a>
-            <a href="index.html#about">Обо мне</a>
-            <a href="index.html#contact">Обратная связь</a>
+            <a href="../../index.html">Галерея</a>
+            <a href="../../index.html#about">Обо мне</a>
+            <a href="../../index.html#contact">Обратная связь</a>
             <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
         </div>
         <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
@@ -37,14 +36,14 @@
         <h1>Часы "Время цветения"</h1>
     </header>
     <div class="painting-page">
-        <img src="paintings/clock/clock1.jpg" alt="Часы "Время цветения"" class="painting-main-img">
+        <img src="../../paintings/clock/clock1.jpg" alt="Часы "Время цветения"" class="painting-main-img">
         <div class="painting-info">
             <h2>Описание</h2>
             <p class="painting-desc">Картина символизирует способность ценить прекрасные моменты «здесь и сейчас»<br>50 см.</p>
             <p class="painting-details">Арт-борд МДФ 50 см, текстурная паста, акрил, зеркальная поталь, стразы, лак, часовой механизм.</p><hr class="painting-divider">
             <p class="painting-long-desc">Картина символизирует способность ценить прекрасные моменты «здесь и сейчас». Композиция часов асимметрична и полна движения. Тонкие ветви, линии и мазки краски мягко огибают циферблат, устремляясь по кругу вслед за стрелками. Объемный цветок с листьями кажется живым организмом, который оплетает часовой механизм, создавая баланс между строгим бегом времени и плавными, естественными природными ритмами.</p>
             <div class="painting-actions">
-                <a href="index.html#gallery" class="btn back-link">← Назад в галерею</a>
+                <a href="../../index.html" class="btn back-link">← Назад в галерею</a>
             </div>
         </div>
     </div>
@@ -55,28 +54,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    (function() {
-        var base = document.getElementById('page-base');
-        var host = window.location.hostname;
-        var path = window.location.pathname;
-        var newHref;
-
-        if (host.includes('github.io')) {
-            newHref = 'https://shate-studio.github.io/gallery/';
-        } else {
-            var parts = path.split('/');
-            for (var i = 1; i < parts.length; i++) {
-                if (parts[i] === 'shate-studio') {
-                    newHref = '/' + parts[i] + '/';
-                    break;
-                }
-            }
-            if (!newHref) newHref = '/shate-studio/';
-        }
-        base.href = newHref;
-    })();
-</script>
-<script src="script.js"></script>
+<script src="../../script.js"></script>
 </body>
 </html>

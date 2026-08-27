@@ -12,7 +12,6 @@ JSON_PATH = os.path.join(BASE_DIR, "data", "gallery.json")
 SITE_URL = "https://shate-studio.github.io"
 GALLERY_URL = "https://shate-studio.github.io/gallery/"
 ASSETS_URL = "https://shate-studio.github.io/gallery/"
-BASE_HREF = "../../"
 
 CYR_TO_LAT = {
     "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
@@ -46,6 +45,7 @@ def generate_page_html(item):
     slug = slugify(title)
     page_url = f"{SITE_URL}/gallery/{slug}/"
     full_image_url = f"{ASSETS_URL}{image}"
+    back_href = "../../index.html"
 
     og_description = description.replace("<br>", " ").strip()
 
@@ -63,26 +63,25 @@ def generate_page_html(item):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | SHATE ART</title>
-    <base id="page-base" href="/shate-studio/">
     <meta property="og:title" content="{title}">
     <meta property="og:description" content="{og_description}">
     <meta property="og:image" content="{full_image_url}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{page_url}">
-    <link rel="icon" type="image/jpeg" href="pictures/favicon1.jpeg">
+    <link rel="icon" type="image/jpeg" href="../../pictures/favicon1.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="index.html#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
-            <a href="index.html#gallery">Галерея</a>
-            <a href="index.html#about">Обо мне</a>
-            <a href="index.html#contact">Обратная связь</a>
+            <a href="../../index.html">Галерея</a>
+            <a href="../../index.html#about">Обо мне</a>
+            <a href="../../index.html#contact">Обратная связь</a>
             <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
         </div>
         <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
@@ -96,14 +95,14 @@ def generate_page_html(item):
         <h1>{title}</h1>
     </header>
     <div class="painting-page">
-        <img src="{image}" alt="{alt}" class="painting-main-img">
+        <img src="../../{image}" alt="{alt}" class="painting-main-img">
         <div class="painting-info">
             <h2>Описание</h2>
             <p class="painting-desc">{description}</p>
             {details_block}
             {long_desc_block}
             <div class="painting-actions">
-                <a href="index.html#gallery" class="btn back-link">← Назад в галерею</a>
+                <a href="../../index.html" class="btn back-link">← Назад в галерею</a>
             </div>
         </div>
     </div>
@@ -114,29 +113,7 @@ def generate_page_html(item):
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    (function() {{
-        var base = document.getElementById('page-base');
-        var host = window.location.hostname;
-        var path = window.location.pathname;
-        var newHref;
-
-        if (host.includes('github.io')) {{
-            newHref = 'https://shate-studio.github.io/gallery/';
-        }} else {{
-            var parts = path.split('/');
-            for (var i = 1; i < parts.length; i++) {{
-                if (parts[i] === 'shate-studio') {{
-                    newHref = '/' + parts[i] + '/';
-                    break;
-                }}
-            }}
-            if (!newHref) newHref = '/shate-studio/';
-        }}
-        base.href = newHref;
-    }})();
-</script>
-<script src="script.js"></script>
+<script src="../../script.js"></script>
 </body>
 </html>"""
     return html

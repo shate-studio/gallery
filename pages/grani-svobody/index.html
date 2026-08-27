@@ -4,26 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Грани свободы | SHATE ART</title>
-    <base id="page-base" href="/shate-studio/">
     <meta property="og:title" content="Грани свободы">
     <meta property="og:description" content="Парящий орел — фундаментальный символ независимости, силы духа и безграничного полета 43х75 см.">
     <meta property="og:image" content="https://shate-studio.github.io/gallery/paintings/eagle/eagle1.jpg">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://shate-studio.github.io/gallery/grani-svobody/">
-    <link rel="icon" type="image/jpeg" href="pictures/favicon1.jpeg">
+    <link rel="icon" type="image/jpeg" href="../../pictures/favicon1.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="index.html#gallery"><img src="pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
-            <a href="index.html#gallery">Галерея</a>
-            <a href="index.html#about">Обо мне</a>
-            <a href="index.html#contact">Обратная связь</a>
+            <a href="../../index.html">Галерея</a>
+            <a href="../../index.html#about">Обо мне</a>
+            <a href="../../index.html#contact">Обратная связь</a>
             <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
         </div>
         <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
@@ -37,14 +36,14 @@
         <h1>Грани свободы</h1>
     </header>
     <div class="painting-page">
-        <img src="paintings/eagle/eagle1.jpg" alt="Орел" class="painting-main-img">
+        <img src="../../paintings/eagle/eagle1.jpg" alt="Орел" class="painting-main-img">
         <div class="painting-info">
             <h2>Описание</h2>
             <p class="painting-desc">Парящий орел — фундаментальный символ независимости, силы духа и безграничного полета<br>43х75 см.</p>
             <p class="painting-details">43х75 см, холст на арт-борде, текстурная паста, зеркальные элементы, акрил, зеркальная поталь, лак.<br>Арт-объект представляет собой сложную монументальную работу, выполненную на стыке живописи, скульптуры и декоративного искусства.Оперение орла, мощные изгибы крыльев, рельеф головы, а также фактурный диск солнца вылеплены вручную с использованием структурной пасты. Высокий скульптурный рельеф создает осязаемую анатомическую точность и придает птице физическую мощь и объем. Зеркальная мозаика: В верхнее оперение крыльев инкрустирована мозаика из осколков настоящих зеркал разной формы. Этот прием создает уникальный оптический эффект: при движении зрителя мимо картины крылья птицы начинают оживать, «вспыхивать» и ловить блики света, отражая пространство комнаты.</p><hr class="painting-divider">
             <p class="painting-long-desc">Название "Грани свободы" безупречно раскрывает философский и визуальный сюжет картины. Парящий орел — фундаментальный символ независимости, силы духа и безграничного полета. Он парит над острыми пиками заснеженных гор, устремляясь к ослепительному солнцу. Слово «Грани» в названии обыгрывается буквально и метафорически через зеркальные элементы в крыльях птицы. Орел словно соткан из сотен сверкающих граней, которые отражают окружающий мир — небо, свет и самого зрителя. Свобода здесь показана не как статичное состояние, а как многогранное, динамичное явление, способное меняться, преломлять реальность и сиять вопреки любым преградам. Это манифест внутренней силы и стремления к вершинам.</p>
             <div class="painting-actions">
-                <a href="index.html#gallery" class="btn back-link">← Назад в галерею</a>
+                <a href="../../index.html" class="btn back-link">← Назад в галерею</a>
             </div>
         </div>
     </div>
@@ -55,28 +54,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    (function() {
-        var base = document.getElementById('page-base');
-        var host = window.location.hostname;
-        var path = window.location.pathname;
-        var newHref;
-
-        if (host.includes('github.io')) {
-            newHref = 'https://shate-studio.github.io/gallery/';
-        } else {
-            var parts = path.split('/');
-            for (var i = 1; i < parts.length; i++) {
-                if (parts[i] === 'shate-studio') {
-                    newHref = '/' + parts[i] + '/';
-                    break;
-                }
-            }
-            if (!newHref) newHref = '/shate-studio/';
-        }
-        base.href = newHref;
-    })();
-</script>
-<script src="script.js"></script>
+<script src="../../script.js"></script>
 </body>
 </html>
