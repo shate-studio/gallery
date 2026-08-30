@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Generate individual HTML pages for each painting from gallery.json."""
+"""Для каждой картины генерация отдельной HTML-страницы на основе файла data/gallery.json."""
 
 import json
 import os
@@ -8,9 +8,7 @@ import re
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAGES_DIR = os.path.join(BASE_DIR, "pages")
-JSON_PATH = os.path.join(BASE_DIR, "data", "gallery.json")
 SITE_URL = "https://shate-studio.github.io"
-GALLERY_URL = "https://shate-studio.github.io/gallery/"
 ASSETS_URL = "https://shate-studio.github.io/gallery/"
 
 CYR_TO_LAT = {
@@ -23,10 +21,12 @@ CYR_TO_LAT = {
 
 
 def transliterate(text):
+    """Преобразование кириллического текста в латиницу по таблице CYR_TO_LAT."""
     return "".join(CYR_TO_LAT.get(c, c) for c in text.lower())
 
 
 def slugify(text):
+    """Создание URL-безопасного slug из текста: транслитерация + удаление спецсимволов."""
     slug = transliterate(text)
     slug = re.sub(r"[^a-z0-9]+", "-", slug)
     slug = slug.strip("-")
@@ -35,10 +35,16 @@ def slugify(text):
 
 
 def html_escape(text):
+    """Экранирование специальных символов HTML для вставки в атрибуты."""
     return text.replace('"', '&#x22;')
 
 
 def generate_page_html(item):
+    """Генерация полной HTML-страницы для одной картины на основе объекта из gallery.json.
+
+    Возвращает строку с полным HTML-документом, включающим навигацию, изображение,
+    описание, детали и OG-теги для соцсетей.
+    """
     title = item.get("title", "Без названия")
     description = item.get("description", "").replace("\n", "<br>")
     details = item.get("details", "")
@@ -50,9 +56,6 @@ def generate_page_html(item):
 
     slug = slugify(title)
     page_url = f"{SITE_URL}/gallery/{slug}/"
-    full_image_url = f"{ASSETS_URL}{image}"
-    back_href = "../../index.html"
-
     og_description = description.replace("<br>", " ").strip()
 
     # OG-image URL (полный, с доменом) для соцсетей — абсолютный URL
@@ -132,7 +135,8 @@ def generate_page_html(item):
 
 
 def main():
-    # Clean existing pages
+    """Точка входа: очистка pages/, чтение gallery.json и генерация индивидуальных страниц."""
+    # Очистить существующие страницы в pages/
     if os.path.exists(PAGES_DIR):
         for item in os.listdir(PAGES_DIR):
             path = os.path.join(PAGES_DIR, item)
@@ -141,10 +145,10 @@ def main():
                     os.remove(os.path.join(path, f))
                 os.rmdir(path)
 
-    with open(JSON_PATH, "r", encoding="utf-8") as f:
+    with open(os.path.join(BASE_DIR, "data", "gallery.json"), "r", encoding="utf-8") as f:
         gallery = json.load(f)
     if not gallery:
-        print("Gallery is empty!")
+        print("data/gallery.json is empty!")
         return
 
     generated = 0
