@@ -49,6 +49,9 @@ def generate_page_html(item):
 
     og_description = description.replace("<br>", " ").strip()
 
+    # OG-image URL (полный, с доменом) для соцсетей — абсолютный URL
+    og_image_url = ASSETS_URL.rstrip("/") + "/" + image.lstrip("/")
+
     details_block = ""
     if details:
         details_block = f'<p class="painting-details">{details.replace(chr(10), "<br>")}</p><hr class="painting-divider">'
@@ -63,12 +66,15 @@ def generate_page_html(item):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | SHATE ART</title>
+    <meta property="og:image" content="{og_image_url}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="{title}">
+    <meta property="og:image:secure_url" content="{og_image_url}">
     <meta property="og:title" content="{title}">
     <meta property="og:description" content="{og_description}">
-    <meta property="og:image" content="{full_image_url}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{page_url}">
-    <link rel="icon" type="image/jpeg" href="../../pictures/favicon1.jpeg">
+    <link rel="icon" type="image/jpeg" href="{SITE_URL}/gallery/pictures/favicon1.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
