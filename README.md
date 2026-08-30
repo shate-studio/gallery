@@ -37,13 +37,3 @@
     ]
 }
 ```
-
-## Как обновить описание
-
-```bash
-python3 update_gallery.py
-```
-
-Скрипт читает словарь `items_update` и применяет изменения к `data/gallery.json`.
-
-
