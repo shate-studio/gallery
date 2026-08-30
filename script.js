@@ -10,7 +10,7 @@ const CYR_TO_LAT = {
 };
 
 function transliterate(text) {
-    return text.toLowerCase().split('').map(c => CYR_TO_LAT[c] || c).join('');
+    return text.toLowerCase().split('').map(c => CYR_TO_LAT[c] !== undefined ? CYR_TO_LAT[c] : c).join('');
 }
 
 function slugify(text) {
@@ -645,7 +645,7 @@ function initPaintingPage() {
     overlay.appendChild(fullImg);
 
     mainImg.addEventListener('click', () => {
-        fullImg.src = mainImg.src.replace(/_\d+\./, '.');
+        fullImg.src = mainImg.dataset.original || mainImg.src;
         overlay.classList.add('active');
     });
 

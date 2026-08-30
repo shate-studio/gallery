@@ -34,6 +34,10 @@ def slugify(text):
     return slug or "untitled"
 
 
+def html_escape(text):
+    return text.replace('"', '&#x22;')
+
+
 def generate_page_html(item):
     title = item.get("title", "Без названия")
     description = item.get("description", "").replace("\n", "<br>")
@@ -41,6 +45,8 @@ def generate_page_html(item):
     long_description = item.get("longDescription", "")
     alt = item.get("alt", title)
     image = item.get("image", "")
+    title_esc = html_escape(title)
+    alt_esc = html_escape(alt)
 
     slug = slugify(title)
     page_url = f"{SITE_URL}/gallery/{slug}/"
@@ -68,9 +74,9 @@ def generate_page_html(item):
     <title>{title} | SHATE ART</title>
     <meta property="og:image" content="{og_image_url}">
     <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:alt" content="{title}">
+    <meta property="og:image:alt" content="{title_esc}">
     <meta property="og:image:secure_url" content="{og_image_url}">
-    <meta property="og:title" content="{title}">
+    <meta property="og:title" content="{title_esc}">
     <meta property="og:description" content="{og_description}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{page_url}">
@@ -98,10 +104,10 @@ def generate_page_html(item):
 </div>
 <div class="wrapper">
     <header>
-        <h1>{title}</h1>
+        <h1>{title_esc}</h1>
     </header>
     <div class="painting-page">
-        <img src="../../{image}" alt="{alt}" class="painting-main-img">
+        <img src="../../{image}" alt="{alt_esc}" class="painting-main-img" data-original="../../{image}">
         <div class="painting-info">
             <h2>Описание</h2>
             <p class="painting-desc">{description}</p>
