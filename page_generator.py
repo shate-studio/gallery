@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 """Для каждой картины генерация отдельной HTML-страницы на основе файла data/gallery.json."""
 
+import html
 import json
-import os
 import re
+import shutil
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PAGES_DIR = os.path.join(BASE_DIR, "pages")
+BASE_DIR = Path(__file__).resolve().parent
 SITE_URL = "https://shate-studio.github.io"
 ASSETS_URL = "https://shate-studio.github.io/gallery/"
 
@@ -18,25 +19,27 @@ CYR_TO_LAT = {
     "ф": "f", "х": "kh", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "shch",
     "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
 }
+# Создается таблица один раз на старте
+TRANSLIT_TABLE = str.maketrans(CYR_TO_LAT)
+
+SLUG_RE = re.compile(r"[^a-z0-9]+")
 
 
 def transliterate(text):
-    """Преобразование кириллического текста в латиницу по таблице CYR_TO_LAT."""
-    return "".join(CYR_TO_LAT.get(c, c) for c in text.lower())
+    """Преобразование кириллического текста в латиницу."""
+    return text.lower().translate(TRANSLIT_TABLE)
 
 
 def slugify(text):
     """Создание URL-безопасного slug из текста: транслитерация + удаление спецсимволов."""
     slug = transliterate(text)
-    slug = re.sub(r"[^a-z0-9]+", "-", slug)
-    slug = slug.strip("-")
-    slug = re.sub(r"-+", "-", slug)
-    return slug or "untitled"
+    slug = SLUG_RE.sub("-", slug)
+    return slug.strip("-") or "untitled"
 
 
-def html_escape(text):
-    """Экранирование специальных символов HTML для вставки в атрибуты."""
-    return text.replace('"', '&#x22;')
+def newline_to_br(text):
+    """Заменяет символы переноса строки на HTML-тег <br>."""
+    return text.replace("\n", "<br>")
 
 
 def generate_page_html(item):
@@ -46,35 +49,31 @@ def generate_page_html(item):
     описание, детали и OG-теги для соцсетей.
     """
     title = item.get("title", "Без названия")
-    description = item.get("description", "").replace("\n", "<br>")
-    details = item.get("details", "")
     long_description = item.get("longDescription", "")
-    alt = item.get("alt", title)
+    details = item.get("details", "")
     image = item.get("image", "")
-    title_esc = html_escape(title)
-    alt_esc = html_escape(alt)
+    slug = item.get("slug") or slugify(title)
 
-    slug = slugify(title)
-    page_url = f"{SITE_URL}/gallery/{slug}/"
-    og_description = description.replace("<br>", " ").strip()
+    description = newline_to_br(item.get("description", ""))
+
+    title_esc = html.escape(title)
+    alt_esc = html.escape(item.get("alt", title))
 
     # OG-image URL (полный, с доменом) для соцсетей — абсолютный URL
-    og_image_url = ASSETS_URL.rstrip("/") + "/" + image.lstrip("/")
+    og_image_url = f"{ASSETS_URL.rstrip('/')}/{image.lstrip('/')}"
 
-    details_block = ""
-    if details:
-        details_block = f'<p class="painting-details">{details.replace(chr(10), "<br>")}</p><hr class="painting-divider">'
+    # Этот тег отвечает за то, какой текст увидят пользователи в превью ссылки, когда поделились ссылкой на картину
+    og_description = html.escape(description.replace("<br>", " ").strip())
 
-    long_desc_block = ""
-    if long_description:
-        long_desc_block = f'<p class="painting-long-desc">{long_description.replace(chr(10), "<br>")}</p>'
+    details_block = f'<p class="painting-details">{details}</p><hr class="painting-divider">' if details else ""
+    long_desc_block = f'<p class="painting-long-desc">{long_description}</p>' if long_description else ""
 
-    html = f"""<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | SHATE ART</title>
+    <title>{title_esc} | SHATE ART</title>
     <meta property="og:image" content="{og_image_url}">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:alt" content="{title_esc}">
@@ -82,7 +81,7 @@ def generate_page_html(item):
     <meta property="og:title" content="{title_esc}">
     <meta property="og:description" content="{og_description}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="{page_url}">
+    <meta property="og:url" content="{SITE_URL}/gallery/{slug}/">
     <link rel="icon" type="image/jpeg" href="{SITE_URL}/gallery/pictures/favicon1.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,7 +98,8 @@ def generate_page_html(item):
             <a href="../../index.html#contact">Обратная связь</a>
             <a href="https://vk.ru/studio_sha_te" target="_blank">ВКонтакте</a>
         </div>
-        <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
+        <button class="theme-toggle" onclick="document.body.classList.toggle('dark'); 
+        this.textContent = document.body.classList.contains('dark') ? 'Светлая' : 'Темная';">Темная</button>
     </div>
 </nav>
 <div class="progress-container">
@@ -131,37 +131,45 @@ def generate_page_html(item):
 <script src="../../script.js"></script>
 </body>
 </html>"""
-    return html
 
 
 def main():
     """Точка входа: очистка pages/, чтение gallery.json и генерация индивидуальных страниц."""
-    # Очистить существующие страницы в pages/
-    if os.path.exists(PAGES_DIR):
-        for item in os.listdir(PAGES_DIR):
-            path = os.path.join(PAGES_DIR, item)
-            if os.path.isdir(path):
-                for f in os.listdir(path):
-                    os.remove(os.path.join(path, f))
-                os.rmdir(path)
+    pages_dir = BASE_DIR / "pages"
+    json_path = BASE_DIR / "data" / "gallery.json"
 
-    with open(os.path.join(BASE_DIR, "data", "gallery.json"), "r", encoding="utf-8") as f:
+    # 1. Очистка старых папок
+    if pages_dir.exists():
+        shutil.rmtree(pages_dir)
+    pages_dir.mkdir(parents=True, exist_ok=True)
+
+    # 2. Чтение gallery.json
+    with open(json_path, "r", encoding="utf-8") as f:
         gallery = json.load(f)
+
     if not gallery:
         print("data/gallery.json is empty!")
         return
 
+    # 3. Генерация страниц
     generated = 0
     for item in gallery:
-        title = item.get("title", "Без названия")
-        slug = slugify(title)
-        page_dir = os.path.join(PAGES_DIR, slug)
-        html_path = os.path.join(page_dir, "index.html")
-        os.makedirs(page_dir, exist_ok=True)
+        slug = item.get("slug") or slugify(item.get("title", "Без названия"))
+        item["slug"] = slug
+
+        page_dir = pages_dir / slug
+        page_dir.mkdir(parents=True, exist_ok=True)
+
+        html_path = page_dir / "index.html"
         with open(html_path, "w", encoding="utf-8") as f:
             f.write(generate_page_html(item))
+
         print(f"Generated: /{slug}/ -> pages/{slug}/")
         generated += 1
+
+    # 4. Прямая запись обратно в исходный файл
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(gallery, f, ensure_ascii=False, indent=4)
 
     print(f"Done: {generated} pages")
 

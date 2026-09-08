@@ -1,24 +1,6 @@
 // Загрузка данных галереи из JSON
 let GALLERY_ITEMS = [];
 
-const CYR_TO_LAT = {
-    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
-    "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
-    "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
-    "ф": "f", "х": "kh", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "shch",
-    "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
-};
-
-function transliterate(text) {
-    return text.toLowerCase().split('').map(c => CYR_TO_LAT[c] !== undefined ? CYR_TO_LAT[c] : c).join('');
-}
-
-function slugify(text) {
-    let slug = transliterate(text);
-    slug = slug.replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-    return slug || 'untitled';
-}
-
 async function loadGalleryData() {
     try {
         const response = await fetch('data/gallery.json');
@@ -73,8 +55,7 @@ function renderActionCard(item, index) {
 
     const siteUrl = getBaseUrl();
     const fullImageUrl = siteUrl + item.image;
-    const slug = slugify(item.title);
-    const pageUrl = `${siteUrl}pages/${slug}/`;
+    const pageUrl = `${siteUrl}pages/${item.slug}/`;
     const shareButton = `<button type="button" class="img-action-btn img-action-btn--share" data-action="share" data-title="${item.title}" data-url="${pageUrl}" data-image-url="${fullImageUrl}" data-description="${item.description.replace(/\n/g, ' ').substring(0, 200)}" aria-label="Поделиться картиной">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="18" cy="5" r="3"/>

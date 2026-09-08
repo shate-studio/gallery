@@ -10,7 +10,8 @@
             "paintings/bear/bear1.jpg",
             "paintings/bear/bear1_interior1.jpg",
             "paintings/bear/bear1_interior2.jpg"
-        ]
+        ],
+        "slug": "lesnoy-khranitel"
     },
     {
         "title": "Серебряный страж",
@@ -22,7 +23,8 @@
         "galleryImages": [
             "paintings/tiger/tiger1.jpg",
             "paintings/tiger/tiger1_interior1.jpg"
-        ]
+        ],
+        "slug": "serebryanyy-strazh"
     },
     {
         "title": "Грани свободы",
@@ -36,7 +38,8 @@
             "paintings/eagle/eagle1_interior1.jpg",
             "paintings/eagle/eagle1_interior2.jpg"
         ],
-        "videoSrc": "https://cloud.mail.ru/public/rcVx/mMEs4wyxY"
+        "videoSrc": "https://cloud.mail.ru/public/rcVx/mMEs4wyxY",
+        "slug": "grani-svobody"
     },
     {
         "title": "Морской волк",
@@ -48,7 +51,8 @@
         "galleryImages": [
             "paintings/sailor/sailor1.jpg",
             "paintings/sailor/sailor2.jpg"
-        ]
+        ],
+        "slug": "morskoy-volk"
     },
     {
         "title": "Лунный странник",
@@ -64,7 +68,8 @@
             "paintings/horse/horse1_interior2.jpg",
             "paintings/horse/horse1_interior3.jpg"
         ],
-        "videoSrc": "video/horse/horse1_video.mp4"
+        "videoSrc": "video/horse/horse1_video.mp4",
+        "slug": "lunnyy-strannik"
     },
     {
         "title": "Голубая лагуна",
@@ -78,7 +83,8 @@
             "paintings/sailboat/sailboat1_interior1.jpg",
             "paintings/sailboat/sailboat1_interior2.jpg",
             "paintings/sailboat/sailboat1_interior3.jpg"
-        ]
+        ],
+        "slug": "golubaya-laguna"
     },
     {
         "title": "Королевский ирис",
@@ -90,7 +96,8 @@
         "galleryImages": [
             "paintings/iris/iris1_interior1.jpg",
             "paintings/iris/iris1_interior2.jpg"
-        ]
+        ],
+        "slug": "korolevskiy-iris"
     },
     {
         "title": "Ганеша",
@@ -103,7 +110,8 @@
             "paintings/elephant/elephant1.jpg",
             "paintings/elephant/elephant2.jpg",
             "paintings/elephant/elephant1_interior1.jpg"
-        ]
+        ],
+        "slug": "ganesha"
     },
     {
         "title": "Странник-пророк",
@@ -114,7 +122,8 @@
         "image": "paintings/wanderer/wanderer1.jpg",
         "galleryImages": [
             "paintings/wanderer/wanderer1.jpg"
-        ]
+        ],
+        "slug": "strannik-prorok"
     },
     {
         "title": "Солнечные маки",
@@ -125,7 +134,8 @@
         "image": "paintings/poppy/poppy1.jpg",
         "galleryImages": [
             "paintings/poppy/poppy1.jpg"
-        ]
+        ],
+        "slug": "solnechnye-maki"
     },
     {
         "title": "Живой цветок",
@@ -137,7 +147,8 @@
         "galleryImages": [
             "paintings/girl_flower/girl_flower1.jpg",
             "paintings/girl_flower/girl_flower1_interior1.jpg"
-        ]
+        ],
+        "slug": "zhivoy-tsvetok"
     },
     {
         "title": "Зеленый взгляд",
@@ -149,7 +160,8 @@
         "galleryImages": [
             "paintings/leopard/leopard1.jpg",
             "paintings/leopard/leopard1_interior1.jpg"
-        ]
+        ],
+        "slug": "zelenyy-vzglyad"
     },
     {
         "title": "Часы \"Время цветения\"",
@@ -162,7 +174,8 @@
             "paintings/clock/clock1.jpg",
             "paintings/clock/clock1_interior1.jpg",
             "paintings/clock/clock1_interior2.jpg"
-        ]
+        ],
+        "slug": "chasy-vremya-tsveteniya"
     },
     {
         "title": "Барельеф \"Сияние Ириса\"",
@@ -177,6 +190,7 @@
             "paintings/iris2/iris2_3.jpeg",
             "paintings/iris2/iris2_4.jpeg",
             "paintings/iris2/iris2_5.jpeg"
-        ]
+        ],
+        "slug": "barelef-siyanie-irisa"
     }
 ]
