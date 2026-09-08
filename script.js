@@ -1,6 +1,11 @@
-// Загрузка данных галереи из JSON
+/**
+ * Загрузка данных галереи из JSON
+ */
 let GALLERY_ITEMS = [];
 
+/**
+ * Асинхронная загрузка данных галереи из файла gallery.json
+ */
 async function loadGalleryData() {
     try {
         const response = await fetch('data/gallery.json');
@@ -13,6 +18,9 @@ async function loadGalleryData() {
     }
 }
 
+/**
+ * Получение базового URL текущей страницы
+ */
 function getBaseUrl() {
     var url = new URL(window.location.href);
     // Убираем из pathname последний сегмент (индекс или slug) — получаем dirname
@@ -20,6 +28,12 @@ function getBaseUrl() {
     return url.origin + dir + '/';
 }
 
+/**
+ * Рендеринг карточки элемента галереи с кнопками действий
+ * @param {Object} item - объект элемента галереи
+ * @param {number} index - индекс элемента
+ * @returns {string} HTML-разметка карточки
+ */
 function renderActionCard(item, index) {
     const counts = [];
     if (item.galleryImages && item.galleryImages.length >= 1) {
@@ -88,6 +102,9 @@ function renderActionCard(item, index) {
     `;
 }
 
+/**
+ * Рендеринг всей галереи на основе загруженных данных
+ */
 function renderGallery() {
     const container = document.getElementById('gallery');
     if (!container) return;
@@ -95,10 +112,16 @@ function renderGallery() {
     container.innerHTML = GALLERY_ITEMS.map((item, index) => renderActionCard(item, index)).join('');
 }
 
+/** Текущий индекс изображения в галерее */
 let currentGalleryIndex = 0;
+/** Массив изображений текущей галереи */
 let currentGalleryItems = [];
+/** Заголовок текущей галереи */
 let currentGalleryTitle = '';
 
+/**
+ * Инициализация обработчиков событий для кнопок действий (видео, описание, поделиться)
+ */
 function initGalleryActions() {
     document.querySelectorAll('.img-action-btn').forEach((button) => {
         button.addEventListener('click', (event) => {
@@ -172,6 +195,11 @@ function initGalleryActions() {
     });
 }
 
+/**
+ * Открытие модального окна с галереей изображений
+ * @param {string[]} images - массив URL изображений
+ * @param {string} title - заголовок галереи
+ */
 function showGalleryModal(images, title) {
     currentGalleryItems = images;
     currentGalleryIndex = 0;
@@ -236,6 +264,9 @@ function showGalleryModal(images, title) {
     });
 }
 
+/**
+ * Обновление текущего изображения в модальном окне галереи
+ */
 function updateGalleryImage() {
     const modal = document.querySelector('.gallery-modal');
     if (!modal) return;
@@ -254,6 +285,10 @@ function updateGalleryImage() {
     });
 }
 
+/**
+ * Открытие модального окна с видео
+ * @param {string} src - URL видеофайла
+ */
 function showVideoModal(src) {
     const modal = document.createElement('div');
     modal.className = 'video-modal';
@@ -293,6 +328,13 @@ function showVideoModal(src) {
     });
 }
 
+/**
+ * Открытие модального окна с описанием картины
+ * @param {string} imageSrc - URL изображения
+ * @param {string} title - название картины
+ * @param {string} longDescription - художественное описание
+ * @param {string} details - технические детали (материалы, размеры)
+ */
 function showDescriptionModal(imageSrc, title, longDescription, details) {
     const modal = document.createElement('div');
     modal.className = 'description-modal';
@@ -355,6 +397,10 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
     });
 }
 
+/**
+ * Обработка кнопки «Поделиться» — использует Web Share API или открывает модальное окно
+ * @param {HTMLElement} button - кнопка поделиться
+ */
 function handleShare(button) {
     const title = button.dataset.title;
     const pageUrl = button.dataset.url;
@@ -376,6 +422,13 @@ function handleShare(button) {
     }
 }
 
+/**
+ * Открытие модального окна с выбором сервисов для шаринга
+ * @param {string} title - заголовок
+ * @param {string} shareText - текст для分享
+ * @param {string} pageUrl - URL страницы
+ * @param {string} imageUrl - URL изображения
+ */
 function showShareModal(title, shareText, pageUrl, imageUrl) {
 
     // Share services with their URLs
@@ -525,6 +578,10 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
     }
 }
 
+/**
+ * Отображение всплывающего уведомления (toast)
+ * @param {string} message - текст уведомления
+ */
 function showToast(message) {
     const existing = document.querySelector('.toast-notification');
     if (existing) existing.remove();
@@ -544,6 +601,9 @@ function showToast(message) {
     }, 3000);
 }
 
+/**
+ * Инициализация защиты галереи — блокировка контекстного меню на изображениях
+ */
 function initGalleryProtection() {
     document.querySelectorAll('.card img').forEach((img) => {
         img.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -563,6 +623,9 @@ window.onscroll = function () {
     }
 };
 
+/**
+ * Инициализация формы обратной связи с отправкой через EmailJS
+ */
 function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
@@ -613,6 +676,9 @@ loadGalleryData().then(() => {
     initPaintingPage();
 });
 
+/**
+ * Инициализация страницы отдельной картины — увеличение изображения по клику
+ */
 function initPaintingPage() {
     const overlay = document.createElement('div');
     overlay.className = 'painting-img-overlay';
