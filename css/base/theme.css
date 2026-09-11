@@ -1,0 +1,94 @@
+/* ============================================
+   ТЁМНАЯ ТЕМА
+   Переопределения для body.dark
+   ============================================ */
+
+body.dark {
+    background: #141419;
+    color: #ffffff;
+}
+
+body.dark .card {
+    background: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .card:hover {
+    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark .card p {
+    color: #a0a0a0;
+}
+
+body.dark .img-container {
+    background-color: #141419;
+}
+
+body.dark .img-container:hover {
+    background-color: #23232f;
+}
+
+body.dark .about-section {
+    background-color: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark footer {
+    background-color: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.05);
+    color: #a0a0a0;
+}
+
+body.dark .about-text h2 {
+    color: #ffffff;
+}
+
+body.dark .about-text p {
+    color: #a0a0a0;
+}
+
+body.dark .contact-section {
+    background-color: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .contact-section h2 {
+    color: #ffffff;
+}
+
+body.dark .contact-subtitle {
+    color: #a0a0a0;
+}
+
+body.dark .form-group input {
+    background: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+body.dark .form-group input:focus {
+    border-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .form-group textarea {
+    background: #1e1e24;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+body.dark .form-group textarea:focus {
+    border-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .painting-desc,
+body.dark .painting-long-desc {
+    color: #d4d4d4;
+}
+
+body.dark .painting-details {
+    color: #aaa;
+}

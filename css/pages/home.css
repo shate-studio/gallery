@@ -1,0 +1,262 @@
+/* ============================================
+   СТРАНИЦЫ
+   About, contact, форма, scroll-to-top, footer, painting-page
+   ============================================ */
+
+/* Блок «Обо мне» */
+.about-section {
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 120px 24px;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.about-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+.about-img {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    transition: transform 0.5s ease;
+}
+
+.about-img:hover {
+    transform: scale(1.02) rotate(1deg);
+}
+
+.about-text h2 {
+    font-weight: 400;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.about-text p {
+    font-weight: 300;
+    line-height: 1.9;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Подвал */
+footer {
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 0.8rem;
+    color: #7c7c7c;
+    letter-spacing: 1.5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    transition: all 0.4s ease;
+}
+
+/* Форма обратной связи */
+.contact-section {
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 120px 24px;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.contact-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-weight: 400;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.contact-subtitle {
+    font-weight: 300;
+    font-size: 1rem;
+    color: #7c7c7c;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 16px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    background: #fff;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #1a1a1a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+/* Кнопка «наверх» */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(26, 26, 26, 0.7);
+    color: #ffffff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.3s, color 0.3s;
+}
+
+body.dark .scroll-to-top {
+    background: rgba(255, 255, 255, 0.15);
+    color: #1a1a1a;
+}
+
+.scroll-to-top svg {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-3px);
+}
+
+/* ============================================
+   СТРАНИЦА ОТДЕЛЬНОЙ КАРТИНЫ
+   ============================================ */
+
+.painting-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto 120px;
+    padding: 0 24px;
+}
+
+.painting-main-img {
+    width: 80%;
+    max-height: 60vh;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.painting-main-img:hover {
+    transform: scale(1.02);
+}
+
+.painting-img-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    cursor: zoom-out;
+}
+
+.painting-img-overlay.active {
+    display: flex;
+}
+
+.painting-img-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.painting-info {
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.painting-info h2 {
+    font-weight: 400;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.painting-desc,
+.painting-details,
+.painting-long-desc {
+    font-weight: 400;
+    line-height: 1.9;
+    font-size: 1.05rem;
+    color: #262626;
+    margin: 0 0 16px;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.painting-details {
+    font-style: italic;
+    color: #444;
+}
+
+.painting-divider {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin: 20px 0;
+}
+
+body.dark .painting-divider {
+    border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.painting-actions {
+    margin-top: 40px;
+}
+
+.back-link {
+    text-decoration: none;
+    display: inline-block;
+}

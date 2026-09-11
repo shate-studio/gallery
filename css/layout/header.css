@@ -1,0 +1,112 @@
+/* ============================================
+   НАВИГАЦИЯ
+   nav, logo, nav-links, theme-toggle, progress-bar
+   ============================================ */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    box-sizing: border-box;
+    transition: all 0.4s ease;
+}
+
+body.dark nav {
+    background: rgba(26, 26, 36, 0.8);
+}
+
+.logo {
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #1a1a1a;
+    margin-left: 30px;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+body.dark .nav-links a {
+    color: #ffffff;
+}
+
+.nav-links a:hover {
+    color: #8c8c8c;
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid #1a1a1a;
+    color: #1a1a1a;
+    padding: 6px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-left: 30px;
+    transition: all 0.3s ease;
+}
+
+body.dark .theme-toggle {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.theme-toggle:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+body.dark .theme-toggle:hover {
+    background: #ffffff;
+    color: #1a1a1a;
+}
+
+/* Бегущий индикатор скролла */
+.progress-container {
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    z-index: 1002;
+}
+
+.progress-bar {
+    height: 2px;
+    background: #1a1a1a;
+    width: 0%;
+}
+
+body.dark .progress-bar {
+    background: #ffffff;
+}

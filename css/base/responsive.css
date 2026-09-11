@@ -1,0 +1,133 @@
+/* ============================================
+   АДАПТИВНОСТЬ
+   Все media queries, сгруппированные по экранам
+   ============================================ */
+
+/* ============================================
+   МОБИЛЬНЫЙ (≤768px)
+   ============================================ */
+
+/* Навигация */
+@media (max-width: 768px) {
+    nav {
+        padding: 12px 20px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    .progress-container {
+        top: 70px;
+    }
+
+    .nav-links a {
+        margin-left: 8px;
+        font-size: 0.68rem;
+        letter-spacing: 0.3px;
+    }
+
+    .theme-toggle {
+        margin-left: 8px;
+        padding: 2px 5px;
+        font-size: 0.58rem;
+    }
+}
+
+/* Галерея */
+@media (max-width: 768px) {
+    .img-container {
+        height: 350px;
+    }
+
+    .img-container:not(.img-container--actions)::after {
+        display: none;
+    }
+
+    .img-container--actions .img-actions {
+        opacity: 1;
+        background: rgba(21, 21, 21, 0.2);
+    }
+
+    .gallery:hover .card:not(:hover) {
+        opacity: 1;
+        filter: none;
+    }
+}
+
+/* Обо мне */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .about-img {
+        width: 240px;
+        height: 240px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Description modal */
+@media (max-width: 768px) {
+    .description-modal-body {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .description-modal-image {
+        padding: 0;
+        max-height: 40vh;
+    }
+
+    .description-modal-image img {
+        max-width: 100%;
+        max-height: 40vh;
+    }
+
+    .description-modal-text {
+        padding: 24px 30px;
+    }
+
+    .description-modal-text h3 {
+        font-size: 1.4rem;
+        margin-bottom: 22px;
+    }
+}
+
+/* Gallery modal */
+@media (max-width: 768px) {
+    .gallery-modal-prev {
+        left: 10px;
+    }
+
+    .gallery-modal-next {
+        right: 10px;
+    }
+
+    .gallery-modal-main {
+        max-width: 90vw;
+        max-height: 60vh;
+    }
+
+    .gallery-modal-body {
+        flex-direction: column;
+    }
+
+    .gallery-modal-thumbs {
+        flex-direction: row;
+        overflow-x: auto;
+        max-height: none;
+        max-width: 95vw;
+    }
+
+    .gallery-modal-thumb {
+        width: 60px;
+        height: 60px;
+    }
+}
