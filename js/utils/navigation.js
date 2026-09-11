@@ -1,10 +1,7 @@
 /**
  * Устанавливает базовый URL для ссылки «На главную» на страницах отдельных картин.
- * Находит ссылку с id="page-base" и устанавливает href на корень сайта.
- *
- * Пример: /gallery/pages/lesnoy-khranitel/ → href="/gallery/"
  */
-function GenBaseUrl() {
+function setupHomePageLink() {
     var baseLink = document.getElementById('page-base');
     if (!baseLink) return;
 

@@ -1,204 +1,10 @@
-/**
- * Загрузка данных галереи из JSON
- */
-let GALLERY_ITEMS = [];
-
-/**
- * Асинхронная загрузка данных галереи из файла gallery.json
- */
-async function loadGalleryData() {
-    try {
-        const response = await fetch('data/gallery.json');
-        if (!response.ok) throw new Error('Failed to load gallery data');
-        GALLERY_ITEMS = await response.json();
-        console.log(`✅ Gallery loaded: ${GALLERY_ITEMS.length} items`);
-    } catch (error) {
-        console.error('Error loading gallery data:', error);
-        GALLERY_ITEMS = [];
-    }
-}
-
-/**
- * Получение базового URL текущей страницы
- */
-function getBaseUrl() {
-    var url = new URL(window.location.href);
-    // Убираем из pathname последний сегмент (индекс или slug) — получаем dirname
-    var dir = url.pathname.replace(/\/[^/]*$/, '').replace(/\/$/, '/') || '/';
-    return url.origin + dir + '/';
-}
-
-/**
- * Рендеринг карточки элемента галереи с кнопками действий
- * @param {Object} item - объект элемента галереи
- * @param {number} index - индекс элемента
- * @returns {string} HTML-разметка карточки
- */
-function renderActionCard(item, index) {
-    const counts = [];
-    if (item.galleryImages && item.galleryImages.length >= 1) {
-        counts.push(`${item.galleryImages.length} фото`);
-    }
-    if (item.videoSrc) {
-        const videoCount = item.galleryVideos ? item.galleryVideos.length : 1;
-        counts.push(`${videoCount} видео`);
-    }
-    const photoCount = counts.length > 0
-        ? `<span class="photo-count">${counts.join(', ')}</span>`
-        : '';
-
-    const descriptionButton = item.longDescription
-        ? `<button type="button" class="img-action-btn img-action-btn--description" data-action="description" data-description="${item.longDescription.replace(/"/g, '&quot;')}" aria-label="Описание картины">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10 9 9 9 8 9"/>
-                </svg>
-            </button>`
-        : '';
-
-    const videoButton = item.videoSrc
-        ? `<button type="button" class="img-action-btn img-action-btn--video" data-action="video" data-video="${item.videoSrc}" aria-label="Видео">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="5,3 19,12 5,21"/>
-                </svg>
-            </button>`
-        : '';
-
-    const siteUrl = getBaseUrl();
-    const fullImageUrl = siteUrl + item.image;
-    const pageUrl = `${siteUrl}pages/${item.slug}/`;
-    const shareButton = `<button type="button" class="img-action-btn img-action-btn--share" data-action="share" data-title="${item.title}" data-url="${pageUrl}" data-image-url="${fullImageUrl}" data-description="${item.description.replace(/\n/g, ' ').substring(0, 200)}" aria-label="Поделиться картиной">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="18" cy="5" r="3"/>
-                <circle cx="6" cy="12" r="3"/>
-                <circle cx="18" cy="19" r="3"/>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-            </svg>
-        </button>`;
-
-    return `
-        <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="${index * 100}">
-            <div class="img-container img-container--actions">
-                ${photoCount}
-                <img src="${item.image}" alt="${item.alt}" loading="lazy">
-                <div class="img-actions">
-                    ${descriptionButton}
-                    ${videoButton}
-                </div>
-            </div>
-            <div class="card-info">
-                <a href="${pageUrl}" class="card-title-link"><h3>${item.title}</h3></a>
-                <p class="card-description">${item.description.replace(/\n/g, '<br>')}</p>
-                <div class="card-actions">
-                    ${shareButton}
-                    <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'});">Узнать цену</button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-/**
- * Рендеринг всей галереи на основе загруженных данных
- */
-function renderGallery() {
-    const container = document.getElementById('gallery');
-    if (!container) return;
-
-    container.innerHTML = GALLERY_ITEMS.map((item, index) => renderActionCard(item, index)).join('');
-}
-
 /** Текущий индекс изображения в галерее */
 let currentGalleryIndex = 0;
-/** Массив изображений текущей галереи */
 let currentGalleryItems = [];
-/** Заголовок текущей галереи */
 let currentGalleryTitle = '';
 
 /**
- * Инициализация обработчиков событий для кнопок действий (видео, описание, поделиться)
- */
-function initGalleryActions() {
-    document.querySelectorAll('.img-action-btn').forEach((button) => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            if (button.dataset.action === 'video') {
-                if (button.dataset.video.startsWith('http://') || button.dataset.video.startsWith('https://')) {
-                    window.open(button.dataset.video, '_blank');
-                    return;
-                }
-                showVideoModal(button.dataset.video);
-                return;
-            }
-
-            if (button.dataset.action === 'description') {
-                const card = button.closest('.card');
-                const imgSrc = card?.querySelector('img')?.src;
-                const title = card?.querySelector('h3')?.textContent;
-                const cardIndex = Array.from(document.querySelectorAll('.card')).indexOf(card);
-                const galleryItem = GALLERY_ITEMS[cardIndex] || {};
-                const longDescription = galleryItem.longDescription || '';
-                const details = galleryItem.details || '';
-                if (imgSrc) {
-                    showDescriptionModal(imgSrc, title, longDescription, details);
-                }
-                return;
-            }
-
-            if (button.dataset.action === 'share') {
-                handleShare(button);
-                return;
-            }
-        });
-    });
-
-    // Click on image opens gallery modal with thumbnails on right
-    document.querySelectorAll('.img-container--actions').forEach((container) => {
-        container.addEventListener('click', () => {
-            const card = container.closest('.card');
-            if (card) {
-                const cards = Array.from(document.querySelectorAll('.card'));
-                const cardIndexNum = cards.indexOf(card);
-                const galleryData = GALLERY_ITEMS[cardIndexNum];
-                if (galleryData?.galleryImages) {
-                    showGalleryModal(galleryData.galleryImages, galleryData.title);
-                }
-            }
-        });
-    });
-
-    // Arrow key navigation for gallery modal
-    document.addEventListener('keydown', (e) => {
-        const shareModal = document.querySelector('.share-modal');
-        if (shareModal && e.key === 'Escape') {
-            shareModal.remove();
-            document.body.style.overflow = '';
-            return;
-        }
-
-        const galleryModal = document.querySelector('.gallery-modal');
-        if (!galleryModal) return;
-
-        if (e.key === 'ArrowLeft') {
-            currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length;
-            updateGalleryImage();
-        } else if (e.key === 'ArrowRight') {
-            currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryItems.length;
-            updateGalleryImage();
-        }
-    });
-}
-
-/**
  * Открытие модального окна с галереей изображений
- * @param {string[]} images - массив URL изображений
- * @param {string} title - заголовок галереи
  */
 function showGalleryModal(images, title) {
     currentGalleryItems = images;
@@ -226,7 +32,6 @@ function showGalleryModal(images, title) {
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 
-    // Thumbnail click
     modal.querySelectorAll('.gallery-modal-thumb').forEach((thumb) => {
         thumb.addEventListener('click', () => {
             currentGalleryIndex = parseInt(thumb.dataset.index);
@@ -234,7 +39,6 @@ function showGalleryModal(images, title) {
         });
     });
 
-    // Navigation
     modal.querySelector('.gallery-modal-prev').addEventListener('click', (e) => {
         e.stopPropagation();
         currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length;
@@ -248,17 +52,14 @@ function showGalleryModal(images, title) {
     });
 
     const closeBtn = modal.querySelector('.gallery-modal-close');
-
     function closeModal() {
         modal.remove();
         document.body.style.overflow = '';
     }
-
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
-
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
@@ -287,14 +88,10 @@ function updateGalleryImage() {
 
 /**
  * Открытие модального окна с видео
- * @param {string} src - URL видеофайла
  */
 function showVideoModal(src) {
     const modal = document.createElement('div');
     modal.className = 'video-modal';
-
-    // Проверяем, является ли src внешним URL
-    const isExternalUrl = src.startsWith('http://') || src.startsWith('https://');
 
     modal.innerHTML = `
         <div class="video-modal-content">
@@ -322,7 +119,6 @@ function showVideoModal(src) {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
-
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
@@ -330,29 +126,20 @@ function showVideoModal(src) {
 
 /**
  * Открытие модального окна с описанием картины
- * @param {string} imageSrc - URL изображения
- * @param {string} title - название картины
- * @param {string} longDescription - художественное описание
- * @param {string} details - технические детали (материалы, размеры)
  */
 function showDescriptionModal(imageSrc, title, longDescription, details) {
     const modal = document.createElement('div');
     modal.className = 'description-modal';
 
-    let textContent = '';
-
-    // Преобразуем \n в <br> для корректного отображения переносов строк
     const formatNewLines = (text) => text.replace(/\n/g, '<br>');
 
-    // Верхний блок - название и художественное описание
-    textContent += `<div class="description-section">`;
+    let textContent = `<div class="description-section">`;
     textContent += `<h3>${title}</h3>`;
     if (longDescription) {
         textContent += `<p class="description-paragraph">${formatNewLines(longDescription)}</p>`;
     }
     textContent += `</div>`;
 
-    // Разделитель + материалы, техника и размеры
     if (details) {
         textContent += `<hr class="description-divider">`;
         textContent += `<div class="description-section">`;
@@ -391,7 +178,6 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
-
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
@@ -399,7 +185,6 @@ function showDescriptionModal(imageSrc, title, longDescription, details) {
 
 /**
  * Обработка кнопки «Поделиться» — использует Web Share API или открывает модальное окно
- * @param {HTMLElement} button - кнопка поделиться
  */
 function handleShare(button) {
     const title = button.dataset.title;
@@ -408,7 +193,6 @@ function handleShare(button) {
     const description = button.dataset.description;
     const shareText = `${title}\n${description}\n${pageUrl}`;
 
-    // Try native Web Share API first (mobile devices)
     if (navigator.share) {
         navigator.share({
             title: title,
@@ -424,14 +208,8 @@ function handleShare(button) {
 
 /**
  * Открытие модального окна с выбором сервисов для шаринга
- * @param {string} title - заголовок
- * @param {string} shareText - текст для分享
- * @param {string} pageUrl - URL страницы
- * @param {string} imageUrl - URL изображения
  */
 function showShareModal(title, shareText, pageUrl, imageUrl) {
-
-    // Share services with their URLs
     const services = [
         {
             name: 'ВКонтакте',
@@ -511,7 +289,6 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 
-    // Close modal
     const closeBtn = modal.querySelector('.share-modal-close');
     function closeModal() {
         modal.remove();
@@ -523,7 +300,6 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
         if (e.target === modal) closeModal();
     });
 
-    // Handle service buttons
     modal.querySelectorAll('.share-service-btn').forEach((btn) => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -537,8 +313,6 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
                         btn.classList.remove('copied');
                         btn.querySelector('.share-service-name').textContent = 'Скопировать';
                     }, 2000);
-                }).catch(() => {
-                    showToast('Не удалось скопировать');
                 });
             } else {
                 window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
@@ -547,7 +321,6 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
         });
     });
 
-    // Handle copy button in link section
     const copyBtn = modal.querySelector('.share-copy-btn');
     if (copyBtn) {
         copyBtn.addEventListener('click', (e) => {
@@ -571,162 +344,7 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
                         Копировать
                     `;
                 }, 2000);
-            }).catch(() => {
-                showToast('Не удалось скопировать');
             });
         });
     }
-}
-
-/**
- * Отображение всплывающего уведомления (toast)
- * @param {string} message - текст уведомления
- */
-function showToast(message) {
-    const existing = document.querySelector('.toast-notification');
-    if (existing) existing.remove();
-
-    const toast = document.createElement('div');
-    toast.className = 'toast-notification';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    requestAnimationFrame(() => {
-        toast.classList.add('show');
-    });
-
-    setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
-}
-
-/**
- * Инициализация защиты галереи — блокировка контекстного меню на изображениях
- */
-function initGalleryProtection() {
-    document.querySelectorAll('.card img').forEach((img) => {
-        img.addEventListener('contextmenu', (e) => e.preventDefault());
-    });
-}
-
-/**
- * Переключение темы (светлая/темная) с сохранением в localStorage
- */
-function toggleTheme() {
-    document.body.classList.toggle('dark');
-    const isDark = document.body.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    const btn = document.querySelector('.theme-toggle');
-    if (btn) btn.textContent = isDark ? 'Светлая' : 'Темная';
-}
-
-/**
- * Применение сохраненной темы при загрузке страницы
- */
-function applyTheme() {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') {
-        document.body.classList.add('dark');
-        const btn = document.querySelector('.theme-toggle');
-        if (btn) btn.textContent = 'Светлая';
-    }
-}
-
-AOS.init({ once: true });
-
-window.onscroll = function () {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-
-    const progressBar = document.getElementById('myBar');
-    if (progressBar) {
-        progressBar.style.width = scrolled + '%';
-    }
-};
-
-/**
- * Инициализация формы обратной связи с отправкой через EmailJS
- */
-function initContactForm() {
-    const form = document.getElementById('contactForm');
-    if (!form) return;
-
-    // Инициализация EmailJS
-    emailjs.init("N_2FXreDvZ4FXaUKL");
-
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Отправка...';
-        submitBtn.disabled = true;
-
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        const templateParams = {
-            from_name: name,
-            reply_to: email,
-            message_html: `Новое сообщение с сайта SHA_TE ART:<br><br>Имя: ${name}<br>Email: ${email}<br><br>Сообщение:<br>${message}`
-        };
-
-        emailjs.send("service_c411ytw", "template_zw37w6m", templateParams)
-            .then(function() {
-                form.reset();
-                alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
-            })
-            .catch(function(error) {
-                console.error('Ошибка:', error);
-                alert('Ошибка отправки сообщения. Пожалуйста, попробуйте позже.');
-            })
-            .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
-    });
-}
-
-// Инициализация
-applyTheme();
-loadGalleryData().then(() => {
-    renderGallery();
-    initGalleryActions();
-    initGalleryProtection();
-    initContactForm();
-    initPaintingPage();
-});
-
-/**
- * Инициализация страницы отдельной картины — увеличение изображения по клику
- */
-function initPaintingPage() {
-    const overlay = document.createElement('div');
-    overlay.className = 'painting-img-overlay';
-    document.body.appendChild(overlay);
-
-    const mainImg = document.querySelector('.painting-main-img');
-    if (!mainImg) return;
-
-    const fullImg = mainImg.cloneNode();
-    fullImg.id = 'painting-full-img';
-    overlay.appendChild(fullImg);
-
-    mainImg.addEventListener('click', () => {
-        fullImg.src = mainImg.dataset.original || mainImg.src;
-        overlay.classList.add('active');
-    });
-
-    overlay.addEventListener('click', () => {
-        overlay.classList.remove('active');
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            overlay.classList.remove('active');
-        }
-    });
 }
