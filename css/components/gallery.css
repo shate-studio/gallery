@@ -3,6 +3,7 @@
    Сетка, карточки, img-container, hover, action-кнопки
    ============================================ */
 
+/* ---------- Сетка галереи ---------- */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -13,6 +14,7 @@
     transition: all 0.4s ease;
 }
 
+/* ---------- Карточка картины ---------- */
 .card {
     background: #ffffff;
     border-radius: 0px;
@@ -26,12 +28,14 @@
     min-height: 480px;
 }
 
+/* ---------- Карточка при наведении ---------- */
 .card:hover {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     transform: translateY(-6px);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
+/* ---------- Контейнер изображения ---------- */
 .img-container {
     width: 100%;
     height: 400px;
@@ -41,14 +45,18 @@
     position: relative;
 }
 
+/* ---------- Контейнер изображения при наведении ---------- */
 .img-container:hover {
     background-color: #f0f0f2;
 }
 
+/* ---------- Модификатор: контейнер с кнопками действий (видео, описание)---------- */
+/* ----------(отключает hover на самом контейнере) ---------- */
 .img-container--actions {
     cursor: default;
 }
 
+/* ---------- Блок кнопок действий (видео, описание) ---------- */
 .img-actions {
     position: absolute;
     inset: 0;
@@ -63,10 +71,12 @@
     z-index: 2;
 }
 
+/* ---------- Показ кнопок действий при наведении ---------- */
 .img-container--actions:hover .img-actions {
     opacity: 1;
 }
 
+/* ---------- Кнопка действия ---------- */
 .img-action-btn {
     background: rgba(21, 21, 21, 0.9);
     color: #fff;
@@ -83,24 +93,28 @@
     transition: all 0.3s ease;
 }
 
+/* ---------- Кнопка видео-действия ---------- */
 .img-action-btn--video {
     position: absolute;
     top: 14px;
     left: 66px;
 }
 
+/* ---------- Кнопка описания-действия ---------- */
 .img-action-btn--description {
     position: absolute;
     top: 14px;
     left: 14px;
 }
 
+/* ---------- SVG-иконки в кнопках видео и описания ---------- */
 .img-action-btn--video svg,
 .img-action-btn--description svg {
     width: 20px;
     height: 20px;
 }
 
+/* ---------- Кнопка действия при наведении ---------- */
 .img-action-btn:hover {
     background: #fff;
     color: #1a1a1a;
@@ -108,18 +122,21 @@
     transform: scale(1.1);
 }
 
+/* ---------- Кнопка действия в тёмной теме ---------- */
 body.dark .img-action-btn {
     background: rgba(255, 255, 255, 0.92);
     color: #1a1a1a;
     border-color: transparent;
 }
 
+/* ---------- Кнопка действия при наведении в тёмной теме ---------- */
 body.dark .img-action-btn:hover {
     background: transparent;
     color: #fff;
     border-color: #fff;
 }
 
+/* ---------- Изображение в карточке ---------- */
 .card img {
     width: 100%;
     height: 100%;
@@ -129,10 +146,12 @@ body.dark .img-action-btn:hover {
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ---------- Увеличение изображения при наведении ---------- */
 .img-container:hover img {
     transform: scale(1.04);
 }
 
+/* ---------- Счётчик фотографий ---------- */
 .photo-count {
     position: absolute;
     top: 14px;
@@ -147,11 +166,13 @@ body.dark .img-action-btn:hover {
     white-space: nowrap;
 }
 
+/* ---------- Счётчик фотографий в тёмной теме ---------- */
 body.dark .photo-count {
     background: rgba(255, 255, 255, 0.85);
     color: #1a1a1a;
 }
 
+/* ---------- Информационная часть карточки ---------- */
 .card-info {
     padding: 10px 25px 0;
     flex: 1;
@@ -159,6 +180,7 @@ body.dark .photo-count {
     flex-direction: column;
 }
 
+/* ---------- Заголовок карточки ---------- */
 .card h3 {
     margin: 20px 0 8px;
     font-size: 1.2rem;
@@ -166,6 +188,7 @@ body.dark .photo-count {
     letter-spacing: 0.5px;
 }
 
+/* ---------- Описание в карточке ---------- */
 .card p {
     color: #555;
     font-size: 1.05rem;
@@ -176,6 +199,7 @@ body.dark .photo-count {
     font-family: Georgia, 'Times New Roman', serif;
 }
 
+/* ---------- Блок действий в карточке ---------- */
 .card-actions {
     display: flex;
     align-items: center;
@@ -185,6 +209,7 @@ body.dark .photo-count {
     margin-top: auto;
 }
 
+/* ---------- Кнопка «поделиться» в карточке ---------- */
 .card-actions .img-action-btn--share {
     flex-shrink: 0;
     width: 36px;
@@ -193,11 +218,13 @@ body.dark .photo-count {
     padding: 6px;
 }
 
+/* ---------- SVG-иконка «поделиться» в карточке ---------- */
 .card-actions .img-action-btn--share svg {
     width: 16px;
     height: 16px;
 }
 
+/* ---------- Кнопка (CTA) ---------- */
 .btn {
     display: inline-block;
     background-color: #1a1a1a;
@@ -213,23 +240,27 @@ body.dark .photo-count {
     margin-top: auto;
 }
 
+/* ---------- Кнопка при наведении ---------- */
 .btn:hover {
     background-color: transparent;
     color: inherit;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* ---------- Кнопка в тёмной теме ---------- */
 body.dark .btn {
     background-color: #ffffff;
     color: #1a1a1a;
     border-color: #ffffff;
 }
 
+/* ---------- Кнопка при наведении в тёмной теме ---------- */
 body.dark .btn:hover {
     background-color: transparent;
     color: #ffffff;
 }
 
+/* ---------- Ссылка-заголовок карточки ---------- */
 .card-title-link {
     text-decoration: none;
     color: inherit;

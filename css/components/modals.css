@@ -3,7 +3,7 @@
    Toast, share-modal, video-modal, description-modal, gallery-modal
    ============================================ */
 
-/* Toast notification */
+/* ---------- Всплывающее уведомление (toast) ---------- */
 .toast-notification {
     position: fixed;
     bottom: 30px;
@@ -23,11 +23,13 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* ---------- Toast (подсказка для кнопок) в тёмной теме ---------- */
 body.dark .toast-notification {
     background: #ffffff;
     color: #1a1a1a;
 }
 
+/* ---------- Показ toast-уведомления ---------- */
 .toast-notification.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -37,6 +39,7 @@ body.dark .toast-notification {
    SHARE MODAL (Ozon Web style)
    ============================================ */
 
+/* ---------- Модальное окно «Поделиться» (фон) ---------- */
 .share-modal {
     position: fixed;
     top: 0;
@@ -51,6 +54,7 @@ body.dark .toast-notification {
     backdrop-filter: blur(4px);
 }
 
+/* ---------- Контент share-модалки ---------- */
 .share-modal-content {
     background: #ffffff;
     border-radius: 16px 16px 0 0;
@@ -65,11 +69,13 @@ body.dark .toast-notification {
     -webkit-overflow-scrolling: touch;
 }
 
+/* ---------- Контент share-модалки в тёмной теме ---------- */
 body.dark .share-modal-content {
     background: #1c1c22;
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* ---------- Анимация появления share-модалки ---------- */
 @keyframes shareSheetIn {
     from {
         transform: translateY(100%);
@@ -81,10 +87,13 @@ body.dark .share-modal-content {
     }
 }
 
+/* ---------- Share-модалка на десктопе (≥769px) ---------- */
 @media (min-width: 769px) {
+    /* ---------- Выравнивание share-модалки по центру на десктопе ---------- */
     .share-modal {
         align-items: center;
     }
+    /* ---------- Размеры контента share-модалки на десктопе ---------- */
     .share-modal-content {
         border-radius: 16px;
         max-width: 440px;
@@ -92,6 +101,7 @@ body.dark .share-modal-content {
         max-height: 88vh;
         padding: 20px 20px 16px;
     }
+    /* ---------- Анимация появления share-модалки на десктопе ---------- */
     @keyframes shareSheetIn {
         from {
             transform: scale(0.92) translateY(30px);
@@ -104,6 +114,7 @@ body.dark .share-modal-content {
     }
 }
 
+/* ---------- Кнопка закрытия share-модалки ---------- */
 .share-modal-close {
     position: absolute;
     top: 16px;
@@ -123,21 +134,25 @@ body.dark .share-modal-content {
     z-index: 2;
 }
 
+/* ---------- Кнопка закрытия share-модалки в тёмной теме ---------- */
 body.dark .share-modal-close {
     background: #2a2a34;
     color: #aaa;
 }
 
+/* ---------- Кнопка закрытия share-модалки при наведении ---------- */
 .share-modal-close:hover {
     background: #e0e0e4;
     color: #222;
 }
 
+/* ---------- Кнопка закрытия share-модалки при наведении в тёмной теме ---------- */
 body.dark .share-modal-close:hover {
     background: #363640;
     color: #ddd;
 }
 
+/* ---------- Заголовок share-модалки ---------- */
 .share-modal-header {
     display: flex;
     align-items: center;
@@ -145,6 +160,7 @@ body.dark .share-modal-close:hover {
     padding: 16px 20px 12px;
 }
 
+/* ---------- Иконка в заголовке share-модалки ---------- */
 .share-modal-header-icon {
     width: 40px;
     height: 40px;
@@ -156,12 +172,14 @@ body.dark .share-modal-close:hover {
     flex-shrink: 0;
 }
 
+/* ---------- SVG-иконка в заголовке share-модалки ---------- */
 .share-modal-header-icon svg {
     width: 20px;
     height: 20px;
     color: #fff;
 }
 
+/* ---------- Заголовок share-модалки ---------- */
 .share-modal-header h3 {
     margin: 0;
     font-size: 1.15rem;
@@ -170,21 +188,24 @@ body.dark .share-modal-close:hover {
     color: #1a1a1a;
 }
 
+/* ---------- Заголовок share-модалки в тёмной теме ---------- */
 body.dark .share-modal-header h3 {
     color: #f0f0f0;
 }
 
+/* ---------- Разделитель в share-модалке ---------- */
 .share-modal-divider {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     margin: 0 20px;
 }
 
+/* ---------- Разделитель в share-модалке в тёмной теме ---------- */
 body.dark .share-modal-divider {
     border-top-color: rgba(255, 255, 255, 0.06);
 }
 
-/* Социальные сети */
+/* ---------- Блок социальных сетей ---------- */
 .share-services {
     display: flex;
     gap: 8px;
@@ -193,10 +214,12 @@ body.dark .share-modal-divider {
     -webkit-overflow-scrolling: touch;
 }
 
+/* ---------- Скроллбар социальных сетей (скрытие) ---------- */
 .share-services::-webkit-scrollbar {
     display: none;
 }
 
+/* ---------- Кнопка сервиса ---------- */
 .share-service-btn {
     display: flex;
     flex-direction: column;
@@ -213,23 +236,28 @@ body.dark .share-modal-divider {
     flex-shrink: 0;
 }
 
+/* ---------- Кнопка сервиса в тёмной теме ---------- */
 body.dark .share-service-btn {
     background: #25252d;
 }
 
+/* ---------- Кнопка сервиса при наведении ---------- */
 .share-service-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
+/* ---------- Кнопка сервиса при наведении в тёмной теме ---------- */
 body.dark .share-service-btn:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* ---------- Кнопка сервиса при нажатии ---------- */
 .share-service-btn:active {
     transform: translateY(0);
 }
 
+/* ---------- Иконка сервиса ---------- */
 .share-service-icon {
     width: 48px;
     height: 48px;
@@ -240,66 +268,79 @@ body.dark .share-service-btn:hover {
     flex-shrink: 0;
 }
 
+/* ---------- SVG-иконка сервиса ---------- */
 .share-service-icon svg {
     width: 28px;
     height: 28px;
 }
 
+/* ---------- Иконка VK ---------- */
 .share-service-icon.icon-vk {
     background: #0077FF;
     color: #fff;
 }
 
+/* ---------- Иконка Telegram ---------- */
 .share-service-icon.icon-telegram {
     background: #24A1DE;
     color: #fff;
 }
 
+/* ---------- Иконка RuTube ---------- */
 .share-service-icon.icon-ru {
     background: #005bff;
     color: #fff;
 }
 
+/* ---------- Иконка OK ---------- */
 .share-service-icon.icon-ok {
     background: #ee8208;
     color: #fff;
 }
 
+/* ---------- Иконка OK в тёмной теме ---------- */
 body.dark .share-service-icon.icon-ok {
     background: #ee8208;
     color: #fff;
 }
 
+/* ---------- Иконка «Копировать» ---------- */
 .share-service-icon.icon-copy {
     background: #1a1a1a;
     color: #fff;
 }
 
+/* ---------- Иконка «Копировать» в тёмной теме ---------- */
 body.dark .share-service-icon.icon-copy {
     background: #fff;
     color: #1a1a1a;
 }
 
+/* ---------- SVG-иконка «Копировать» в тёмной теме ---------- */
 body.dark .share-service-icon.icon-copy svg {
     color: #1a1a1a;
     stroke: #1a1a1a;
 }
 
+/* ---------- Иконка VK в тёмной теме ---------- */
 body.dark .share-service-icon.icon-vk {
     background: #0077FF;
     color: #fff;
 }
 
+/* ---------- Иконка Telegram в тёмной теме ---------- */
 body.dark .share-service-icon.icon-telegram {
     background: #24A1DE;
     color: #fff;
 }
 
+/* ---------- Иконка RuTube в тёмной теме ---------- */
 body.dark .share-service-icon.icon-ru {
     background: #005bff;
     color: #fff;
 }
 
+/* ---------- Название сервиса ---------- */
 .share-service-name {
     font-size: 0.7rem;
     font-weight: 500;
@@ -308,15 +349,17 @@ body.dark .share-service-icon.icon-ru {
     white-space: nowrap;
 }
 
+/* ---------- Название сервиса в тёмной теме ---------- */
 body.dark .share-service-name {
     color: #bbb;
 }
 
-/* Копирование ссылки */
+/* ---------- Блок копирования ссылки ---------- */
 .share-link-section {
     padding: 0 20px;
 }
 
+/* ---------- Метка ссылки ---------- */
 .share-link-label {
     font-size: 0.7rem;
     font-weight: 500;
@@ -326,16 +369,19 @@ body.dark .share-service-name {
     margin-bottom: 6px;
 }
 
+/* ---------- Метка ссылки в тёмной теме ---------- */
 body.dark .share-link-label {
     color: #888;
 }
 
+/* ---------- Строка ссылки ---------- */
 .share-link-row {
     display: flex;
     gap: 8px;
     align-items: center;
 }
 
+/* ---------- Поле ввода ссылки ---------- */
 .share-link-input {
     flex: 1;
     padding: 10px 12px;
@@ -350,16 +396,19 @@ body.dark .share-link-label {
     min-width: 0;
 }
 
+/* ---------- Поле ввода ссылки в тёмной теме ---------- */
 body.dark .share-link-input {
     background: #25252d;
     border-color: rgba(255, 255, 255, 0.08);
     color: #f0f0f0;
 }
 
+/* ---------- Поле ввода ссылки при фокусе ---------- */
 .share-link-input:focus {
     border-color: #6366f1;
 }
 
+/* ---------- Кнопка копирования ---------- */
 .share-copy-btn {
     display: flex;
     align-items: center;
@@ -379,29 +428,34 @@ body.dark .share-link-input {
     flex-shrink: 0;
 }
 
+/* ---------- Кнопка копирования при наведении ---------- */
 .share-copy-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
 }
 
+/* ---------- Кнопка копирования при нажатии ---------- */
 .share-copy-btn:active {
     transform: translateY(0);
 }
 
+/* ---------- SVG-иконка в кнопке копирования ---------- */
 .share-copy-btn svg {
     width: 16px;
     height: 16px;
 }
 
+/* ---------- Кнопка копирования в состоянии «скопировано» ---------- */
 .share-copy-btn.copied {
     background: linear-gradient(135deg, #22c55e, #16a34a);
 }
 
-/* Превью в share modal */
+/* ---------- Превью в share-модалке ---------- */
 .share-preview {
     padding: 0 20px 10px;
 }
 
+/* ---------- Изображение-превью в share-модалке ---------- */
 .share-preview-image {
     width: 100%;
     height: 120px;
@@ -410,6 +464,7 @@ body.dark .share-link-input {
     background: #f0f0f2;
 }
 
+/* ---------- Изображение-превью в share-модалке в тёмной теме ---------- */
 body.dark .share-preview-image {
     background: #25252d;
 }
@@ -418,6 +473,7 @@ body.dark .share-preview-image {
    VIDEO MODAL
    ============================================ */
 
+/* ---------- Видео-модалка (фон) ---------- */
 .video-modal {
     position: fixed;
     top: 0;
@@ -431,18 +487,21 @@ body.dark .share-preview-image {
     justify-content: center;
 }
 
+/* ---------- Контент видео-модалки ---------- */
 .video-modal-content {
     position: relative;
     max-width: 90vw;
     max-height: 90vh;
 }
 
+/* ---------- Видеоплеер в видео-модалке ---------- */
 .video-modal-content video {
     width: 100%;
     max-height: 85vh;
     outline: none;
 }
 
+/* ---------- Кнопка закрытия видео-модалки ---------- */
 .video-modal-close {
     position: absolute;
     top: -40px;
@@ -456,6 +515,7 @@ body.dark .share-preview-image {
     line-height: 1;
 }
 
+/* ---------- Кнопка закрытия видео-модалки при наведении ---------- */
 .video-modal-close:hover {
     color: #ccc;
 }
@@ -464,6 +524,7 @@ body.dark .share-preview-image {
    DESCRIPTION MODAL
    ============================================ */
 
+/* ---------- Модальное окно описания (фон) ---------- */
 .description-modal {
     position: fixed;
     top: 0;
@@ -477,6 +538,7 @@ body.dark .share-preview-image {
     justify-content: center;
 }
 
+/* ---------- Контент модального окна описания ---------- */
 .description-modal-content {
     position: relative;
     max-width: 90vw;
@@ -487,10 +549,12 @@ body.dark .share-preview-image {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
+/* ---------- Контент модального окна описания в тёмной теме ---------- */
 body.dark .description-modal-content {
     background: #1e1e24;
 }
 
+/* ---------- Кнопка закрытия внутри модального окна описания ---------- */
 .description-modal-close-inner {
     position: absolute;
     top: 20px;
@@ -512,22 +576,26 @@ body.dark .description-modal-content {
     opacity: 0.75;
 }
 
+/* ---------- Кнопка закрытия внутри модального окна описания при наведении ---------- */
 .description-modal-close-inner:hover {
     background: #000;
     opacity: 1;
     transform: scale(1.08);
 }
 
+/* ---------- Кнопка закрытия внутри модального окна описания в тёмной теме ---------- */
 body.dark .description-modal-close-inner {
     background: #ffffff;
     color: #1a1a1a;
     opacity: 0.85;
 }
 
+/* ---------- Кнопка закрытия внутри модального окна описания в тёмной теме при наведении ---------- */
 body.dark .description-modal-close-inner:hover {
     opacity: 1;
 }
 
+/* ---------- Кнопка закрытия модального окна описания (внешняя) ---------- */
 .description-modal-close {
     position: absolute;
     top: -40px;
@@ -542,10 +610,12 @@ body.dark .description-modal-close-inner:hover {
     z-index: 10;
 }
 
+/* ---------- Кнопка закрытия модального окна описания при наведении ---------- */
 .description-modal-close:hover {
     color: #ccc;
 }
 
+/* ---------- Тело модального окна описания ---------- */
 .description-modal-body {
     display: flex;
     align-items: stretch;
@@ -553,6 +623,7 @@ body.dark .description-modal-close-inner:hover {
     max-height: 85vh;
 }
 
+/* ---------- Изображение в модальном окне описания ---------- */
 .description-modal-image {
     flex-shrink: 0;
     max-height: 85vh;
@@ -563,16 +634,19 @@ body.dark .description-modal-close-inner:hover {
     background: #f7f7f8;
 }
 
+/* ---------- Изображение в модальном окне описания в тёмной теме ---------- */
 body.dark .description-modal-image {
     background: #16161a;
 }
 
+/* ---------- Картинка в модальном окне описания ---------- */
 .description-modal-image img {
     max-width: 60vw;
     max-height: 85vh;
     object-fit: contain;
 }
 
+/* ---------- Текст в модальном окне описания ---------- */
 .description-modal-text {
     flex: 1;
     overflow-y: auto;
@@ -582,6 +656,7 @@ body.dark .description-modal-image {
     gap: 0;
 }
 
+/* ---------- Заголовок в модальном окне описания ---------- */
 .description-modal-text h3 {
     font-weight: 600;
     font-size: 1.85rem;
@@ -592,14 +667,17 @@ body.dark .description-modal-image {
     line-height: 1.35;
 }
 
+/* ---------- Заголовок в модальном окне описания в тёмной теме ---------- */
 body.dark .description-modal-text h3 {
     color: #f0f0f0;
 }
 
+/* ---------- Секция в модальном окне описания ---------- */
 .description-modal-text .description-section {
     padding-bottom: 32px;
 }
 
+/* ---------- Разделитель в модальном окне описания ---------- */
 .description-modal-text .description-divider {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
@@ -607,10 +685,12 @@ body.dark .description-modal-text h3 {
     padding: 0;
 }
 
+/* ---------- Разделитель в модальном окне описания в тёмной теме ---------- */
 body.dark .description-modal-text .description-divider {
     border-top-color: rgba(255, 255, 255, 0.06);
 }
 
+/* ---------- Абзац в модальном окне описания ---------- */
 .description-modal-text .description-paragraph {
     font-weight: 400;
     line-height: 1.9;
@@ -622,10 +702,12 @@ body.dark .description-modal-text .description-divider {
     white-space: pre-line;
 }
 
+/* ---------- Абзац в модальном окне описания в тёмной теме ---------- */
 body.dark .description-modal-text .description-paragraph {
     color: #d4d4d4;
 }
 
+/* ---------- Метаданные в модальном окне описания ---------- */
 .description-modal-text .description-paragraph.description-meta {
     font-weight: 400;
     font-size: 1.1rem;
@@ -638,11 +720,13 @@ body.dark .description-modal-text .description-paragraph {
     white-space: pre-line;
 }
 
+/* ---------- Метаданные в модальном окне описания в тёмной теме ---------- */
 body.dark .description-modal-text .description-paragraph.description-meta {
     color: #aaa;
     border-top-color: rgba(255, 255, 255, 0.08);
 }
 
+/* ---------- Заголовок деталей в модальном окне описания ---------- */
 .description-modal-text .description-details-title {
     font-weight: 500;
     font-size: 0.85rem;
@@ -650,9 +734,9 @@ body.dark .description-modal-text .description-paragraph.description-meta {
     text-transform: uppercase;
     color: #7c7c7c;
     margin: 0 0 12px;
-    font-weight: 400;
 }
 
+/* ---------- Заголовок деталей в модальном окне описания в тёмной теме ---------- */
 body.dark .description-modal-text .description-details-title {
     color: #a0a0a0;
 }
@@ -661,6 +745,7 @@ body.dark .description-modal-text .description-details-title {
    GALLERY MODAL
    ============================================ */
 
+/* ---------- Галерея-модалка (фон) ---------- */
 .gallery-modal {
     position: fixed;
     top: 0;
@@ -674,10 +759,12 @@ body.dark .description-modal-text .description-details-title {
     justify-content: center;
 }
 
+/* ---------- Контент галереи-модалки ---------- */
 .gallery-modal-content {
     position: relative;
 }
 
+/* ---------- Кнопка закрытия галереи-модалки ---------- */
 .gallery-modal-close {
     position: absolute;
     top: -40px;
@@ -692,10 +779,12 @@ body.dark .description-modal-text .description-details-title {
     z-index: 10;
 }
 
+/* ---------- Кнопка закрытия галереи-модалки при наведении ---------- */
 .gallery-modal-close:hover {
     color: #ccc;
 }
 
+/* ---------- Кнопки навигации галереи-модалки ---------- */
 .gallery-modal-nav {
     position: absolute;
     top: 50%;
@@ -710,24 +799,29 @@ body.dark .description-modal-text .description-details-title {
     transition: background 0.3s;
 }
 
+/* ---------- Кнопки навигации галереи-модалки при наведении ---------- */
 .gallery-modal-nav:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
+/* ---------- Кнопка «назад» в галерее-модалке ---------- */
 .gallery-modal-prev {
     left: -60px;
 }
 
+/* ---------- Кнопка «вперёд» в галерее-модалке ---------- */
 .gallery-modal-next {
     right: -60px;
 }
 
+/* ---------- Тело галереи-модалки ---------- */
 .gallery-modal-body {
     display: flex;
     align-items: flex-start;
     gap: 20px;
 }
 
+/* ---------- Главное изображение в галерее-модалке ---------- */
 .gallery-modal-main {
     max-width: 75vw;
     max-height: 85vh;
@@ -735,6 +829,7 @@ body.dark .description-modal-text .description-details-title {
     flex-shrink: 0;
 }
 
+/* ---------- Блок миниатюр в галерее-модалке ---------- */
 .gallery-modal-thumbs {
     display: flex;
     flex-direction: column;
@@ -745,6 +840,7 @@ body.dark .description-modal-text .description-details-title {
     flex-shrink: 0;
 }
 
+/* ---------- Миниатюра в галерее-модалке ---------- */
 .gallery-modal-thumb {
     width: 100px;
     height: 100px;
@@ -756,10 +852,12 @@ body.dark .description-modal-text .description-details-title {
     flex-shrink: 0;
 }
 
+/* ---------- Миниатюра в галерее-модалке при наведении ---------- */
 .gallery-modal-thumb:hover {
     opacity: 0.8;
 }
 
+/* ---------- Активная миниатюра в галерее-модалке ---------- */
 .gallery-modal-thumb.active {
     opacity: 1;
     border-color: #fff;

@@ -3,92 +3,111 @@
    Переопределения для body.dark
    ============================================ */
 
+/* ---------- Тело страницы в тёмной теме ---------- */
 body.dark {
     background: #141419;
     color: #ffffff;
 }
 
+/* ---------- Карточка в тёмной теме ---------- */
 body.dark .card {
     background: #1e1e24;
     border-color: rgba(255, 255, 255, 0.05);
 }
 
+/* ---------- Карточка в тёмной теме при наведении ---------- */
 body.dark .card:hover {
     box-shadow: 0 20px 60px rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.15);
 }
 
+/* ---------- Текст в карточке в тёмной теме ---------- */
 body.dark .card p {
     color: #a0a0a0;
 }
 
+/* ---------- Контейнер изображения в тёмной теме ---------- */
 body.dark .img-container {
     background-color: #141419;
 }
 
+/* ---------- Контейнер изображения в тёмной теме при наведении ---------- */
 body.dark .img-container:hover {
     background-color: #23232f;
 }
 
+/* ---------- Секция «Обо мне» в тёмной теме ---------- */
 body.dark .about-section {
     background-color: #1e1e24;
     border-color: rgba(255, 255, 255, 0.05);
 }
 
+/* ---------- Подвал в тёмной теме ---------- */
 body.dark footer {
     background-color: #1e1e24;
     border-color: rgba(255, 255, 255, 0.05);
     color: #a0a0a0;
 }
 
+/* ---------- Заголовок «Обо мне» в тёмной теме ---------- */
 body.dark .about-text h2 {
     color: #ffffff;
 }
 
+/* ---------- Текст «Обо мне» в тёмной теме ---------- */
 body.dark .about-text p {
     color: #a0a0a0;
 }
 
+/* ---------- Секция обратной связи в тёмной теме ---------- */
 body.dark .contact-section {
     background-color: #1e1e24;
     border-color: rgba(255, 255, 255, 0.05);
 }
 
+/* ---------- Заголовок в секции обратной связи в тёмной теме ---------- */
 body.dark .contact-section h2 {
     color: #ffffff;
 }
 
+/* ---------- Подзаголовок в секции обратной связи в тёмной теме ---------- */
 body.dark .contact-subtitle {
     color: #a0a0a0;
 }
 
+/* ---------- Поле ввода формы в тёмной теме ---------- */
 body.dark .form-group input {
     background: #1e1e24;
     border-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
 
+/* ---------- Поле ввода формы в тёмной теме при фокусе ---------- */
 body.dark .form-group input:focus {
     border-color: #ffffff;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
+/* ---------- Текстовое поле формы в тёмной теме ---------- */
 body.dark .form-group textarea {
     background: #1e1e24;
     border-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
 
+/* ---------- Текстовое поле формы в тёмной теме при фокусе ---------- */
 body.dark .form-group textarea:focus {
     border-color: #ffffff;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
+/* ---------- Описание картины в тёмной теме ---------- */
 body.dark .painting-desc,
 body.dark .painting-long-desc {
     color: #d4d4d4;
 }
 
+/* ---------- Детали картины в тёмной теме ---------- */
 body.dark .painting-details {
     color: #aaa;
 }
