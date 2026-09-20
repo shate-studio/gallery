@@ -94,8 +94,7 @@
         "alt": "Королевский ирис",
         "image": "paintings/iris/iris1.jpg",
         "galleryImages": [
-            "paintings/iris/iris1_interior1.jpg",
-            "paintings/iris/iris1_interior2.jpg"
+            "paintings/iris/iris1_interior1.jpg"
         ],
         "slug": "korolevskiy-iris"
     },

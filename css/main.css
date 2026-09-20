@@ -1,0 +1,12 @@
+/* ============================================
+   ГЛАВНЫЙ ФАЙЛ
+   Объединяет все CSS-модули
+   ============================================ */
+
+@import url('base/variables.css');
+@import url('base/theme.css');
+@import url('layout/header.css');
+@import url('components/gallery.css');
+@import url('components/modals.css');
+@import url('pages/home.css');
+@import url('base/responsive.css');
