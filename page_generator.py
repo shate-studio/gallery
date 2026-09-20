@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 """Для каждой картины генерация отдельной HTML-страницы на основе файла data/gallery.json."""
 
+import argparse
 import html
 import json
 import re
 import shutil
+import sys
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -139,17 +141,37 @@ def generate_page_html(item):
 </html>"""
 
 
+def generate_page_for_item(pages_dir, item):
+    """Генерация страницы для одной картины. Возвращает slug или None."""
+    slug = item.get("slug") or slugify(item.get("title", "Без названия"))
+    item["slug"] = slug
+
+    page_dir = pages_dir / slug
+    page_dir.mkdir(parents=True, exist_ok=True)
+
+    html_path = page_dir / "index.html"
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(generate_page_html(item))
+
+    print(f"Generated: /{slug}/ -> pages/{slug}/")
+    return slug
+
+
 def main():
     """Точка входа: очистка pages/, чтение gallery.json и генерация индивидуальных страниц."""
+    parser = argparse.ArgumentParser(description="Генерация HTML-страниц для картин из gallery.json")
+    parser.add_argument(
+        "slug",
+        nargs="?",
+        default=None,
+        help="Slug картины для генерации (например, lesnoy-khranitel). Если не указан — генерируются все страницы.",
+    )
+    args = parser.parse_args()
+
     pages_dir = BASE_DIR / "pages"
     json_path = BASE_DIR / "data" / "gallery.json"
 
-    # 1. Очистка старых папок
-    if pages_dir.exists():
-        shutil.rmtree(pages_dir)
-    pages_dir.mkdir(parents=True, exist_ok=True)
-
-    # 2. Чтение gallery.json
+    # Чтение gallery.json
     with open(json_path, "r", encoding="utf-8") as f:
         gallery = json.load(f)
 
@@ -157,27 +179,38 @@ def main():
         print("data/gallery.json is empty!")
         return
 
-    # 3. Генерация страниц
+    # Поиск картины по slug
+    if args.slug:
+        target = args.slug
+        items = [item for item in gallery if (item.get("slug") or slugify(item.get("title", ""))) == target]
+        if not items:
+            print(f"Error: No painting found with slug '{target}'")
+            available = [item.get("slug") or slugify(item.get("title", "")) for item in gallery]
+            print(f"Available slugs: {', '.join(available)}")
+            sys.exit(1)
+        if len(items) > 1:
+            titles = ", ".join(item.get("title", "?") for item in items)
+            print(f"Error: Multiple paintings found with slug '{target}': {titles}")
+            sys.exit(1)
+        items_to_generate = items
+    else:
+        # Генерация всех страниц
+        if pages_dir.exists():
+            shutil.rmtree(pages_dir)
+        pages_dir.mkdir(parents=True, exist_ok=True)
+        items_to_generate = gallery
+
+    # Генерация страниц
     generated = 0
-    for item in gallery:
-        slug = item.get("slug") or slugify(item.get("title", "Без названия"))
-        item["slug"] = slug
-
-        page_dir = pages_dir / slug
-        page_dir.mkdir(parents=True, exist_ok=True)
-
-        html_path = page_dir / "index.html"
-        with open(html_path, "w", encoding="utf-8") as f:
-            f.write(generate_page_html(item))
-
-        print(f"Generated: /{slug}/ -> pages/{slug}/")
+    for item in items_to_generate:
+        generate_page_for_item(pages_dir, item)
         generated += 1
 
-    # 4. Прямая запись обратно в исходный файл
+    # Прямая запись обратно в исходный файл (slug-ы добавляются)
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(gallery, f, ensure_ascii=False, indent=4)
 
-    print(f"Done: {generated} pages")
+    print(f"Done: {generated} page(s) generated")
 
 
 if __name__ == "__main__":
