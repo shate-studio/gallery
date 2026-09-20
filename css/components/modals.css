@@ -280,6 +280,11 @@ body.dark .share-service-icon.icon-copy {
     color: #1a1a1a;
 }
 
+body.dark .share-service-icon.icon-copy svg {
+    color: #1a1a1a;
+    stroke: #1a1a1a;
+}
+
 body.dark .share-service-icon.icon-vk {
     background: #0077FF;
     color: #fff;
