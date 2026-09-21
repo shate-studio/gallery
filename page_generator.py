@@ -27,14 +27,9 @@ TRANSLIT_TABLE = str.maketrans(CYR_TO_LAT)
 SLUG_RE = re.compile(r"[^a-z0-9]+")
 
 
-def transliterate(text):
-    """Преобразование кириллического текста в латиницу."""
-    return text.lower().translate(TRANSLIT_TABLE)
-
-
 def slugify(text):
     """Создание URL-безопасного slug из текста: транслитерация + удаление спецсимволов."""
-    slug = transliterate(text)
+    slug = text.lower().translate(TRANSLIT_TABLE)
     slug = SLUG_RE.sub("-", slug)
     return slug.strip("-") or "untitled"
 
