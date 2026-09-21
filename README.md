@@ -11,7 +11,7 @@
 | `js/utils/navigation.js` | Навигация: `setupHomePageLink()` — установка ссылки «На главную» на страницах картин                                                                                |
 | `js/components/theme.js` | Тема: `toggleTheme()`, `applyTheme()` — переключение светлой/тёмной темы                                                                                            |
 | `js/components/gallery.js` | Галерея: рендер карточек, модальные окна галереи, защита изображений, `initPaintingPage()`                                                                          |
-| `js/components/modals.js` | Модальные окна: галерея, видео, описание картины, шаринг                                                                                                            |
+| `js/components/modals.js` | Модальные окна: галерея, видео, описание картины, шаринг, слайдер этапов создания (Before/After)                                                                                                            |
 | `main.js` | Точка входа: `loadGalleryData()`, `initContactForm()`, прокрутка, инициализация всех модулей                                                                        |
 | `css/main.css` | Главный файл стилей (объединяет все модули через `@import`)                                                                                                                     |
 | `css/base/variables.css` | Базовые стили: body, шрифты, скролл, заголовки                                                                                                                      |
@@ -19,8 +19,9 @@
 | `css/base/responsive.css` | Адаптивность: все `@media` запросы, сгруппированные по экранам                                                                                                                     |
 | `css/layout/header.css` | Навигация: nav, logo, nav-links, theme-toggle, progress-bar                                                                                                                     |
 | `css/components/gallery.css` | Галерея: сетка, карточки, img-container, hover-эффекты, action-кнопки, кнопки                                                                                                                     |
-| `css/components/modals.css` | Модальные окна: toast, share-modal, video-modal, description-modal, gallery-modal                                                                                                                     |
+| `css/components/modals.css` | Модальные окна: share-modal, video-modal, description-modal, gallery-modal, before-after-slider-modal                                                                                                                     |
 | `css/pages/home.css` | Секции: about, contact, форма обратной связи, scroll-to-top, footer, painting-page                                                                                                                     |
+| `js/components/before-after-slider.js` | Слайдер этапов создания картины (до/после). Поддерживает многоступенчатое сравнение изображений, инициализируется на главной странице                                   |
 | `page_generator.py` | Утилита для генерации индивидуальных HTML-страниц для каждой картины из `data/gallery.json`. Запускается из терминала, создаёт папки в `pages/`                                   |
 | `pages/` | Сгенерированные индивидуальные страницы для каждой картины. Каждая подпапка содержит `index.html` со страницей конкретной работы                                                  |
 | `data/gallery.json` | Источник данных галереи — массив объектов (название, описание, детали, longDescription, пути к картинкам, videoSrc). Добавление/редактирование картин происходит правкой этого файла |
@@ -49,6 +50,12 @@
     "galleryImages": [
         "paintings/name/name1.jpg",
         "paintings/name/name1_interior1.jpg"
-    ]
+    ],
+    "stages": [
+        "paintings/name/stage1.jpg",
+        "paintings/name/stage2.jpg",
+        "paintings/name/stage3.jpg"
+    ],
+    "videoSrc": "video/name/video.mp4"
 }
 ```
