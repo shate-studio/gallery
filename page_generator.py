@@ -34,11 +34,6 @@ def slugify(text):
     return slug.strip("-") or "untitled"
 
 
-def newline_to_br(text):
-    """Заменяет символы переноса строки на HTML-тег <br>."""
-    return text.replace("\n", "<br>")
-
-
 def generate_page_html(item: dict):
     """Генерация полной HTML-страницы для одной картины на основе объекта из gallery.json.
 
@@ -51,7 +46,7 @@ def generate_page_html(item: dict):
     image = item.get("image", "")
     slug = item.get("slug") or slugify(title)
 
-    description = newline_to_br(item.get("description", ""))
+    description = item.get("description", "").replace("\n", "<br>")
 
     title_esc = html.escape(title)
     alt_esc = html.escape(item.get("alt", title))
@@ -88,12 +83,11 @@ def generate_page_html(item: dict):
     <link rel="stylesheet" href="../../css/base/variables.css">
     <link rel="stylesheet" href="../../css/base/theme.css">
     <link rel="stylesheet" href="../../css/layout/header.css">
-    <link rel="stylesheet" href="../../css/components/gallery.css">
-    <link rel="stylesheet" href="../../css/components/before-after-slider.css">
     <link rel="stylesheet" href="../../css/components/modals.css">
-    <link rel="stylesheet" href="../../css/pages/home.css">
     <link rel="stylesheet" href="../../css/pages/painting.css">
     <link rel="stylesheet" href="../../css/base/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="preload" as="image" href="../../{image}">
 </head>
 <body>
@@ -142,7 +136,6 @@ def generate_page_html(item: dict):
 <script src="../../js/components/modals.js" defer></script>
 <script src="../../main.js" defer></script>
 <script src="../../js/utils/navigation.js" defer></script>
-<script defer>setupHomePageLink();</script>
 </body>
 </html>"""
 
