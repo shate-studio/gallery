@@ -97,7 +97,7 @@
 .img-action-btn--video {
     position: absolute;
     top: 14px;
-    left: 66px;
+    left: 118px;
 }
 
 /* ---------- Кнопка описания-действия ---------- */
@@ -134,6 +134,19 @@ body.dark .img-action-btn:hover {
     background: transparent;
     color: #fff;
     border-color: #fff;
+}
+
+/* ---------- Кнопка Before/After ---------- */
+.img-action-btn--before-after {
+    position: absolute;
+    top: 14px;
+    left: 66px;
+}
+
+/* ---------- SVG в кнопке Before/After ---------- */
+.img-action-btn--before-after svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* ---------- Изображение в карточке ---------- */
