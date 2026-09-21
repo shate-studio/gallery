@@ -15,6 +15,9 @@
 /* ---------- Импорт стилей галереи ---------- */
 @import url('components/gallery.css');
 
+/* ---------- Импорт стилей Before/After слайдера ---------- */
+@import url('components/before-after-slider.css');
+
 /* ---------- Импорт стилей модальных окон ---------- */
 @import url('components/modals.css');
 

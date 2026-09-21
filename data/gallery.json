@@ -11,6 +11,7 @@
             "paintings/bear/bear1_interior1.jpg",
             "paintings/bear/bear1_interior2.jpg"
         ],
+        "stages": "",
         "slug": "lesnoy-khranitel"
     },
     {
@@ -24,6 +25,7 @@
             "paintings/tiger/tiger1.jpg",
             "paintings/tiger/tiger1_interior1.jpg"
         ],
+        "stages": "",
         "slug": "serebryanyy-strazh"
     },
     {
@@ -113,6 +115,14 @@
             "paintings/elephant/elephant_init4.jpeg",
             "paintings/elephant/elephant_init5.jpeg",
             "paintings/elephant/elephant1_interior1.JPG"
+        ],
+        "stages": [
+            "paintings/elephant/elephant_init1.jpeg",
+            "paintings/elephant/elephant_init2.jpeg",
+            "paintings/elephant/elephant_init3.jpeg",
+            "paintings/elephant/elephant_init4.jpeg",
+            "paintings/elephant/elephant_init5.jpeg",
+            "paintings/elephant/elephant1.jpeg"
         ],
         "slug": "ganesha"
     },

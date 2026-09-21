@@ -348,3 +348,54 @@ function showShareModal(title, shareText, pageUrl, imageUrl) {
         });
     }
 }
+
+/**
+ * Открывает модальное окно слайдера этапов создания картины
+ * @param {string} title - заголовок модального окна
+ * @param {string[]} stagesData - массив путей к изображениям этапов
+ */
+function showBeforeAfterSliderModal(title, stagesData = []) {
+    // Создаём модальное окно
+    const modal = document.createElement('div');
+    modal.className = 'before-after-slider-modal';
+    
+    // Формируем структуру: заголовок + обёртка слайдера с data-stages
+    modal.innerHTML = `
+        <div class="before-after-slider-modal-content">
+            <button class="before-after-slider-modal-close">&times;</button>
+            <div class="before-after-slider-modal-header">
+                <h3>${title || 'Этапы'}</h3>
+            </div>
+            <div class="before-after-slider-modal-body before-after-slider-wrapper" data-stages='${JSON.stringify(stagesData)}'></div>
+        </div>
+    `;
+
+    // Добавляем в DOM и блокируем скролл страницы
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // Инициализация слайдера после вставки в DOM
+    setTimeout(() => {
+        const wrapper = modal.querySelector('.before-after-slider-modal-body');
+        if (wrapper) {
+            initBeforeAfterSlider();
+        }
+    }, 100);
+
+    // Обработчик закрытия по кнопке
+    const closeBtn = modal.querySelector('.before-after-slider-modal-close');
+    function closeModal() {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    // Закрытие по клику на фон
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    // Закрытие по Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+}

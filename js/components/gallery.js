@@ -34,6 +34,18 @@ function renderActionCard(item, index) {
             </button>`
         : '';
 
+    // Кнопка «Этапы создания» — появляется если есть stages
+    const beforeAfterButton = (Array.isArray(item.stages) && item.stages.length >= 2)
+        ? `<button type="button" class="img-action-btn img-action-btn--before-after" data-action="before-after" data-stages='${JSON.stringify(item.stages)}' aria-label="Этапы создания">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="12" y1="3" x2="12" y2="21"/>
+                    <polyline points="8 8 6 12 8 16"/>
+                    <polyline points="16 8 18 12 16 16"/>
+                </svg>
+            </button>`
+        : '';
+
     const siteUrl = getBaseUrl();
     const fullImageUrl = siteUrl + item.image;
     const pageUrl = `${siteUrl}pages/${item.slug}/`;
@@ -55,6 +67,7 @@ function renderActionCard(item, index) {
                 <div class="img-actions">
                     ${descriptionButton}
                     ${videoButton}
+                    ${beforeAfterButton}
                 </div>
             </div>
             <div class="card-info">
@@ -88,6 +101,7 @@ function initGalleryActions() {
             event.preventDefault();
             event.stopPropagation();
 
+            // Видео — открываем ссылку или модальное окно
             if (button.dataset.action === 'video') {
                 if (button.dataset.video.startsWith('http://') || button.dataset.video.startsWith('https://')) {
                     window.open(button.dataset.video, '_blank');
@@ -97,6 +111,7 @@ function initGalleryActions() {
                 return;
             }
 
+            // Описание картины — модальное окно с текстом
             if (button.dataset.action === 'description') {
                 const card = button.closest('.card');
                 const cardIndex = Array.from(document.querySelectorAll('.card')).indexOf(card);
@@ -111,9 +126,19 @@ function initGalleryActions() {
                 return;
             }
 
+            // Поделиться — Web Share API или модалка с сервисами
             if (button.dataset.action === 'share') {
                 handleShare(button);
                 return;
+            }
+
+            // Этапы создания — модальное окно слайдера
+            if (button.dataset.action === 'before-after') {
+                const card = button.closest('.card');
+                const cardIndex = Array.from(document.querySelectorAll('.card')).indexOf(card);
+                const galleryItem = GALLERY_ITEMS[cardIndex] || {};
+                const stages = galleryItem.stages || [];
+                showBeforeAfterSliderModal(button.closest('.card')?.querySelector('h3')?.textContent, stages);
             }
         });
     });

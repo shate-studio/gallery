@@ -1,41 +1,4 @@
 /* ============================================
-   УВЕДОМЛЕНИЯ И МОДАЛЬНЫЕ ОКНА
-   Toast, share-modal, video-modal, description-modal, gallery-modal
-   ============================================ */
-
-/* ---------- Всплывающее уведомление (toast) ---------- */
-.toast-notification {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #1a1a1a;
-    color: #ffffff;
-    padding: 14px 28px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    z-index: 10000;
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    font-family: 'Montserrat', sans-serif;
-}
-
-/* ---------- Toast (подсказка для кнопок) в тёмной теме ---------- */
-body.dark .toast-notification {
-    background: #ffffff;
-    color: #1a1a1a;
-}
-
-/* ---------- Показ toast-уведомления ---------- */
-.toast-notification.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* ============================================
    SHARE MODAL (Ozon Web style)
    ============================================ */
 
@@ -286,12 +249,6 @@ body.dark .share-service-btn:hover {
     color: #fff;
 }
 
-/* ---------- Иконка RuTube ---------- */
-.share-service-icon.icon-ru {
-    background: #005bff;
-    color: #fff;
-}
-
 /* ---------- Иконка OK ---------- */
 .share-service-icon.icon-ok {
     background: #ee8208;
@@ -331,12 +288,6 @@ body.dark .share-service-icon.icon-vk {
 /* ---------- Иконка Telegram в тёмной теме ---------- */
 body.dark .share-service-icon.icon-telegram {
     background: #24A1DE;
-    color: #fff;
-}
-
-/* ---------- Иконка RuTube в тёмной теме ---------- */
-body.dark .share-service-icon.icon-ru {
-    background: #005bff;
     color: #fff;
 }
 
@@ -726,21 +677,6 @@ body.dark .description-modal-text .description-paragraph.description-meta {
     border-top-color: rgba(255, 255, 255, 0.08);
 }
 
-/* ---------- Заголовок деталей в модальном окне описания ---------- */
-.description-modal-text .description-details-title {
-    font-weight: 500;
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #7c7c7c;
-    margin: 0 0 12px;
-}
-
-/* ---------- Заголовок деталей в модальном окне описания в тёмной теме ---------- */
-body.dark .description-modal-text .description-details-title {
-    color: #a0a0a0;
-}
-
 /* ============================================
    GALLERY MODAL
    ============================================ */
@@ -861,4 +797,120 @@ body.dark .description-modal-text .description-details-title {
 .gallery-modal-thumb.active {
     opacity: 1;
     border-color: #fff;
+}
+
+/* ============================================
+   BEFORE/AFTER SLIDER MODAL
+   ============================================ */
+
+/* ---------- Модальное окно Before/After Slider (фон) ---------- */
+.before-after-slider-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------- Контент Before/After Slider модалки ---------- */
+.before-after-slider-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 880px;
+    max-height: 90vh;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Контент Before/After Slider модалки в тёмной теме ---------- */
+body.dark .before-after-slider-modal-content {
+    background: #1e1e24;
+}
+
+/* ---------- Кнопка закрытия Before/After Slider модалки ---------- */
+.before-after-slider-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    z-index: 10;
+}
+
+/* ---------- Кнопка закрытия Before/After Slider модалки при наведении ---------- */
+.before-after-slider-modal-close:hover {
+    color: #ccc;
+}
+
+/* ---------- Заголовок Before/After Slider модалки ---------- */
+.before-after-slider-modal-header {
+    padding: 20px 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- Заголовок Before/After Slider модалки в тёмной теме ---------- */
+body.dark .before-after-slider-modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- Заголовок Before/After Slider модалки ---------- */
+.before-after-slider-modal-header h3 {
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+/* ---------- Заголовок Before/After Slider модалки в тёмной теме ---------- */
+body.dark .before-after-slider-modal-header h3 {
+    color: #f0f0f0;
+}
+
+/* ---------- Тело Before/After Slider модалки ---------- */
+.before-after-slider-modal-body {
+    width: 100%;
+    height: 715px;
+    background-color: #f7f7f8;
+}
+
+/* ---------- Тело Before/After Slider модалки в тёмной теме ---------- */
+body.dark .before-after-slider-modal-body {
+    background-color: #141419;
+}
+
+/* ---------- Адаптивные стили Before/After Slider модалки ---------- */
+@media (max-width: 768px) {
+    .before-after-slider-modal-body {
+        height: 550px;
+    }
+    
+    .before-after-slider-modal-header h3 {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .before-after-slider-modal-body {
+        height: 440px;
+    }
+    
+    .before-after-slider-modal-content {
+        border-radius: 4px;
+    }
 }
