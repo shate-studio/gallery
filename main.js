@@ -75,7 +75,7 @@ loadGalleryData().then(() => {
 
 // ===== Scroll progress bar =====
 
-AOS.init({ once: true });
+AOS.init({ once: true, disable: 'mobile' });
 
 window.onscroll = function () {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;

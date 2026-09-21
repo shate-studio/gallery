@@ -6,24 +6,33 @@
     <title>Галерея картин | Портфолио художника</title>
 
 <!-- Фавикон -->
-<link rel="icon" type="image/jpeg" href="pictures/favicon1.jpeg">
+<link rel="icon" type="image/webp" href="pictures/favicon1.webp">
 
     <!-- Подключение шрифтов и внешних библиотек (Lightbox, AOS) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
-    <!-- СВЯЗКА: Подключаем ваш новый файл стилей -->
-    <link rel="stylesheet" href="css/main.css">
+    <!-- CSS — прямые ссылки для параллельной загрузки -->
+    <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/base/theme.css">
+    <link rel="stylesheet" href="css/layout/header.css">
+    <link rel="stylesheet" href="css/components/gallery.css">
+    <link rel="stylesheet" href="css/components/before-after-slider.css">
+    <link rel="stylesheet" href="css/components/modals.css">
+    <link rel="stylesheet" href="css/pages/home.css">
+    <link rel="stylesheet" href="css/pages/painting.css">
+    <link rel="stylesheet" href="css/base/responsive.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
 <!-- Навигация -->
 <nav>
-    <div class="logo"><a href="#"><img src="pictures/favicon1.jpeg" alt="Интерьерные картины SHATE ART"></a></div>
+    <div class="logo"><a href="#"><img src="pictures/favicon1.webp" alt="Интерьерные картины SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
             <a href="#gallery">Галерея</a>
@@ -50,9 +59,9 @@
     <div class="gallery" id="gallery"></div>
 
     <!-- Блок Обо мне -->
-    <section class="about-section" id="about" data-aos="fade-up" data-aos-duration="1000">
+    <section class="about-section" id="about" data-aos="fade" data-aos-duration="1000">
         <div class="about-container">
-            <img src="pictures/about_me.jpg" alt="Художник Татьяна Шмакова — создатель интерьерных картин" class="about-img">
+            <img src="pictures/about_me.webp" alt="Художник Татьяна Шмакова — создатель интерьерных картин" class="about-img">
             <div class="about-text">
                 <h2>Обо мне</h2>
                 <p>Здравствуйте! Меня зовут Татьяна Шмакова — я художник, создаю интерьерные картины с впечатляющим эффектом. Моя миссия — подчеркнуть уникальность любого интерьера, создать атмосферу комфорта и уюта, а также продемонстрировать статус помещения.</p>
@@ -79,7 +88,7 @@
             </button>
 
 <!-- Форма обратной связи -->
-<section class="contact-section" id="contact" data-aos="fade-up" data-aos-duration="1000">
+<section class="contact-section" id="contact" data-aos="fade" data-aos-duration="1000">
     <div class="contact-container">
         <h2>Обратная связь</h2>
         <meta name="description" content="Портфолио художника Татьяны Шмаковой (SHATE ART). Заказ уникальных интерьерных картин ручной работы с использованием текстурной пасты, потали и нейросетей.">

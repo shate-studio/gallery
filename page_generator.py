@@ -77,22 +77,32 @@ def generate_page_html(item):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title_esc} | SHATE ART</title>
     <meta property="og:image" content="{og_image_url}">
-    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:type" content="image/webp">
     <meta property="og:image:alt" content="{title_esc}">
     <meta property="og:image:secure_url" content="{og_image_url}">
     <meta property="og:title" content="{title_esc}">
     <meta property="og:description" content="{og_description}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{SITE_URL}/gallery/{slug}/">
-    <link rel="icon" type="image/jpeg" href="{SITE_URL}/gallery/pictures/favicon1.jpeg">
+    <link rel="icon" type="image/webp" href="{SITE_URL}/gallery/pictures/favicon1.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+    <!-- CSS — прямые ссылки для параллельной загрузки -->
+    <link rel="stylesheet" href="../../css/base/variables.css">
+    <link rel="stylesheet" href="../../css/base/theme.css">
+    <link rel="stylesheet" href="../../css/layout/header.css">
+    <link rel="stylesheet" href="../../css/components/gallery.css">
+    <link rel="stylesheet" href="../../css/components/before-after-slider.css">
+    <link rel="stylesheet" href="../../css/components/modals.css">
+    <link rel="stylesheet" href="../../css/pages/home.css">
+    <link rel="stylesheet" href="../../css/pages/painting.css">
+    <link rel="stylesheet" href="../../css/base/responsive.css">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.webp" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
             <a href="../../index.html">Галерея</a>
