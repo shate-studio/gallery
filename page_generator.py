@@ -44,7 +44,7 @@ def newline_to_br(text):
     return text.replace("\n", "<br>")
 
 
-def generate_page_html(item):
+def generate_page_html(item: dict):
     """Генерация полной HTML-страницы для одной картины на основе объекта из gallery.json.
 
     Возвращает строку с полным HTML-документом, включающим навигацию, изображение,
