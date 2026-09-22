@@ -114,3 +114,39 @@ body.dark .painting-divider {
     text-decoration: none;
     display: inline-block;
 }
+
+/* ---------- Кнопка (CTA) ---------- */
+.btn {
+    display: inline-block;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 20px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid #1a1a1a;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* ---------- Кнопка при наведении ---------- */
+.btn:hover {
+    background-color: transparent;
+    color: inherit;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Кнопка в тёмной теме ---------- */
+body.dark .btn {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    border-color: #ffffff;
+}
+
+/* ---------- Кнопка при наведении в тёмной теме ---------- */
+body.dark .btn:hover {
+    background-color: transparent;
+    color: #ffffff;
+}
