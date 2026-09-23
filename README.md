@@ -19,6 +19,8 @@
 | `css/layout/header.css`                | Навигация: nav, logo, nav-links, theme-toggle                                                                  |
 | `css/components/gallery.css`           | Галерея: сетка, карточки, hover-эффекты, action-кнопки                                                         |
 | `css/components/modals.css`            | Модальные окна: share, video, description, gallery                                                             |
+| `css/components/before-after-slider.css`| Слайдер этапов создания (до/после)                                                                            |
+| `css/pages/painting.css`               | Стили индивидуальной страницы картины                                                                          |
 | `css/pages/home.css`                   | Секции: about, contact, форма, footer                                                                          |
 | `js/components/before-after-slider.js` | Слайдер этапов создания (до/после)                                                                             |
 | `page_generator.py`                    | Генерация индивидуальных HTML-страниц из `gallery.json`                                                        |
@@ -31,12 +33,34 @@
 
 ## Как добавить картину
 
-1. Создать папку `paintings/<название>/`
-2. Положить основную картинку как `<название>1.jpg` и дополнительные как `<название>_interior1.jpg` и т.д.
-3. Конвертировать изображения в WebP (см. ниже, или сразу на шаге 2 положить webp)
-4. Указать пути к `.webp` файлам в `data/gallery.json`
-5. Сгенерировать индивидуальную страницу: `python3 page_generator.py`
-6. Закоммитить и отправить в репозиторий
+### 1. Подготовить изображения
+
+Создать папку `paintings/<slug>/` и положить изображения:
+- Основная картинка: `<slug>1.webp`
+- Дополнительные (интерьер, детали): `<slug1>_interior1.webp`, `<slug1>_interior2.webp` и т.д.
+- Этапы создания (если есть): `elephant_init1.webp`, `elephant_init2.webp` и т.д.
+
+> Если исходники в JPG, конвертировать в WebP (см. раздел «Конвертация изображений в WebP» ниже).
+
+### 2. Добавить запись в `data/gallery.json`
+
+Добавить объект с полями: `title`, `description`, `details`, `longDescription`, `alt`, `image`, `galleryImages`, `stages` (массив или пустая строка), `videoSrc` (опционально), `slug`.
+
+### 3. Сгенерировать HTML-страницу
+
+**Сгенерировать все страницы** (перезаписать `pages/`):
+```bash
+python3 page_generator.py
+```
+
+**Сгенерировать только одну страницу** для картины с указанным `slug`:
+```bash
+python3 page_generator.py --slug grani-svobody
+```
+
+> При генерации конкретного `slug` папка `pages/` не удаляется — создаётся/перезаписывается только страница нужной картины.
+
+### 4. Закоммитить и отправить в репозиторий
 
 ## Конвертация изображений в WebP
 

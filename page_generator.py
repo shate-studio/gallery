@@ -157,8 +157,7 @@ def main():
     """Точка входа: очистка pages/, чтение gallery.json и генерация индивидуальных страниц."""
     parser = argparse.ArgumentParser(description="Генерация HTML-страниц для картин из gallery.json")
     parser.add_argument(
-        "slug",
-        nargs="?",
+        "--slug",
         default=None,
         help="Slug картины для генерации (например, lesnoy-khranitel). Если не указан — генерируются все страницы.",
     )
@@ -175,7 +174,7 @@ def main():
         print("data/gallery.json is empty!")
         return
 
-    # Поиск картины по slug
+    # При генерации страницы передан конкретный slug и надо сгенерировать только одну страницу
     if args.slug:
         target = args.slug
         items = [item for item in gallery if (item.get("slug") or slugify(item.get("title", ""))) == target]
