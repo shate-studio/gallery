@@ -27,24 +27,14 @@ TRANSLIT_TABLE = str.maketrans(CYR_TO_LAT)
 SLUG_RE = re.compile(r"[^a-z0-9]+")
 
 
-def transliterate(text):
-    """Преобразование кириллического текста в латиницу."""
-    return text.lower().translate(TRANSLIT_TABLE)
-
-
 def slugify(text):
     """Создание URL-безопасного slug из текста: транслитерация + удаление спецсимволов."""
-    slug = transliterate(text)
+    slug = text.lower().translate(TRANSLIT_TABLE)
     slug = SLUG_RE.sub("-", slug)
     return slug.strip("-") or "untitled"
 
 
-def newline_to_br(text):
-    """Заменяет символы переноса строки на HTML-тег <br>."""
-    return text.replace("\n", "<br>")
-
-
-def generate_page_html(item):
+def generate_page_html(item: dict):
     """Генерация полной HTML-страницы для одной картины на основе объекта из gallery.json.
 
     Возвращает строку с полным HTML-документом, включающим навигацию, изображение,
@@ -56,7 +46,7 @@ def generate_page_html(item):
     image = item.get("image", "")
     slug = item.get("slug") or slugify(title)
 
-    description = newline_to_br(item.get("description", ""))
+    description = item.get("description", "").replace("\n", "<br>")
 
     title_esc = html.escape(title)
     alt_esc = html.escape(item.get("alt", title))
@@ -77,22 +67,31 @@ def generate_page_html(item):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title_esc} | SHATE ART</title>
     <meta property="og:image" content="{og_image_url}">
-    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:type" content="image/webp">
     <meta property="og:image:alt" content="{title_esc}">
     <meta property="og:image:secure_url" content="{og_image_url}">
     <meta property="og:title" content="{title_esc}">
     <meta property="og:description" content="{og_description}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{SITE_URL}/gallery/{slug}/">
-    <link rel="icon" type="image/jpeg" href="{SITE_URL}/gallery/pictures/favicon1.jpeg">
+    <link rel="icon" type="image/webp" href="{SITE_URL}/gallery/pictures/favicon1.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+    <!-- CSS — прямые ссылки для параллельной загрузки -->
+    <link rel="stylesheet" href="../../css/base/variables.css">
+    <link rel="stylesheet" href="../../css/base/theme.css">
+    <link rel="stylesheet" href="../../css/layout/header.css">
+    <link rel="stylesheet" href="../../css/components/modals.css">
+    <link rel="stylesheet" href="../../css/pages/painting.css">
+    <link rel="stylesheet" href="../../css/base/responsive.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="preload" as="image" href="../../{image}">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.webp" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
             <a href="../../index.html">Галерея</a>
@@ -127,16 +126,13 @@ def generate_page_html(item):
 <footer>
     <p>&copy; 2026 SHATE ART. Все права защищены.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="../../js/utils/helpers.js"></script>
-<script src="../../js/components/theme.js"></script>
-<script src="../../js/components/gallery.js"></script>
-<script src="../../js/components/modals.js"></script>
-<script src="../../main.js"></script>
-<script src="../../js/utils/navigation.js"></script>
-<script>setupHomePageLink();</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+<script src="../../js/utils/helpers.js" defer></script>
+<script src="../../js/components/theme.js" defer></script>
+<script src="../../js/components/gallery.js" defer></script>
+<script src="../../js/components/modals.js" defer></script>
+<script src="../../main.js" defer></script>
+<script src="../../js/utils/navigation.js" defer></script>
 </body>
 </html>"""
 
@@ -161,8 +157,7 @@ def main():
     """Точка входа: очистка pages/, чтение gallery.json и генерация индивидуальных страниц."""
     parser = argparse.ArgumentParser(description="Генерация HTML-страниц для картин из gallery.json")
     parser.add_argument(
-        "slug",
-        nargs="?",
+        "--slug",
         default=None,
         help="Slug картины для генерации (например, lesnoy-khranitel). Если не указан — генерируются все страницы.",
     )
@@ -179,7 +174,7 @@ def main():
         print("data/gallery.json is empty!")
         return
 
-    # Поиск картины по slug
+    # При генерации страницы передан конкретный slug и надо сгенерировать только одну страницу
     if args.slug:
         target = args.slug
         items = [item for item in gallery if (item.get("slug") or slugify(item.get("title", ""))) == target]

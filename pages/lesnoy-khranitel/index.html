@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лесной хранитель | SHATE ART</title>
-    <meta property="og:image" content="https://shate-studio.github.io/gallery/paintings/bear/bear1.jpg">
-    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image" content="https://shate-studio.github.io/gallery/paintings/bear/bear1.webp">
+    <meta property="og:image:type" content="image/webp">
     <meta property="og:image:alt" content="Лесной хранитель">
-    <meta property="og:image:secure_url" content="https://shate-studio.github.io/gallery/paintings/bear/bear1.jpg">
+    <meta property="og:image:secure_url" content="https://shate-studio.github.io/gallery/paintings/bear/bear1.webp">
     <meta property="og:title" content="Лесной хранитель">
     <meta property="og:description" content="Взгляд умудрённого опытом существа, которое веками наблюдает за балансом в природе и оберегает её покой. 48×50 см.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://shate-studio.github.io/gallery/lesnoy-khranitel/">
-    <link rel="icon" type="image/jpeg" href="https://shate-studio.github.io/gallery/pictures/favicon1.jpeg">
+    <link rel="icon" type="image/webp" href="https://shate-studio.github.io/gallery/pictures/favicon1.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+    <!-- CSS — прямые ссылки для параллельной загрузки -->
+    <link rel="stylesheet" href="../../css/base/variables.css">
+    <link rel="stylesheet" href="../../css/base/theme.css">
+    <link rel="stylesheet" href="../../css/layout/header.css">
+    <link rel="stylesheet" href="../../css/components/modals.css">
+    <link rel="stylesheet" href="../../css/pages/painting.css">
+    <link rel="stylesheet" href="../../css/base/responsive.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="preload" as="image" href="../../paintings/bear/bear1.webp">
 </head>
 <body>
 <nav>
-    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.jpeg" alt="SHATE ART"></a></div>
+    <div class="logo"><a href="../../index.html"><img src="../../pictures/favicon1.webp" alt="SHATE ART"></a></div>
     <div class="nav-right">
         <div class="nav-links">
             <a href="../../index.html">Галерея</a>
@@ -40,7 +49,7 @@
         <h1>Лесной хранитель</h1>
     </header>
     <div class="painting-page">
-        <img src="../../paintings/bear/bear1.jpg" alt="Лесной хранитель" class="painting-main-img" data-original="../../paintings/bear/bear1.jpg">
+        <img src="../../paintings/bear/bear1.webp" alt="Лесной хранитель" class="painting-main-img" data-original="../../paintings/bear/bear1.webp">
         <div class="painting-info">
             <h2>Описание</h2>
             <p class="painting-desc">Взгляд умудрённого опытом существа, которое веками наблюдает за балансом в природе и оберегает её покой.<br>48×50 см.</p>
@@ -56,15 +65,12 @@
 <footer>
     <p>&copy; 2026 SHATE ART. Все права защищены.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="../../js/utils/helpers.js"></script>
-<script src="../../js/components/theme.js"></script>
-<script src="../../js/components/gallery.js"></script>
-<script src="../../js/components/modals.js"></script>
-<script src="../../main.js"></script>
-<script src="../../js/utils/navigation.js"></script>
-<script>setupHomePageLink();</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+<script src="../../js/utils/helpers.js" defer></script>
+<script src="../../js/components/theme.js" defer></script>
+<script src="../../js/components/gallery.js" defer></script>
+<script src="../../js/components/modals.js" defer></script>
+<script src="../../main.js" defer></script>
+<script src="../../js/utils/navigation.js" defer></script>
 </body>
 </html>

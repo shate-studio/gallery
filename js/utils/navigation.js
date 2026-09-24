@@ -12,3 +12,6 @@ function setupHomePageLink() {
     var dir = path.substring(0, slashIdx);
     baseLink.href = window.location.origin + (dir || '/') + '/';
 }
+
+// Вызываем при загрузке страницы
+setupHomePageLink();
