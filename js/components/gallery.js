@@ -1,4 +1,11 @@
 /**
+ * Определение эффекта AOS в зависимости от ширины экрана
+ */
+function getAosEffect() {
+    return window.innerWidth <= 768 ? 'fade' : 'fade-up';
+}
+
+/**
  * Рендеринг карточки элемента галереи с кнопками действий
  */
 function renderActionCard(item, index) {
@@ -59,8 +66,9 @@ function renderActionCard(item, index) {
             </svg>
         </button>`;
 
+    const aosEffect = getAosEffect();
     return `
-        <div class="card" data-aos="fade-up" data-aos-duration="900" data-aos-delay="${index * 100}">
+        <div class="card" data-aos="${aosEffect}" data-aos-duration="900" data-aos-delay="${index * 100}" style="animation-delay: ${index * 100}ms;">
             <div class="img-container img-container--actions">
                 ${photoCount}
                 <img src="${item.image}" alt="${item.alt}" loading="lazy">

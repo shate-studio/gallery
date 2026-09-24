@@ -61,21 +61,45 @@ function initContactForm() {
     });
 }
 
+// ===== Инициализация AOS с адаптивными эффектами =====
+
+function initAOS() {
+    const isMobile = window.innerWidth <= 768;
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        card.setAttribute('data-aos', isMobile ? 'fade' : 'fade-up');
+    });
+    
+    AOS.init({ once: false });
+    
+    // Обновляем AOS после динамического добавления карточек
+    AOS.refresh();
+}
+
 // ===== Инициализация =====
 
 applyTheme();
 
 loadGalleryData().then(() => {
     renderGallery();
+    initAOS();
     initGalleryActions();
     initGalleryProtection();
     initContactForm();
     initPaintingPage();
 });
 
-// ===== Scroll progress bar =====
+// Перезапуск AOS при ресайзе с debounce
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        AOS.refresh();
+    }, 250);
+});
 
-AOS.init({ once: true });
+// ===== Scroll progress bar =====
 
 window.onscroll = function () {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
