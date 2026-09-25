@@ -1,8 +1,8 @@
 /**
- * Определение эффекта AOS в зависимости от ширины экрана
+ * Всегда возвращаем 'fade' — мобильные используют CSS анимацию
  */
 function getAosEffect() {
-    return window.innerWidth <= 768 ? 'fade' : 'fade-up';
+    return 'fade';
 }
 
 /**

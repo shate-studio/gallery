@@ -67,14 +67,33 @@ function initAOS() {
     const isMobile = window.innerWidth <= 768;
     const cards = document.querySelectorAll('.card');
     
-    cards.forEach(card => {
-        card.setAttribute('data-aos', isMobile ? 'fade' : 'fade-up');
-    });
-    
-    AOS.init({ once: false });
-    
-    // Обновляем AOS после динамического добавления карточек
-    AOS.refresh();
+    if (isMobile) {
+        // На мобильных — CSS анимация (плавнее чем AOS)
+        cards.forEach(card => {
+            card.setAttribute('data-aos', 'fade');
+            card.classList.add('aos-animate-mobile');
+        });
+        
+        // IntersectionObserver для CSS анимации
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        cards.forEach(card => observer.observe(card));
+    } else {
+        // На десктопе — AOS fade-up
+        cards.forEach(card => {
+            card.setAttribute('data-aos', 'fade-up');
+        });
+        
+        AOS.init({ once: false });
+        AOS.refresh();
+    }
 }
 
 // ===== Инициализация =====
