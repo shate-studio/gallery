@@ -1,11 +1,4 @@
 /**
- * Всегда возвращаем 'fade' — мобильные используют CSS анимацию
- */
-function getAosEffect() {
-    return 'fade';
-}
-
-/**
  * Рендеринг карточки элемента галереи с кнопками действий
  */
 function renderActionCard(item, index) {
@@ -66,9 +59,8 @@ function renderActionCard(item, index) {
             </svg>
         </button>`;
 
-    const aosEffect = getAosEffect();
     return `
-        <div class="card" data-aos="${aosEffect}" data-aos-duration="900" data-aos-delay="${index * 100}" style="animation-delay: ${index * 100}ms;">
+        <div class="card" data-aos="fade" data-aos-duration="900" data-aos-delay="${index * 100}">
             <div class="img-container img-container--actions">
                 ${photoCount}
                 <img src="${item.image}" alt="${item.alt}" loading="lazy">

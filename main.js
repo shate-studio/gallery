@@ -61,38 +61,37 @@ function initContactForm() {
     });
 }
 
-// ===== Инициализация AOS с адаптивными эффектами =====
+// ===== Инициализация анимации при скролле =====
 
-function initAOS() {
+function initScrollAnimation() {
     const isMobile = window.innerWidth <= 768;
     const cards = document.querySelectorAll('.card');
+    const sections = document.querySelectorAll('.about-section, .contact-section');
     
     if (isMobile) {
-        // На мобильных — CSS анимация (плавнее чем AOS)
-        cards.forEach(card => {
-            card.setAttribute('data-aos', 'fade');
-            card.classList.add('aos-animate-mobile');
-        });
+        // На мобильных — CSS анимация через IntersectionObserver
+        const allElements = [...cards, ...sections];
         
-        // IntersectionObserver для CSS анимации
+        cards.forEach(card => card.classList.add('scroll-animate'));
+        sections.forEach(section => section.classList.add('scroll-animate-up'));
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+                    entry.target.classList.add('scroll-animate-in');
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
         
-        cards.forEach(card => observer.observe(card));
+        allElements.forEach(el => observer.observe(el));
     } else {
         // На десктопе — AOS fade-up
-        cards.forEach(card => {
-            card.setAttribute('data-aos', 'fade-up');
-        });
-        
-        AOS.init({ once: false });
-        AOS.refresh();
+        cards.forEach(card => card.setAttribute('data-aos', 'fade-up'));
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ once: false });
+            AOS.refreshHard();
+        }
     }
 }
 
@@ -102,19 +101,21 @@ applyTheme();
 
 loadGalleryData().then(() => {
     renderGallery();
-    initAOS();
+    initScrollAnimation();
     initGalleryActions();
     initGalleryProtection();
     initContactForm();
     initPaintingPage();
 });
 
-// Перезапуск AOS при ресайзе с debounce
+// Перезапуск анимации при ресайзе с debounce
 let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        AOS.refresh();
+        if (typeof AOS !== 'undefined') {
+            AOS.refreshHard();
+        }
     }, 250);
 });
 

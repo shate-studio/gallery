@@ -86,7 +86,6 @@ def generate_page_html(item: dict):
     <link rel="stylesheet" href="../../css/components/modals.css">
     <link rel="stylesheet" href="../../css/pages/painting.css">
     <link rel="stylesheet" href="../../css/base/responsive.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="preload" as="image" href="../../{image}">
 </head>
 <body>
@@ -126,7 +125,6 @@ def generate_page_html(item: dict):
 <footer>
     <p>&copy; 2026 SHATE ART. Все права защищены.</p>
 </footer>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 <script src="../../js/utils/helpers.js" defer></script>
 <script src="../../js/components/theme.js" defer></script>
 <script src="../../js/components/gallery.js" defer></script>
