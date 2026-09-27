@@ -25,7 +25,17 @@ function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
 
-    emailjs.init("N_2FXreDvZ4FXaUKL");
+    if (typeof emailjs === 'undefined') {
+        console.warn('EmailJS не загружен — форма не будет работать');
+        return;
+    }
+
+    try {
+        emailjs.init("N_2FXreDvZ4FXaUKL");
+    } catch {
+        console.error('Ошибка инициализации EmailJS');
+        return;
+    }
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -61,38 +71,57 @@ function initContactForm() {
     });
 }
 
+// ===== Инициализация страницы отдельной картины (увеличение по клику) =====
+
+function initPaintingPage() {
+    const overlay = document.createElement('div');
+    overlay.className = 'painting-img-overlay';
+    document.body.appendChild(overlay);
+
+    const mainImg = document.querySelector('.painting-main-img');
+    if (!mainImg) return;
+
+    const fullImg = mainImg.cloneNode();
+    fullImg.id = 'painting-full-img';
+    overlay.appendChild(fullImg);
+
+    mainImg.addEventListener('click', () => {
+        fullImg.src = mainImg.dataset.original || mainImg.src;
+        overlay.classList.add('active');
+    });
+
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            overlay.classList.remove('active');
+        }
+    });
+}
+
 // ===== Инициализация анимации при скролле =====
 
 function initScrollAnimation() {
-    const isMobile = window.innerWidth <= 768;
     const cards = document.querySelectorAll('.card');
     const sections = document.querySelectorAll('.about-section, .contact-section');
+    const allElements = [...cards, ...sections];
     
-    if (isMobile) {
-        // На мобильных — CSS анимация через IntersectionObserver
-        const allElements = [...cards, ...sections];
-        
-        cards.forEach(card => card.classList.add('scroll-animate'));
-        sections.forEach(section => section.classList.add('scroll-animate-up'));
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('scroll-animate-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        allElements.forEach(el => observer.observe(el));
-    } else {
-        // На десктопе — AOS fade-up
-        cards.forEach(card => card.setAttribute('data-aos', 'fade-up'));
-        if (typeof AOS !== 'undefined') {
-            AOS.init({ once: false });
-            AOS.refreshHard();
-        }
-    }
+    // CSS анимация через IntersectionObserver (работает везде)
+    cards.forEach(card => card.classList.add('scroll-animate'));
+    sections.forEach(section => section.classList.add('scroll-animate-up'));
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('scroll-animate-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    allElements.forEach(el => observer.observe(el));
 }
 
 // ===== Инициализация =====
@@ -108,20 +137,9 @@ loadGalleryData().then(() => {
     initPaintingPage();
 });
 
-// Перезапуск анимации при ресайзе с debounce
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        if (typeof AOS !== 'undefined') {
-            AOS.refreshHard();
-        }
-    }, 250);
-});
-
 // ===== Scroll progress bar =====
 
-window.onscroll = function () {
+function updateScrollProgress() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
@@ -130,4 +148,6 @@ window.onscroll = function () {
     if (progressBar) {
         progressBar.style.width = scrolled + '%';
     }
-};
+}
+
+window.addEventListener('scroll', updateScrollProgress, { passive: true });

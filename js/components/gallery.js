@@ -60,7 +60,7 @@ function renderActionCard(item, index) {
         </button>`;
 
     return `
-        <div class="card" data-aos="fade" data-aos-duration="900" data-aos-delay="${index * 100}">
+        <div class="card">
             <div class="img-container img-container--actions">
                 ${photoCount}
                 <img src="${item.image}" alt="${item.alt}" loading="lazy">
@@ -185,35 +185,5 @@ function initGalleryProtection() {
     document.addEventListener('contextmenu', (e) => {
         const img = e.target.closest('.card img');
         if (img) e.preventDefault();
-    });
-}
-/**
- * Инициализация страницы отдельной картины — увеличение изображения по клику
- */
-function initPaintingPage() {
-    const overlay = document.createElement('div');
-    overlay.className = 'painting-img-overlay';
-    document.body.appendChild(overlay);
-
-    const mainImg = document.querySelector('.painting-main-img');
-    if (!mainImg) return;
-
-    const fullImg = mainImg.cloneNode();
-    fullImg.id = 'painting-full-img';
-    overlay.appendChild(fullImg);
-
-    mainImg.addEventListener('click', () => {
-        fullImg.src = mainImg.dataset.original || mainImg.src;
-        overlay.classList.add('active');
-    });
-
-    overlay.addEventListener('click', () => {
-        overlay.classList.remove('active');
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            overlay.classList.remove('active');
-        }
     });
 }

@@ -127,7 +127,6 @@ def generate_page_html(item: dict):
 </footer>
 <script src="../../js/utils/helpers.js" defer></script>
 <script src="../../js/components/theme.js" defer></script>
-<script src="../../js/components/gallery.js" defer></script>
 <script src="../../js/components/modals.js" defer></script>
 <script src="../../main.js" defer></script>
 <script src="../../js/utils/navigation.js" defer></script>

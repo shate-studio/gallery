@@ -23,7 +23,6 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    transition: all 0.4s ease;
     border: 1px solid rgba(0, 0, 0, 0.03);
     min-height: 480px;
 }
@@ -156,12 +155,12 @@ body.dark .img-action-btn:hover {
     object-fit: contain;
     padding: 25px;
     box-sizing: border-box;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---------- Увеличение изображения при наведении ---------- */
 .img-container:hover img {
-    transform: scale(1.04);
+    transform: scale(1.04) translate3d(0, 0, 0);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---------- Счётчик фотографий ---------- */
@@ -235,42 +234,6 @@ body.dark .photo-count {
 .card-actions .img-action-btn--share svg {
     width: 16px;
     height: 16px;
-}
-
-/* ---------- Кнопка (CTA) ---------- */
-.btn {
-    display: inline-block;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 16px 20px;
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    border: 1px solid #1a1a1a;
-    text-align: center;
-    margin-top: auto;
-}
-
-/* ---------- Кнопка при наведении ---------- */
-.btn:hover {
-    background-color: transparent;
-    color: inherit;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* ---------- Кнопка в тёмной теме ---------- */
-body.dark .btn {
-    background-color: #ffffff;
-    color: #1a1a1a;
-    border-color: #ffffff;
-}
-
-/* ---------- Кнопка при наведении в тёмной теме ---------- */
-body.dark .btn:hover {
-    background-color: transparent;
-    color: #ffffff;
 }
 
 /* ---------- Ссылка-заголовок карточки ---------- */
